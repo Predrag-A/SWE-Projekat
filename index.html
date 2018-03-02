@@ -14,40 +14,75 @@
 
   <!-- LOGIN -->
   <div id="loginModal" class="modal">       
-    <form class="modal-content login-form col s12" action="" method="post">
+    <form class="modal-content col s12" action="" method="post">
+      <div class="row center">
+        <h4>Log in to INT</h4>        
+        <div class="divider"></div>
+      </div>
       <div class="row">
-        <div class="input-field col s12 center">
-          <h4 class="center login-form-text">Log in to INT</h4>
-        </div>
-      </div>
-      <hr>
-      <div class="row margin">
         <div class="input-field col s12">
-          <input id="username" type="text">
-          <label for="username" class="center-align">Username</label>
+          <input id="email" type="email">
+          <label for="email">Email</label>
         </div>
-      </div>
-      <div class="row margin">
         <div class="input-field col s12">
           <input id="password" type="password">
           <label for="password">Password</label>
+        </div>         
+        <div class="col s12 right-align">
+          <a href="#">Forgot password?</a>
         </div>
       </div>
       <div class="row center-align">
-          <button class="btn s12 cyan waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
-          </button>
+        <button class="btn s12 cyan waves-effect waves-light" type="submit" name="action">Log In
+          <i class="material-icons right">send</i>
+        </button>
       </div>
-      <div class="row">
-        <div class="input-field col s6 m6 l6">
-          <p class="margin medium-small"><a href="#">Register Now!</a></p>
-        </div>
-        <div class="input-field col s6 m6 l6">
-          <p class="margin right-align medium-small"><a href="#">Forgot password?</a></p>
-        </div>          
+      <div class="row center-align">
+        <div class="divider"></div>
+        <h5>Don't have an account?</h5>
+        <a class="waves-effect waves-light btn white cyan-text modal-trigger modal-close" href="#registerModal">Join</a></li>
       </div>
     </form>
-  </div>    
+  </div> 
+  
+  <!-- REGISTER -->
+
+  <div id="registerModal" class="modal">
+    <form class="modal-content col s12" action="" method="post">
+        <div class="row center">
+          <h4>Join INT</h4>
+          <div class="divider"></div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="firstName" type="text">
+            <label for="firstName">First Name</label>
+          </div>          
+          <div class="input-field col s12 m6">     
+            <input id="lastName" type="text">
+            <label for="lastName">Password</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="email" type="email">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="password" type="password">
+            <label for="password">Password</label>
+          </div>    
+        </div>
+        <div class="row center-align">
+            <button class="btn s12 cyan waves-effect waves-light" type="submit" name="action">Register
+              <i class="material-icons right">send</i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="row center-align">
+          <h5>Already have an account?</h5>
+          <a class="waves-effect waves-light btn white cyan-text modal-trigger modal-close" href="#loginModal">Log In</a></li>
+        </div>
+      </form>
+  </div>
 
   <!-- NAVIGATION -->
   <div class="navbar-fixed">    
@@ -55,7 +90,7 @@
         <div class="nav-wrapper container">
           <a id="logo-container" href="#" class="brand-logo left">Logo</a>
           <ul class="right">
-            <li><a class="waves-effect waves-light btn cyan modal-trigger" href="#">Join</a></li>
+            <li><a class="waves-effect waves-light btn cyan modal-trigger" href="#registerModal">Join</a></li>
             <li><a class="waves-effect waves-light btn white cyan-text modal-trigger" href="#loginModal">Log In</a></li>
           </ul>
         </div>
