@@ -11,8 +11,27 @@
 |
 */
 
-Route::get('/', 'PagesController@index');
+// Routes everyone can access
+Route::get('/about', 'PagesController@about')->name('about');
 
-Route::get('/about', 'PagesController@about');
+// Routes logged users can't access
+Route::group(['middleware' => ['guest']], function() {  
+  Route::get('/', 'PagesController@index')->name('index');
+});
 
-Route::get('/dashboard', 'PagesController@dashboard');
+
+// Routes guests can't access
+Route::group(['middleware' => ['auth']], function() {
+  Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
+});
+
+// Authentication routes
+Route::get('login', 'PagesController@index')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration routes
+Route::get('register', 'PagesController@dashboard')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+//Auth::routes();
