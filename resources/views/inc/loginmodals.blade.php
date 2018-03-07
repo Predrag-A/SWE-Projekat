@@ -3,31 +3,29 @@
   <form class="modal-content col s12" action="{{ route('login') }}" method="post">
     @csrf
     <div class="row center">
-      <h4>Log in to INT</h4>        
+      <h4>PH</h4>        
       <div class="divider"></div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input name="email" type="email">
-        <label for="email">Email</label>
+        {{Form::email('email','')}}
+        {{Form::label('email','Email',['for'=>'email', 'required'=>'required'])}}
       </div>
       <div class="input-field col s12">
-        <input name="password" type="password">
-        <label for="password">Password</label>
+        {{Form::password('password')}}
+        {{Form::label('password','Lozinka',['for'=>'password', 'required'=>'required'])}}
       </div>         
       <div class="col s12 right-align">
-        <a href="#">Forgot password?</a>
+        <a href="#">Zaboravili ste lozinku?</a>
       </div>
     </div>
     <div class="row center-align">
-      <button class="btn s12 teal waves-effect waves-light" type="submit" name="action">Log In
-        <i class="material-icons right">send</i>
-      </button>
+      {{Form::button('Prijava <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 teal waves-effect waves-light'])}}      
     </div>
     <div class="row center-align">
       <div class="divider"></div>
-      <h5>Don't have an account?</h5>
-      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#registerModal">Join</a></li>
+      <h5>Nemate nalog?</h5>
+      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#registerModal">Registracija</a></li>
     </div>
   </form> 
 </div>
@@ -37,7 +35,7 @@
   <form class="modal-content col s12" action="{{ route('register') }}" method="post">
     @csrf
     <div class="row center">
-      <h4>Join INT</h4>
+      <h4>PH</h4>
       <div class="divider"></div>
     </div>
     <div class="row">
@@ -67,14 +65,12 @@
       </div>    
     </div>
     <div class="row center-align">
-        <button class="btn s12 teal waves-effect waves-light" type="submit" name="action">Register
-          <i class="material-icons right">send</i>
-        </button>
+        {{Form::button('Registracija <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 teal waves-effect waves-light'])}}
     </div>
     <div class="divider"></div>
     <div class="row center-align">
-      <h5>Already have an account?</h5>
-      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#loginModal">Log In</a></li>
+      <h5>Već imate nalog?</h5>
+      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#loginModal">Prijava</a></li>
     </div>
   </form>
 </div>

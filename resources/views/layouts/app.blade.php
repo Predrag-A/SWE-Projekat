@@ -12,22 +12,26 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <body>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-   
-    
-    @include('inc.navbar')
-    @include('inc.messages')
-    @yield('content')
-     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <body>   
 
-    @include('inc.footer')
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    @auth
-    <script>
-      $(".button-collapse").sideNav();
-    </script>
-    @endauth
-  </body>
+  @include('inc.navbar')
+  @include('inc.messages')
+
+  @yield('content')     
+
+  @include('inc.footer')
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>  
+  <script>
+    (function($){
+      $(function(){
+        $('.parallax').parallax();
+        $('.modal').modal();      
+        $(".button-collapse").sideNav();
+      });
+    })(jQuery);
+  </script>
+</body>
 </html>
