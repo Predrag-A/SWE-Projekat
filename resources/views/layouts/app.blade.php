@@ -17,7 +17,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
   @include('inc.navbar')
-  @include('inc.messages')
 
   @yield('content')     
 
@@ -33,6 +32,9 @@
         $(".dropdown-button").dropdown({belowOrigin: true});
       });
     })(jQuery);
-  </script>
+  </script>  
+
+  @include('inc.messages')
+  
 </body>
 </html>

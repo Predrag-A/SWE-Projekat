@@ -8,12 +8,12 @@
     </div>
     <div class="row">
       <div class="input-field col s12">
-        {{Form::email('email','')}}
-        {{Form::label('email','Email',['for'=>'email', 'required'=>'required'])}}
+        {{Form::email('email','', ['required'=>'required'])}}
+        {{Form::label('email','Email',['for'=>'email'])}}
       </div>
       <div class="input-field col s12">
-        {{Form::password('password')}}
-        {{Form::label('password','Lozinka',['for'=>'password', 'required'=>'required'])}}
+        {{Form::password('password'), ['required'=>'required']}}
+        {{Form::label('password','Lozinka',['for'=>'password'])}}
       </div>         
       <div class="col s12 right-align">
         <a href="#">Zaboravili ste lozinku?</a>
@@ -40,28 +40,28 @@
     </div>
     <div class="row">
       <div class="input-field col s12 m6">        
-        {{Form::text('first_name','')}}
-        {{Form::label('first_name','Ime',['for'=>'first_name', 'required'=>'required'])}}
+        {{Form::text('first_name','', ['required'=>'required'])}}
+        {{Form::label('first_name','Ime',['for'=>'first_name'])}}
       </div>          
       <div class="input-field col s12 m6">     
-        {{Form::text('last_name','')}}
-        {{Form::label('last_name','Prezime',['for'=>'last_name', 'required'=>'required'])}}
+        {{Form::text('last_name','', ['required'=>'required'])}}
+        {{Form::label('last_name','Prezime',['for'=>'last_name'])}}
       </div>
       <div class="input-field col s12 m6">        
-        {{Form::email('email','')}}
-        {{Form::label('email','Email',['for'=>'email', 'required'=>'required'])}}
+        {{Form::email('email','', ['required'=>'required'])}}
+        {{Form::label('email','Email',['for'=>'email'])}}
       </div>      
       <div class="input-field col s12 m6">
-        {{Form::text('city','')}}
-        {{Form::label('city','Grad',['for'=>'city', 'required'=>'required'])}}
+        {{Form::text('city','', ['required'=>'required'])}}
+        {{Form::label('city','Grad',['for'=>'city'])}}
       </div>
       <div class="input-field col s12">        
-        {{Form::password('password')}}
-        {{Form::label('password','Lozinka',['for'=>'password', 'required'=>'required'])}}
+        {{Form::password('password', ['required'=>'required'])}}
+        {{Form::label('password','Lozinka',['for'=>'password'])}}
       </div>
       <div class="input-field col s12">
-        {{Form::password('password_confirmation')}}
-        {{Form::label('password_confirmation','Potvrdite lozinku',['for'=>'password_confirmation', 'required'=>'required'])}}
+        {{Form::password('password_confirmation', ['required'=>'required'])}}
+        {{Form::label('password_confirmation','Potvrdite lozinku',['for'=>'password_confirmation'])}}
       </div>    
     </div>
     <div class="row center-align">
