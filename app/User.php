@@ -27,4 +27,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'status'
     ];
+
+    /**
+     * Account Status
+     */
+    public function isAdmin(){
+        return $this->where('status', 1)->first();
+    }
+
+    public function isSuperAdmin(){
+        return $this->where('status', 2)->first();
+    }
+
+
+    public function isBanned(){
+        return $this->where('status', 3)->first();
+    }
 }
