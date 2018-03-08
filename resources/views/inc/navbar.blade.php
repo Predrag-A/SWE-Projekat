@@ -33,13 +33,8 @@
     <div><img class="circle" src="{{asset('img/account-ph.jpg')}}"></div>    
     <div class="white-text name">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</div>
     <div class="white-text email">{{Auth::user()->email}}</div>
-    @if(Auth::user()->isAdmin())
     <div class="divider"></div>
-    <div class="white-text">Admin</div>
-    @elseif(Auth::user()->isSuperAdmin())
-    <div class="divider"></div>
-    <div class="white-text">SuperAdmin</div>
-    @endif
+    <div class="white-text">{{Auth::user()->status}}</div>
   </div></li>
   <li><a href="#" class="waves-effect">Profile</a></li>
   <li><a href="#" class="waves-effect">Events</a></li>

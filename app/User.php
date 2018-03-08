@@ -32,15 +32,15 @@ class User extends Authenticatable
      * Account Status
      */
     public function isAdmin(){
-        return $this->where('status', 1)->first();
+        return $this->where('status', 'Admin')->first();
     }
 
     public function isSuperAdmin(){
-        return $this->where('status', 2)->first();
+        return $this->where('status', 'SuperAdmin')->first();
     }
 
 
     public function isBanned(){
-        return $this->where('status', 3)->first();
+        return $this->where('status', 'Banned')->first();
     }
 }
