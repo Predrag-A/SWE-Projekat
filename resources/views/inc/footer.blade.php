@@ -18,7 +18,7 @@
       <div class="left">
       Made using <a class="white-text text-lighten-3" href="http://materializecss.com">Materialize</a>
       </div>
-      <div class="right">&copy; <?php echo date("Y"); ?></div>
+      <div class="right">Copyright &copy; <?php echo date("Y"); ?>, Garbage Collectors</div>
     </div>    
     </div>
 </footer>
