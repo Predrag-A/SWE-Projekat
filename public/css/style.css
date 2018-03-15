@@ -46,12 +46,3 @@ footer.page-footer {
 }
 
 .side-nav { z-index: 9999; }
-
-/*.input-field input:focus + label {
- color: #4dd0e1 !important;
-}
-
-.input-field input:focus {
-  border-bottom: 1px solid #4dd0e1 !important;
-  box-shadow: 0 1px 0 0 #4dd0e1 !important;
-}*/

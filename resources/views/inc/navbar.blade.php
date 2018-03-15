@@ -8,8 +8,8 @@
       <!-- GUEST -->
       @guest    
       <ul class="right">                  
-        <li><a class="waves-effect waves-light btn teal modal-trigger" href="#registerModal">Join</a></li>
-        <li><a class="waves-effect waves-light btn white teal-text modal-trigger" href="#loginModal">Log In</a></li>
+        <li><a class="waves-effect waves-light btn blue darken-4 modal-trigger" href="#registerModal">Join</a></li>
+        <li><a class="waves-effect waves-light btn white blue-text text-darken-4 modal-trigger" href="#loginModal">Log In</a></li>
       </ul>
       <!-- USER -->
       @else          
@@ -17,7 +17,7 @@
           <li><a href="#" class="waves-effect">Events</a></li>
           <li><a href="#" class="dropdown-button" data-activates="dropdown"><img style="height:36px; position: relative; top:14px;" class="circle" src="{{asset('img/account-ph.jpg')}}"><i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>      
-        <a href="#" data-activates="nav-mobile" class="button-collapse teal-text"><i class="material-icons">menu</i></a>   
+        <a href="#" data-activates="nav-mobile" class="button-collapse blue-text text-darken-4"><i class="material-icons">menu</i></a>   
         @endguest
     </div>
   </nav>
@@ -40,7 +40,7 @@
   <li><a href="#" class="waves-effect">Events</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Dashboard</a></li>
   <li>
-    <a class="waves-effect teal white-text" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Log Out</a>      
+    <a class="waves-effect blue darken-4 white-text" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Log Out</a>      
   </li>  
 </ul>
 

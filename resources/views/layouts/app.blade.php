@@ -10,10 +10,10 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">  
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/theme.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>   
-
 
   @include('inc.navbar')
 

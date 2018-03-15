@@ -1,0 +1,15 @@
+
+/* label focus color */
+.input-field input:focus + label {
+  color: #0d47a1 !important;
+}
+/* label underline focus color */
+.row .input-field input:focus {
+  border-bottom: 1px solid #0d47a1 !important;
+  box-shadow: 0 1px 0 0 #0d47a1 !important
+}
+
+/* dropdown menu color */
+.dropdown-content li > a, .dropdown-content li > span {
+  color: #0d47a1 !important;
+}

@@ -20,12 +20,12 @@
       </div>
     </div>
     <div class="row center-align">
-      {{Form::button('Prijava <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 teal waves-effect waves-light'])}}      
+      {{Form::button('Prijava <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}      
     </div>
     <div class="row center-align">
       <div class="divider"></div>
       <h5>Nemate nalog?</h5>
-      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#registerModal">Registracija</a></li>
+      <a class="waves-effect waves-light btn white blue-text text-darken-4 modal-trigger modal-close" href="#registerModal">Registracija</a></li>
     </div>
   </form> 
 </div>
@@ -65,12 +65,12 @@
       </div>    
     </div>
     <div class="row center-align">
-        {{Form::button('Registracija <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 teal waves-effect waves-light'])}}
+        {{Form::button('Registracija <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
     </div>
     <div class="divider"></div>
     <div class="row center-align">
       <h5>Već imate nalog?</h5>
-      <a class="waves-effect waves-light btn white teal-text modal-trigger modal-close" href="#loginModal">Prijava</a></li>
+      <a class="waves-effect waves-light btn white blue-text text-darken-4 modal-trigger modal-close" href="#loginModal">Prijava</a></li>
     </div>
   </form>
 </div>
