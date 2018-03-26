@@ -17,9 +17,9 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('city');
-            $table->string('status')->default('User');
+            $table->string('status')->default('Korisnik');
             $table->string('email')->unique();
+            $table->integer('city_id');
             $table->string('password');
             $table->rememberToken();
         });
@@ -34,4 +34,5 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
+
 }

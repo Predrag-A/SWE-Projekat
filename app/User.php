@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     public $timestamps = false;
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'city', 'password', 
+        'first_name', 'last_name', 'city_id', 'email', 'password', 
     ];
 
     /**
@@ -36,11 +36,18 @@ class User extends Authenticatable
     }
 
     public function isSuperAdmin(){
-        return $this->where('status', 'SuperAdmin')->first();
+        return $this->where('status', 'Super-Admin')->first();
     }
-
 
     public function isBanned(){
-        return $this->where('status', 'Banned')->first();
+        return $this->where('status', 'Suspendovan')->first();
     }
+
+    /**
+     * City
+     */
+    public function city(){
+        return $this->belongsTo('App\City','city_id');
+    }
+
 }

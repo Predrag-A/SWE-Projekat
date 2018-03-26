@@ -3,17 +3,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="hide-on-med-and-down col l3">
-      <div class="card-panel center hoverable">
-        <div class="name">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</div>
-        <div>{{Auth::user()->city}}</div>
-        <div class="divider"></div>
-        <div>{{Auth::user()->status}}</div>
-      </div>
-    </div>
-    <div class="col s12 l9">
+    <div class="col s12">
       <div class="card-panel">        
         <h5>Content PH</h5>
+        <!-- Provera za relaciju -->
+        Grad: {{Auth::user()->city->name}}
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<!-- FIRST PARALLAX -->
+<!-- PRVI PARALLAX -->
 <div id="index-banner" class="parallax-container">
   <div class="section no-pad-bot">
     <div class="container">
@@ -20,11 +20,11 @@
   <div class="parallax"><img src="{{asset('img/background1.jpg')}}" alt="Unsplashed background img 1"></div>
 </div>
 
-<!-- FIRST SECTION -->
+<!-- PRVA SEKCIJA -->
 <div class="container">
-  <div class="section scrollspy">
+  <div class="section">
 
-    <!--   Icon Section   -->
+    <!--   IKONE   -->
     <div class="row">
       <div class="col s12 m4">
         <div class="icon-block">
@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<!-- SECOND PARALLAX -->
+<!-- DRUGI PARALLAX -->
 <div class="parallax-container valign-wrapper">
   <div class="section no-pad-bot">
     <div class="container">
@@ -69,9 +69,9 @@
   <div class="parallax"><img src="{{asset('img/background2.jpg')}}" alt="Unsplashed background img 2"></div>
 </div>
 
-<!-- SECOND SECTION -->
+<!-- DRUGA SEKCIJA -->
 <div class="container">
-  <div class="section scrollspy">
+  <div class="section">
 
     <div class="row">
       <div class="col s12 center">
@@ -84,7 +84,7 @@
   </div>
 </div>
 
-<!-- THIRD PARALLAX -->
+<!-- TRECI PARALLAX -->
 <div class="parallax-container valign-wrapper">
   <div class="section no-pad-bot">
     <div class="container">

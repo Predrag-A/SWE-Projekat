@@ -29,8 +29,8 @@
     </div>
   </form> 
 </div>
-<!-- REGISTER -->
 
+<!-- REGISTRACIJA -->
 <div id="registerModal" class="modal">
   <form class="modal-content col s12" action="{{ route('register') }}" method="post">
     @csrf
@@ -52,8 +52,12 @@
         {{Form::label('email','Email',['for'=>'email'])}}
       </div>      
       <div class="input-field col s12 m6">
-        {{Form::text('city','', ['required'=>'required'])}}
-        {{Form::label('city','Grad',['for'=>'city'])}}
+        <select name="city_id">
+          @foreach($cities as $city)
+          <option value="{{$city->id}}">{{$city->name}}</option>
+          @endforeach
+        </select>
+        <label>Grad</label>
       </div>
       <div class="input-field col s12">        
         {{Form::password('password', ['required'=>'required'])}}
