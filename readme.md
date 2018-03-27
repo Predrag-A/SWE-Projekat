@@ -17,6 +17,9 @@ php artisan db:seed
 
 ##### Sada možete pristupiti projektu preko localhost-a
 
-### If for some reason your project stops working do these:
-- `composer install`
-- `php artisan migrate`
+### Ako projekat iz nekog razloga prestane da radi:
+```
+composer install
+php artisan migrate
+php artisan db:seed
+```
