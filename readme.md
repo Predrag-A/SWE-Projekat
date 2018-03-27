@@ -1,18 +1,22 @@
-##Laravel Project Installation:
-- Create a database locally named `homestead` utf8_general_ci 
-- Download composer https://getcomposer.org/download/
-- Pull Laravel/php project from git provider.
-- Rename `.env.example` file to `.env`inside your project root and fill the database information.
-  (windows wont let you do it, so you have to open your console cd your project root directory and run `mv .env.example .env` )
-- Open the console and cd to your project root directory
-- Run `composer install` or ```php composer.phar install```
-- Run `php artisan key:generate` 
-- Run `php artisan migrate`
-- Run `php artisan db:seed` to run seeders, if any.
-- Run `php artisan serve`
+## Instalacija Laravel Projekta
+- Preuzeti laravel projekat sa ove stranice
+- Kreirati lokalnu bazu podataka
+- Preuzeti composer https://getcomposer.org/download/
+- Otvoriti konzolu unutar root direktorijuma projekta (ili se prebaciti na root direktorijum komandom `cd`)
+- Preimenovati fajl `.env.example` u `.env` unutar root foldera projekta i promeniti informacije o bazi podataka po potrebi (potrebno je u konzoli unutar direktorijuma izvršiti komandu `mv .env.example .env`)
+- Izvršiti komandu `composer install` ili ```php composer.phar install```
+- Izvršiti komandu `php artisan key:generate` 
+- Izvršiti komandu `php artisan migrate`
+- Izvršiti komandu `php artisan db:seed`
+- Ako želite da resetujete bazu podataka izvršite sledeće komande: 
+```
+php artisan migrate:rollback
+php artisan migrate
+php artisan db:seed
+```
 
-#####You can now access your project at localhost
+##### Sada možete pristupiti projektu preko localhost-a
 
-## If for some reason your project stops working do these:
+### If for some reason your project stops working do these:
 - `composer install`
 - `php artisan migrate`

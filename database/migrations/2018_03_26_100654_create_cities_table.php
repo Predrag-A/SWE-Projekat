@@ -13,18 +13,10 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        //Kreiranje tabele
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-        });
-
-        //Defaultni gradovi
-        DB::table('cities')->insert([
-            ['name' => 'Niš'],
-            ['name' => 'Beograd'],
-            ['name' => 'Novi Sad'],
-        ]);
+        });            
     }
 
     /**
