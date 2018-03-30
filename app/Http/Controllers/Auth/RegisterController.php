@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|between:8,255|confirmed',
             'city_id' => 'required|integer',
-            'jmbg' => 'required|integer|digits:13',
+            'jmbg' => 'required|string|digits:13',
         ]);
     }
 
