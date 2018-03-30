@@ -24,4 +24,10 @@ php artisan migrate
 php artisan db:seed
 ```
 
-TEST FOR DELETE
+### Test nalozi (nakon izvršenja seed komande)
+
+| Tip naloga        | E-mail           | Lozinka  |
+| ------------- |:-------------:| -----:|
+| Super-Admin     | sadmin@test.com | admin |
+| Admin      | admin@test.com      |   admin |
+| Suspendovani korisnik | suspendovani@test.com      |    admin |

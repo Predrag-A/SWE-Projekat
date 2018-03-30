@@ -59,6 +59,10 @@
         </select>
         <label>Grad</label>
       </div>
+      <div class="input-field col s12">
+        {{Form::number('jmbg','', ['required'=>'required'])}}
+        {{Form::label('jmbg','JMBG',['for'=>'jmbg'])}}
+      </div>
       <div class="input-field col s12">        
         {{Form::password('password', ['required'=>'required'])}}
         {{Form::label('password','Lozinka',['for'=>'password'])}}

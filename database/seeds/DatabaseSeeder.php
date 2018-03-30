@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CitiesTableSeeder::class);
         $this->call(SportsTableSeeder::class);
         $this->call(CourtsTableSeeder::class);
+        $this->call(EventsTableSeeder::class);
     }
 }

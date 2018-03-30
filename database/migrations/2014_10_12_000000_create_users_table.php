@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->integer('city_id');
             $table->string('password');
+            $table->string('jmbg')->unique();
             $table->rememberToken();
         });
     }
