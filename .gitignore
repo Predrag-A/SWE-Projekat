@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
-/public/storage
+/public/storage/avatars/*
+!/public/storage/avatars/default.jpg
 /storage/*.key
 /vendor
 /.idea

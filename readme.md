@@ -8,7 +8,7 @@
 - Izvršiti komandu `php artisan key:generate` 
 - Izvršiti komandu `php artisan migrate`
 - Izvršiti komandu `php artisan db:seed` za automatsko ubacivanje podataka u bazu
-- Ako želite da resetujete bazu podataka izvršite sledeću komandu `php artisan migrate:refresh` ili `php artisan migrate:refresh -seed`
+- Ako želite da resetujete bazu podataka izvršite sledeću komandu `php artisan migrate:refresh` ili `php artisan migrate:refresh --seed`
 
 ##### Sada možete pristupiti projektu preko localhost-a
 
