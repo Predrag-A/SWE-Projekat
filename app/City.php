@@ -8,4 +8,12 @@ class City extends Model
 {    
     protected $table='cities';
     public $timestamps=false;
+
+    public function courts(){
+        return $this->hasMany('App\Court', 'city_id');
+    }
+
+    public function users(){
+        return $this->hasMany('App\User','city_id');
+    }
 }

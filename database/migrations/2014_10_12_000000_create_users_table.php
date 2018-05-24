@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('status')->default('Korisnik');
             $table->string('email')->unique();
             $table->integer('city_id');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->string('password');
             $table->string('jmbg')->unique();
             $table->rememberToken();

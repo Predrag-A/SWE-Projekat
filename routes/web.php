@@ -32,3 +32,12 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('register', 'PagesController@dashboard')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+
+//Rute za bazu
+Route::resource('gradovi','CityController');
+Route::resource('tereni','CourtController');
+Route::resource('dogadjaji','EventController');
+Route::resource('sportovi','SportController');
+Route::resource('korisnici','UserController');
+Route::resource('zahtevi','RequestController');
+Route::resource('komentari','CommentController');

@@ -17,6 +17,7 @@ class SportsTableSeeder extends Seeder
             ['name' => 'Rukomet'],
             ['name' => 'Tenis'],            
             ['name' => 'Futsal'],
+            ['name'=>'Odbojka']
         ]);
     }
 }
