@@ -15,6 +15,7 @@ class Court extends Model
 
     public function events(){
         return $this->hasMany('App\Event','court_id');
+        //Izmena
     }
 
     public function sports(){
