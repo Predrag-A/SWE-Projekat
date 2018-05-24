@@ -16,9 +16,10 @@
       <!-- KORISNIK -->
       @else          
         <ul class="right hide-on-med-and-down">          
-          <li><a href="#" class="waves-effect">Događaji</a></li>
+          <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
+          <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
           <li><a href="#" class="dropdown-button" data-activates="dropdown">
-            <img style="height:36px; position: relative; top:14px;" class="circle" src="{{asset('img/account-ph.jpg')}}">
+            <img style="height:36px; position: relative; top:14px;" class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}">
             {{Auth::user()->first_name}} {{Auth::user()->last_name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a></li>
@@ -36,14 +37,15 @@
     <div class="background">
       <img src="{{asset('img/background3.jpg')}}" alt="">      
     </div>
-    <div><img class="circle" src="{{asset('img/account-ph.jpg')}}"></div>    
+    <div><img class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}"></div>    
     <div class="white-text name">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</div>
     <div class="white-text email">{{Auth::user()->email}}</div>
     <div class="divider"></div>
     <div class="white-text">{{Auth::user()->status}}</div>
   </div></li>
-  <li><a href="#" class="waves-effect">Moj profil</a></li>
-  <li><a href="#" class="waves-effect">Događaji</a></li>
+  <li><a href="{{route('korisnici')}}/{{Auth::user()->id}}" class="waves-effect">Moj profil</a></li>
+  <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
+  <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Početna strana</a></li>
   <li>
     <a class="waves-effect blue darken-4 white-text" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Odjavite se</a>      
@@ -52,10 +54,10 @@
 
 <!-- DROPDOWN -->
 <ul id="dropdown" class="dropdown-content">
-    <li><a href="#">Moj profil</a></li>
-    <li><a href="{{route('dashboard')}}">Početna strana</a></li>
-    <li class="divider" tabindex="-1"></li>
-    <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Odjavite se</a></li>
+  <li><a href="{{route('korisnici')}}/{{Auth::user()->id}}">Moj profil</a></li>
+  <li><a href="{{route('dashboard')}}">Početna strana</a></li>
+  <li class="divider" tabindex="-1"></li>
+  <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Odjavite se</a></li>
 </ul>
 
 <!-- LOGOUT -->

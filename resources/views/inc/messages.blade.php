@@ -8,12 +8,12 @@
 
 @if(session('success'))  
   <script>
-      Materialize.toast('{{$session('success')}}', 4000, 'green lighten-3')
+      Materialize.toast('{{ session('success') }}', 4000, 'green lighten-3')
   </script>
 @endif
 
 @if(session('error'))  
   <script>
-    Materialize.toast('{{$session('error')}}', 4000, 'red lighten-3')
+    Materialize.toast('{{ session('error') }}', 4000, 'red lighten-3')
   </script>
 @endif

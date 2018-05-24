@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
 
 class EventController extends Controller
 {
+    /*
+     * Sprecava pristup korisnicima koji nisu prijavljeni. 
+     * Ako nekom pogledu treba da se dozvoli pristup:
+     * $this->middleware('auth', ['except' => ['index', 'show']]);
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {        
+        $events =  Event::orderBy('time','desc')->paginate(10);
+        return view('pages.events.index')->with('events', $events);
     }
 
     /**
@@ -44,8 +56,9 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {        
+        $event = Event::find($id);
+        return view('pages.events.show')->with('event', $event);
     }
 
     /**

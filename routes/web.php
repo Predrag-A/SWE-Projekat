@@ -11,20 +11,6 @@
 |
 */
 
-// Rute kojima svi imaju pristup
-Route::get('/about', 'PagesController@about')->name('about');
-
-// Rute kojima mogu pristupiti samo gosti
-Route::group(['middleware' => ['guest']], function() {  
-  Route::get('/', 'PagesController@index')->name('index');
-});
-
-
-// Rute kojima mogu pristupiti samo ulogovani korisnici
-Route::group(['middleware' => ['auth']], function() {
-  Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
-});
-
 // Rute za autentifikaciju
 Route::get('login', 'PagesController@index')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -41,3 +27,11 @@ Route::resource('sportovi','SportController');
 Route::resource('korisnici','UserController');
 Route::resource('zahtevi','RequestController');
 Route::resource('komentari','CommentController');
+
+//Rute za posebne stranice
+Route::get('/about', 'PagesController@about')->name('about');
+Route::get('/', 'PagesController@index')->name('index');
+Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
+
+Route::get('korisnici', 'UserController@index')->name('korisnici');
+Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');

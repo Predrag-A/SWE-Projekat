@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 
 class GradesCourtController extends Controller
 {
+
+     /*
+     * Sprecava pristup korisnicima koji nisu prijavljeni. 
+     * Ako nekom pogledu treba da se dozvoli pristup:
+     * $this->middleware('auth', ['except' => ['index', 'show']]);
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *

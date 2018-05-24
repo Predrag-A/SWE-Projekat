@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->string('password');
             $table->string('jmbg')->unique();
+            $table->string('user_img')->default('default.jpg');
             $table->rememberToken();
         });
     }
