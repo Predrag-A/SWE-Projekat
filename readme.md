@@ -9,7 +9,7 @@
 - Izvršiti komandu `php artisan migrate`
 - Izvršiti komandu `php artisan db:seed` za automatsko ubacivanje podataka u bazu
 - Ako želite da resetujete bazu podataka izvršite sledeću komandu `php artisan migrate:refresh` ili `php artisan migrate:refresh --seed`
-- Ako se prilikom seedovanja javi izuzetak kao što je `ReflectionException  : Class CommentsTableSeeder` does not exist izvršiti komandu `composer dump-autoload` 
+- Ako se prilikom seedovanja javi izuzetak kao što je `ReflectionException  : Class CommentsTableSeeder does not exist` izvršiti komandu `composer dump-autoload` 
 
 ##### Sada možete pristupiti projektu preko localhost-a
 
