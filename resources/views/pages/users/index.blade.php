@@ -31,7 +31,9 @@
       </div>
         
       @endforeach
-      {{$users->render()}}
+  </div>
+  <div class="row">    
+    {{$users->render()}}
   </div>
   @else
   <p>Trenutno nema kreiranih naloga.</p>

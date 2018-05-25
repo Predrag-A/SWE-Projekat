@@ -17,7 +17,7 @@ class CreateCourtsTable extends Migration
             $table->increments('id');
             $table->string('location');
             $table->integer('city_id');
-            $table->foreign('city_id')->references('id')->on('cities');            
+            $table->foreign('city_id')->references('id')->on('cities');           
             $table->double('long');
             $table->double('lat');
         });
