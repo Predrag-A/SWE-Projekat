@@ -7,7 +7,9 @@
       <div class="card-panel">        
         <h5>Content PH</h5>
         <!-- Provera za relaciju -->
-        Grad: {{Auth::user()->city->name}}
+        <!-- ovo je vue.js komponenta gde pomocu propa saljemo neku vrednost-->
+        <dashboard-component city_prop="{{Auth::user()->city->name}}">
+        </dashboard-component>
       </div>
     </div>
   </div>
