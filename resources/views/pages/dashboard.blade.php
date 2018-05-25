@@ -5,11 +5,10 @@
   <div class="row">
     <div class="col s12">
       <div class="card-panel">        
-        <h5>Content PH</h5>
         <!-- Provera za relaciju -->
         <!-- ovo je vue.js komponenta gde pomocu propa saljemo neku vrednost-->
-        <dashboard-component city_prop="{{Auth::user()->city->name}}">
-        </dashboard-component>
+        <google-map city_name="{{Auth::user()->city->name}}" name="example">
+        </google-map>
       </div>
     </div>
   </div>

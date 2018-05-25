@@ -12,7 +12,8 @@ class DashboardController extends Controller
 
     public function getCities()
     {
-        $cities = City::where('name','Beograd')->get(); //->first() za vracanje jednog objeka, get vraca niz
+        $test = Auth::user()->city->name;
+        $cities = City::where('name','$test')->get(); //->first() za vracanje jednog objeka, get vraca niz
         //$users = User::take(20)->get();
         return $cities;
     }
