@@ -5,10 +5,14 @@
   <div class="row">
     <div class="col s12">
       <div class="card-panel">        
-        <!-- Provera za relaciju -->
+        
+
         <!-- ovo je vue.js komponenta gde pomocu propa saljemo neku vrednost-->
         <google-map city_name="{{Auth::user()->city->name}}" name="example">
         </google-map>
+      <div class="row">
+          <a href="{{route('dogadjaji')}}/create" class="btn">Napravi dogadjaj</a>
+        </div>
       </div>
     </div>
   </div>

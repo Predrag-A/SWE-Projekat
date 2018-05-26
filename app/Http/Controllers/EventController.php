@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\City;
 
 class EventController extends Controller
 {
@@ -34,8 +35,9 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {        
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('pages.events.create')->with('cities', $cities);
     }
 
     /**
@@ -46,7 +48,26 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'date' => 'required',
+            'time' => 'required',
+            'city' => 'required',
+            'court' => 'required',
+            'sport' => 'required'
+        ]);
+
+        $time = $request->input('date') . " " . $request->input('time');
+
+        $event = new Event;
+        $event->user_id = auth()->user()->id;
+        $event->sport_id = $request->input('sport');
+        $event->court_id = $request->input('court');
+        $event->time = $time;
+
+        $event->save();
+
+        return redirect('/dashboard')->with('success', 'Događaj kreiran!');
+
     }
 
     /**

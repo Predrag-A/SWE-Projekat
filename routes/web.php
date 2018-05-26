@@ -19,7 +19,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'PagesController@dashboard')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-//Rute za bazu
+// Rute za bazu
 Route::resource('gradovi','CityController');
 Route::resource('tereni','CourtController');
 Route::resource('dogadjaji','EventController');
@@ -28,7 +28,7 @@ Route::resource('korisnici','UserController');
 Route::resource('zahtevi','RequestController');
 Route::resource('komentari','CommentController');
 
-//Rute za posebne stranice
+// Rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/', 'PagesController@index')->name('index');
 Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
@@ -36,10 +36,30 @@ Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
 Route::get('korisnici', 'UserController@index')->name('korisnici');
 Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');
 
+// API rute
+Route::get('api/tereni', function(){
+
+  // Vraca sve terena u gradu sa id-jem option
+  $input = Illuminate\Support\Facades\Input::get('option');
+  $city = App\City::find($input);
+  $courts = $city->courts();
+  return Response::make($courts->get(['id', 'location']));
+});
+
+Route::get('api/sportovi', function(){
+
+  // Vraca sve sportove na terenu sa id-jem option
+  $input = Illuminate\Support\Facades\Input::get('option');
+  $court = App\Court::find($input);
+  
+  $sports = $court->sports();
+  return Response::make($sports);
+});
 
 
-//rute za Vue komponente (prethodne rute su za laravel)
-//preko kojih se uzimaju podaci iz baze
+// Rute za Vue komponente (prethodne rute su za laravel)
+// preko kojih se uzimaju podaci iz baze
 Route::prefix('/web/api')->group(function () {
     Route::get('cities', 'DashboardController@getCities'); //getCities je samo funkcija u kontroleru
 });
+
