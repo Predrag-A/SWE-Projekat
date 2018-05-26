@@ -15,14 +15,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>   
-  <div id="app">
   @include('inc.navbar')
 
-  @yield('content')     
+  <main id="app">
 
+  @yield('content')    
+
+  </main>
   @include('inc.footer')
 
-  </div>
+ 
   <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHDn0g1BXhnxXr0-d12cfzhdHF2j7KgPM">
     </script>

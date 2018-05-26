@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-  <h1>Dogadjaji</h1>
+  <h2>Dogadjaji</h2>
   
   @if(count($events) > 0)
     <div class="col s12 m6 center">
