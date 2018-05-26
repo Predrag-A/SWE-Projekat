@@ -14,12 +14,24 @@ class Court extends Model
     }
 
     public function events(){
+        
         return $this->hasMany('App\Event','court_id');
         //Izmena
     }
 
     public function sports(){
-        return $this->belongsToMany('App\Sport','court_sports','court_id','sport_id');
+        $sports = array();
+
+        $cs = CourtSport::where('court_id', $this->id)->get();
+
+        foreach($cs as $sport):
+            array_push($sports, \App\Sport::find($sport->sport_id));
+        endforeach;
+
+        return $sports;
+        /* Nece ovako
+        return $this->belongsToMany('App\Sport','court_sports','sport_id','court_id');
+        */
     }
 
     public function grades(){
