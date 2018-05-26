@@ -7,15 +7,17 @@ use App\Attend;
 
 trait UserTraits
 {
-  public function isAttending($eventId){
 
+  // Proverava da li user prisustvuje dogadjaju sa idjem $eventId
+  public function isAttending($eventId){
+    
     $events = $this->attends();
 
     if(empty($events))
       return false;
     
     $eventIds = array();
-    
+
     foreach($events as $event):
       array_push($eventIds, $event->id);
     endforeach;

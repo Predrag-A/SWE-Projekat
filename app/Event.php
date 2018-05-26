@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\EventTraits;
 
 class Event extends Model
 {
+
+    use EventTraits;
+
     protected $table='events';
     public $timestamps=false;
 

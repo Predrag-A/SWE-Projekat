@@ -132,10 +132,13 @@ class EventController extends Controller
 
         $time = $request->input('date') . " " . $request->input('time');
 
-        $event->user_id = auth()->user()->id;
         $event->sport_id = $request->input('sport');
         $event->court_id = $request->input('court');
         $event->time = $time;
+
+        $event->save();
+
+        return redirect('/dogadjaji'. '/' . $event->id)->with('success', 'Uspešna izmena događaja!');
     }
 
     /**

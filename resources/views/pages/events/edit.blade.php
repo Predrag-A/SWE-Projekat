@@ -3,45 +3,50 @@
 
 <div class="container">
   
-  <h1>Napravi dogadjaj</h1>
-    {!! Form::open(['action' => 'EventController@store', 'method' => 'POST']) !!}
+  <h1>Izmeni dogadjaj</h1>
+    {!! Form::open(['action' => ['EventController@update', $event->id], 'method' => 'POST']) !!}
     
   <div class="row col s12 m16">
     <div class="input-field col s12 m6">
-      {{Form::text('date','', ['required'=>'required', 'placeholder' => ' ', 'class' => 'datepicker'])}}
+      {{Form::text('date', $event->getDate(), ['required'=>'required', 'class' => 'datepicker'])}}
       {{Form::label('date','Datum',['for'=>'datum'])}}
     </div>
 
     <div class="input-field col s12 m6">
-      {{Form::text('time','', ['required'=>'required', 'placeholder' => ' ','class' => 'timepicker'])}}
+      {{Form::text('time', $event->getTime(), ['required'=>'required','class' => 'timepicker'])}}
       {{Form::label('time','Vreme',['for'=>'vreme'])}}
     </div>
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="city" id="city">
-        <option value="" disabled selected>Izaberite grad</option>
         @foreach($cities as $city)
-        <option value="{{$city->id}}">{{$city->name}}</option>
+        <option value="{{$city->id}}"@if($city->id == $event->court->city->id) selected @endif>{{$city->name}}</option>
         @endforeach
       </select>
       <label>Grad</label>
     </div>   
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="court" id="court">
-        <option value="" disabled selected>Izaberite teren</option>       
+        @foreach($event->court->city->courts as $court)
+        <option value="{{$court->id}}"@if($event->court_id == $court->id) selected @endif>{{$court->location}}</option>
+        @endforeach   
       </select>
       <label>Teren</label>
     </div>  
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="sport" id="sport">
-        <option value="" disabled selected>Izaberite sport</option>       
+        @foreach($event->court->sports() as $sport)
+        <option value="{{$sport->id}}"@if($event->sport_id == $sport->id) selected @endif>{{$sport->name}}</option>
+        @endforeach    
       </select>
       <label>Sport</label>
     </div> 
   </div>
   <div class="row center align">
+    
+    {{Form::hidden('_method','PUT')}}
     {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
   </div>
   {!! Form::close() !!}
