@@ -55,3 +55,11 @@ Route::get('api/sportovi', function(){
   $sports = $court->sports();
   return Response::make($sports);
 });
+
+
+// Rute za Vue komponente (prethodne rute su za laravel)
+// preko kojih se uzimaju podaci iz baze
+Route::prefix('/web/api')->group(function () {
+    Route::get('cities', 'DashboardController@getCities'); //getCities je samo funkcija u kontroleru
+});
+
