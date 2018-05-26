@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\UserTraits;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use UserTraits;
 
     /**
      * The attributes that are mass assignable.
@@ -62,11 +64,24 @@ class User extends Authenticatable
         return $this->hasMany('App\Request','user_id');
     }
 
-    public function attends(){
-        return $this->belongsToMany('App\Event','attends','user_id','event_id');
+    public function attends(){     
+
+        $events = array();
+
+        $attends = Attend::where('user_id', $this->id)->get();
+
+        foreach($attends as $event):
+            array_push($events, \App\Event::find($event->event_id));
+        endforeach;
+
+        return $events;
+        
+        //Nece nesto ovako
+        //return $this->belongsToMany('App\Event','attends','user_id','event_id');
     }
 
     public function friends(){
+        
         return $this->belongsToMany('App\User','friends','user_id','friend_id');
     }
 

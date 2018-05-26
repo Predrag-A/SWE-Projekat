@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\City;
+use App\Attend;
 
 class EventController extends Controller
 {
@@ -25,7 +26,7 @@ class EventController extends Controller
      */
     public function index()
     {        
-        $events =  Event::orderBy('time','desc')->paginate(10);
+        $events =  Event::orderBy('time','desc')->paginate(9);
         return view('pages.events.index')->with('events', $events);
     }
 
@@ -65,6 +66,11 @@ class EventController extends Controller
         $event->time = $time;
 
         $event->save();
+
+        $attends = new Attend;
+        $attends->user_id = auth()->user()->id;
+        $attends->event_id = $event->id;
+        $attends->save();
         
         return redirect('/dogadjaji')->with('success', "Događaj kreiran!");
 
@@ -90,7 +96,18 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        //U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
+
+        $event = Event::find($id);
+
+        if(auth()->user()->id != $event->user_id){
+
+            return redirect()->back()->with('error', 'Nije moguće izmeniti tuđi događaj!');
+        }
+
+        $cities = City::all();
+
+        return view('pages.events.edit')->with(['event'=> $event, 'cities' => $cities]);
     }
 
     /**
@@ -102,7 +119,23 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'date' => 'required',
+            'time' => 'required',
+            'city' => 'required',
+            'court' => 'required',
+            'sport' => 'required'
+        ]);
+        
+        
+        $event = Event::find($id);
+
+        $time = $request->input('date') . " " . $request->input('time');
+
+        $event->user_id = auth()->user()->id;
+        $event->sport_id = $request->input('sport');
+        $event->court_id = $request->input('court');
+        $event->time = $time;
     }
 
     /**
@@ -119,7 +152,10 @@ class EventController extends Controller
             return redirect()->back()->with('error', 'Nije moguce pristupiti stranici.');
         }
 
+        Attend::where('event_id', $id)->delete();
+
         $event->delete();
+
         return redirect('/dogadjaji')->with('success', "Događaj obrisan!");
     }
 }

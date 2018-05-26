@@ -9,7 +9,7 @@
   <div class = "row">
       @foreach($users as $user)
       <div class="col s12 l6">
-        <div class="horizontal card col-content z-depth-1">
+        <div class="horizontal card col-content z-depth-3">
 
           <div class="card-image">
             <img style="height:100px" src="{{route('index')}}/storage/avatars/{{$user->user_img}}">

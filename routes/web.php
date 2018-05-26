@@ -27,6 +27,7 @@ Route::resource('sportovi','SportController');
 Route::resource('korisnici','UserController');
 Route::resource('zahtevi','RequestController');
 Route::resource('komentari','CommentController');
+Route::resource('pridruzivanje', 'AttendsController');
 
 // Rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
@@ -56,6 +57,10 @@ Route::get('api/sportovi', function(){
   return Response::make($sports);
 });
 
+Route::get('api/test', function(){
+  
+  return 0;
+});
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

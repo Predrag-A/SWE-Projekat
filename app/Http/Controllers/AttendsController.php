@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Attend;
+
 class AttendsController extends Controller
 {
 
@@ -45,7 +47,12 @@ class AttendsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attends = new Attend;
+        $attends->user_id = auth()->user()->id;
+        $attends->event_id = $request->input('event');
+        $attends->save();
+
+        return redirect()->back()->with('success', "Uspešno ste se pridružili događaju.");
     }
 
     /**
@@ -90,6 +97,10 @@ class AttendsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attends = Attend::where(['user_id'=> auth()->user()->id, 'event_id' => $id]);
+
+        $attends->delete();
+
+        return redirect()->back()->with('success','Uspešno ste se odjavili od događaja.');
     }
 }
