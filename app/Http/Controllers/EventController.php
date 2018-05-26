@@ -65,8 +65,8 @@ class EventController extends Controller
         $event->time = $time;
 
         $event->save();
-
-        return redirect('/dashboard')->with('success', 'Događaj kreiran!');
+        
+        return redirect('/dogadjaji')->with('success', "Događaj kreiran!");
 
     }
 
@@ -113,6 +113,13 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+
+        if(auth()->user()->id != $event->user_id){
+            return redirect()->back()->with('error', 'Nije moguce pristupiti stranici.');
+        }
+
+        $event->delete();
+        return redirect('/dogadjaji')->with('success', "Događaj obrisan!");
     }
 }

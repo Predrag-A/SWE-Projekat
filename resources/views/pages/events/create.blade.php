@@ -2,10 +2,11 @@
 @section('content')
 
 <div class="container">
+  
   <h1>Napravi dogadjaj</h1>
-  <div class="row col s12">
     {!! Form::open(['action' => 'EventController@store', 'method' => 'POST']) !!}
     
+  <div class="row col s12 m16">
     <div class="input-field col s12 m6">
       {{Form::text('date','', ['required'=>'required', 'placeholder' => ' ', 'class' => 'datepicker'])}}
       {{Form::label('date','Datum',['for'=>'datum'])}}
@@ -39,20 +40,18 @@
       </select>
       <label>Sport</label>
     </div> 
+  </div>
+  <div class="row center align">
+    {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
+  </div>
+  {!! Form::close() !!}
 
-  </div>
-  <div class="row center-align">
-      {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
-  </div>
-    {!! Form::close() !!}
-  </div>
-  <div id="test">
-
-  </div>
 </div>
 
 <script>
+
   $(document).ready(function(){
+
     // Biranje select-a sa idjem city
     $('#city').change(function(){
       // Prijem vrednosti api-ja na ruti /api/tereni slanjem get requesta
@@ -64,6 +63,8 @@
         $('#court').empty();
         
         if(typeof data !== 'undefined ' && data.length > 0){
+
+          $('#court').append("<option value='' disabled selected>Izaberite teren</option>");
 
           // Dodaju se optioni iz api-ja
           $.each(data, function(key, element) {
@@ -83,10 +84,12 @@
       // Prijem vrednosti api-ja na ruti /api/sportovi slanjem get requesta
       // sa idjem terena
       $.get("{{ url('/api/sportovi')}}", {option: $(this).val()}, function(data){
-        console.log(data);
+        
 
         // Prazni se select
         $('#sport').empty();       
+                
+        $('#sport').append("<option value='' disabled selected>Izaberite sport</option>");
 
         // Dodaju se optioni iz api-ja
         $.each(data, function(key, element) {

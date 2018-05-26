@@ -7,7 +7,7 @@
   @if(count($events) > 0)
     <div class="col s12 m6 center">
       @foreach($events as $event)
-      <div class="card blue-grey">
+      <div class="card" style="border: 1px solid {{$event->sport->color}}">
         <div class="card-content white-text">
           <a href="{{route('dogadjaji')}}/{{$event->id}}"class="card-title">{{$event->time}}</a>
         </div>
