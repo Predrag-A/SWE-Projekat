@@ -12,12 +12,12 @@ class SportsTableSeeder extends Seeder
     public function run()
     {
         DB::table('sports')->insert([
-            ['name' => 'Fudbal', 'color' => 'green'],
-            ['name' => 'Košarka', 'color' => 'orangered'],
-            ['name' => 'Rukomet', 'color' => 'blue'],
-            ['name' => 'Tenis', 'color' => 'yellow'],            
-            ['name' => 'Futsal', 'color' => 'green'],
-            ['name'=>'Odbojka', 'color' => 'gray']
+            ['name' => 'Fudbal', 'color' => 'green', 'image' => 'football.jpg'],
+            ['name' => 'Košarka', 'color' => 'orangered', 'image' => 'basketball.jpg'],
+            ['name' => 'Rukomet', 'color' => 'blue', 'image' => 'handball.jpg'],
+            ['name' => 'Tenis', 'color' => 'lime', 'image' => 'tennis.jpg'],            
+            ['name' => 'Futsal', 'color' => 'gray', 'image' => 'futsal.jpg'],
+            ['name'=>'Odbojka', 'color' => 'yellow', 'image' => 'volleyball.jpg']
         ]);
     }
 }
