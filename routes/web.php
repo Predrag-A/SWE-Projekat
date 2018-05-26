@@ -35,3 +35,11 @@ Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
 
 Route::get('korisnici', 'UserController@index')->name('korisnici');
 Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');
+
+
+
+//rute za Vue komponente (prethodne rute su za laravel)
+//preko kojih se uzimaju podaci iz baze
+Route::prefix('/web/api')->group(function () {
+    Route::get('cities', 'DashboardController@getCities'); //getCities je samo funkcija u kontroleru
+});
