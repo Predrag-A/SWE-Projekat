@@ -10,11 +10,16 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller 
 {
 
-    public function getCities()
+    public function getUserCity()
     {
-        $test = Auth::user()->city->name;
-        $cities = City::where('name','$test')->get(); //->first() za vracanje jednog objeka, get vraca niz
+        $test = auth()->user()->city->name;
+        $cities = City::where('name',$test)->get(); //->first() za vracanje jednog objeka, get vraca niz
         //$users = User::take(20)->get();
         return $cities;
+    }
+
+    public function getCities()
+    {
+        return City::all();
     }
 }
