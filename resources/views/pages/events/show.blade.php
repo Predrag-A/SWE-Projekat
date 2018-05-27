@@ -53,7 +53,7 @@
     <div class="col s12 l8">
       <div class="card">
         <div class="card-content">
-          <h3>Komentari PH</h3>
+          <comments :user="{{auth()->user()}}" :eventid="{{$event->id}}"></comments>
         </div>
       </div>
     </div>

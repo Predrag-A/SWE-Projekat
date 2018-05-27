@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Comment;
+
 class CommentController extends Controller
 {
 
@@ -24,17 +26,21 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        // Vraca sve komentare
+        $comments = Comment::with('user')->orderByDesc('created_at')->get();
+        return response($comments, 200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function show($id)
+    {        
+        $comments = Comment::with('user')->where('event_id', $id)->orderByDesc('created_at')->get();
+        return response($comments, 200);
     }
 
     /**
@@ -45,41 +51,48 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'content' => 'required|string',
+            'eventid'=> 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $comment = new Comment;
+        
+        $comment->user_id = auth()->user()->id;
+        $comment->content = $request->input('content');
+        $comment->event_id = $request->input('eventid');
+        
+        $comment->save();
+        
+        $comment->load('user');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response($comment, 200);
+        
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+            'content' => 'required|string',
+        ]);
+        
+        
+        $comment = Comment::find($id);
+
+        $comment->content = $request->input('content');        
+        $comment->save();
+        
+        $comment->load('user');
+
+        return response($comment, 200);
     }
 
     /**
@@ -90,6 +103,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        $comment->delete();
+
+        return response(null, 204);
     }
 }

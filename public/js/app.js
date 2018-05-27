@@ -13892,6 +13892,7 @@ window.Vue = __webpack_require__(36);
  */
 //Vrsi se registrovanje komponenti
 Vue.component('google-map', __webpack_require__(39));
+Vue.component('comments', __webpack_require__(64));
 
 var app = new Vue({
   el: '#app'
@@ -47616,6 +47617,554 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(45)
+/* script */
+var __vue_script__ = __webpack_require__(65)
+/* template */
+var __vue_template__ = __webpack_require__(66)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\comments.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1b54964b", Component.options)
+  } else {
+    hotAPI.reload("data-v-1b54964b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommentItem__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommentItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CommentItem__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+
+        // Prop za korisnika
+        user: {
+            required: true,
+            type: Object
+        },
+
+        // Prop za id eventa zbog cuvanja u bazu
+        eventid: {
+            required: true,
+            type: Number
+        }
+    },
+
+    // Dodavanje komponente za pojedinacne komentare
+    components: {
+        comment: __WEBPACK_IMPORTED_MODULE_0__CommentItem___default.a
+    },
+    data: function data() {
+        return {
+            data: {
+                content: '',
+                eventid: -1
+            },
+            comments: []
+        };
+    },
+    created: function created() {
+
+        // Vraca komentare nakon kreiranja komponente
+        this.fetchComments();
+        this.data.eventid = this.eventid;
+    },
+
+    methods: {
+
+        // Metoda za promenu komenta, prima $event
+        updateComment: function updateComment($e) {
+
+            var t = this;
+
+            axios.put('/komentari/' + $e.id, $e).then(function (_ref) {
+                var data = _ref.data;
+
+                t.comments[t.commentIndex($e.id)].content = data.content;
+            });
+        },
+
+
+        // Metoda za brisanje komentara, prima $event
+        deleteComment: function deleteComment($e) {
+
+            var t = this;
+
+            axios.delete('/komentari/' + $e.id, $e).then(function () {
+                t.comments.splice(t.commentIndex($e.id), 1);
+            });
+        },
+
+
+        // Metoda za snimanje komentare
+        saveComment: function saveComment() {
+            var t = this;
+            axios.post('/komentari', t.data).then(function (_ref2) {
+                var data = _ref2.data;
+
+                t.comments.unshift(data);
+                t.resetComment();
+            });
+        },
+
+
+        // Resetuje sadrzaj u textarea
+        resetComment: function resetComment() {
+            this.data.content = '';
+        },
+
+
+        // Vraca komentare iz baze podataka AJAX zahtevom
+        fetchComments: function fetchComments() {
+            var t = this;
+            axios.get('/komentari/' + this.eventid).then(function (_ref3) {
+                var data = _ref3.data;
+
+                t.comments = data;
+            });
+        },
+
+
+        // Vraca indeks komentara unutar niza komentara
+        commentIndex: function commentIndex(commentId) {
+            return this.comments.findIndex(function (element) {
+                return element.id === commentId;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("h2", [_vm._v("Komentari")]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.content,
+            expression: "data.content"
+          }
+        ],
+        attrs: { placeholder: "Dodaj komentar" },
+        domProps: { value: _vm.data.content },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.data, "content", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", [
+        _c("button", { on: { click: _vm.saveComment } }, [_vm._v("Save")]),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.resetComment } }, [_vm._v("Cancel")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "divider" }),
+    _vm._v(" "),
+    _c(
+      "div",
+      _vm._l(_vm.comments, function(comment) {
+        return _c("comment", {
+          key: comment.id,
+          attrs: { comment: comment, user: _vm.user, eventid: _vm.eventid },
+          on: {
+            "comment-updated": function($event) {
+              _vm.updateComment($event)
+            },
+            "comment-deleted": function($event) {
+              _vm.deleteComment($event)
+            }
+          }
+        })
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1b54964b", module.exports)
+  }
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(45)
+/* script */
+var __vue_script__ = __webpack_require__(68)
+/* template */
+var __vue_template__ = __webpack_require__(69)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\CommentItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e8ee092a", Component.options)
+  } else {
+    hotAPI.reload("data-v-e8ee092a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        // Prop za komentar
+        comment: {
+            required: true,
+            type: Object
+        },
+        // Prop za korisnika
+        user: {
+            required: true,
+            type: Object
+        },
+        // Prop za event
+        eventid: {
+            required: true,
+            type: Number
+        }
+    },
+    data: function data() {
+        return {
+            // Status koji govori da li se komentar menja
+            state: 'default',
+            data: {
+                content: this.comment.content
+            }
+        };
+    },
+    computed: {
+        // Provera da li moze da se izmeni komentar
+        editable: function editable() {
+            return this.user.id === this.comment.user_id;
+        }
+    },
+    // Funkcije
+    methods: {
+
+        // Resetovanje forme za edit
+        resetEdit: function resetEdit() {
+            this.state = 'default';
+            this.data.content = this.comment.content;
+        },
+
+        // Snimanje komentara
+        saveEdit: function saveEdit() {
+            // Emituje se event koji sadrzi id i sadrzaj komentara
+            this.state = 'default';
+            this.$emit('comment-updated', {
+                'id': this.comment.id,
+                'content': this.data.content
+            });
+        },
+
+        // Brisanje, radi isto kao saveEdit
+        deleteComment: function deleteComment() {
+            this.$emit('comment-deleted', {
+                'id': this.comment.id
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.state === "default",
+            expression: "state === 'default'"
+          }
+        ]
+      },
+      [
+        _c("div", [
+          _c("p", [_vm._v(_vm._s(_vm.comment.content))]),
+          _vm._v(" "),
+          _vm.editable
+            ? _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.state = "editing"
+                    }
+                  }
+                },
+                [_vm._v("Izmeni")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.editable
+            ? _c("button", { on: { click: _vm.deleteComment } }, [
+                _vm._v("Obriši")
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("p", [
+            _vm._v(
+              _vm._s(_vm.comment.user.first_name) +
+                " " +
+                _vm._s(_vm.comment.user.last_name) +
+                " \n            "
+            ),
+            _c("span", [_vm._v("•")]),
+            _vm._v(" "),
+            _c("small", [_vm._v(_vm._s(_vm.comment.created_at))])
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.state === "editing",
+            expression: "state === 'editing'"
+          }
+        ]
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.data.content,
+              expression: "data.content"
+            }
+          ],
+          staticClass: "border",
+          attrs: { placeholder: "Update comment" },
+          domProps: { value: _vm.data.content },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.data, "content", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("div", [
+          _c("button", { on: { click: _vm.saveEdit } }, [_vm._v("Snimi")]),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.resetEdit } }, [_vm._v("Poništi")])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h3", [_vm._v("Update Comment")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e8ee092a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

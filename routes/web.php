@@ -59,8 +59,9 @@ Route::get('api/sportovi', function(){
 
 Route::get('api/test', function(){
   
-  return 0;
+  return App\Event::with('comments')->get();
 });
+
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
