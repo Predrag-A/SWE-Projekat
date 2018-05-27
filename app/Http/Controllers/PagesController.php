@@ -39,7 +39,7 @@ class PagesController extends Controller
         }
     }
 
-    public function dashboard(){
+    public function dashboard(){  
         return view('pages.dashboard');
     }
 }
