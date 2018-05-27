@@ -17,7 +17,7 @@
       {{Form::label('time','Vreme',['for'=>'vreme'])}}
     </div>
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="city" id="city">
         <option value="" disabled selected>Izaberite grad</option>
         @foreach($cities as $city)
@@ -27,14 +27,14 @@
       <label>Grad</label>
     </div>   
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="court" id="court">
         <option value="" disabled selected>Izaberite teren</option>       
       </select>
       <label>Teren</label>
     </div>  
 
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m4">
       <select name="sport" id="sport">
         <option value="" disabled selected>Izaberite sport</option>       
       </select>

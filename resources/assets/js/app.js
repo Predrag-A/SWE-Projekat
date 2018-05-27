@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 //Vrsi se registrovanje komponenti
 Vue.component('google-map', require('./components/googlemap.vue'));
+Vue.component('comments', require('./components/comments.vue'));
 
 const app = new Vue({
     el: '#app'

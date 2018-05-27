@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use App\City;
 use Auth;
 
 class UserController extends Controller
@@ -75,11 +76,12 @@ class UserController extends Controller
         //U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
         if(auth()->user()->id != $id){
             $users =  User::orderBy('first_name','asc')->paginate(10);
-            return redirect('/korisnici')->with(array('error' => 'Nije moguće izmeniti tuđi nalog!', 'users' => $users));
+            return redirect('/korisnici')->with(['error' => 'Nije moguće izmeniti tuđi nalog!', 'users' => $users]);
         }
 
         $user = User::find($id);
-        return view('pages.users.edit')->with('user', $user);
+        $cities = City::all();
+        return view('pages.users.edit')->with(['user'=> $user, 'cities' => $cities]);
     }
 
     /**

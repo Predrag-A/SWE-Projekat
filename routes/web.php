@@ -27,6 +27,7 @@ Route::resource('sportovi','SportController');
 Route::resource('korisnici','UserController');
 Route::resource('zahtevi','RequestController');
 Route::resource('komentari','CommentController');
+Route::resource('pridruzivanje', 'AttendsController');
 
 // Rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
@@ -54,6 +55,11 @@ Route::get('api/sportovi', function(){
   
   $sports = $court->sports();
   return Response::make($sports);
+});
+
+Route::get('api/test', function(){
+  
+  return App\Event::with('comments')->get();
 });
 
 
