@@ -7,7 +7,7 @@
   @if(count($events) > 0)
     <div class = "row">
       @foreach($events as $event)
-      <div class="col s6 m4">
+      <div class="col s6 l4">
         <div class="card medium col-content z-depth-3" style="border: 1px solid {{$event->sport->color}}">
           
           <!-- SLIKA -->

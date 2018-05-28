@@ -1,4 +1,12 @@
-/node_modules
+/node_modules/*
+!/node_modules/materialize-css/
+/node_modules/materialize-css/*
+!/node_modules/materialize-css/sass/
+/node_modules/materialize-css/sass/*
+!/node_modules/materialize-css/sass/components
+/node_modules/materialize-css/sass/components/*
+!/node_modules/materialize-css/sass/components/_variables.scss
+
 /public/hot
 /public/storage/avatars/*
 !/public/storage/avatars/default.jpg
