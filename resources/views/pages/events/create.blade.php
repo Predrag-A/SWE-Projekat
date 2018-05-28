@@ -42,7 +42,7 @@
     </div> 
   </div>
   <div class="row center align">
-    {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
+    {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 waves-effect waves-light'])}}
   </div>
   {!! Form::close() !!}
 
@@ -102,11 +102,11 @@
 
     // Mora da se resetuju selectovi, glupi materialize
     $('#court').on('contentChangedCourt', function() {
-      $(this).material_select();      
+      $(this).formSelect();      
       $("#sport").trigger('contentChangedSport');
     });
     $('#sport').on('contentChangedSport', function() {
-      $(this).material_select();
+      $(this).formSelect();
     });
   });
   
