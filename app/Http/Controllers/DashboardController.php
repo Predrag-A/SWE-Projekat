@@ -22,4 +22,9 @@ class DashboardController extends Controller
     {
         return City::all();
     }
+
+    public function getCityEvents()
+    {
+        
+    }
 }
