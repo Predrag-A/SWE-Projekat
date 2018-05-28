@@ -68,5 +68,6 @@ Route::get('api/test', function(){
 Route::prefix('/web/api')->group(function () {
     Route::get('usercity', 'DashboardController@getUserCity'); //getUserCity je samo funkcija u kontroleru
     Route::get('cities', 'DashboardController@getCities');
+    Route::get('cityEvents', 'DashboardController@getCityEvents');
 });
 
