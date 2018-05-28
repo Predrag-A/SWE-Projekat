@@ -18,7 +18,8 @@
     },
     "dependencies": {
         "bootstrap": "^4.1.1",
-        "materialize-css": "^0.100.2",
+        "jquery": "^3.3.1",
+        "materialize-css": "^1.0.0-rc.1",
         "node-sass": "^4.9.0",
         "popper.js": "^1.14.3"
     }

@@ -4,7 +4,7 @@
 @endguest
 
 <div class="navbar-fixed">
-  <nav class="white">
+  <nav>
     <div class="nav-wrapper container">
       <a id="logo-container" href="{{route('dashboard')}}" @guest class="brand-logo left" @else class="brand-logo" @endguest>{{config('app.name', 'INT')}}</a>
       <!-- GOST -->
@@ -18,13 +18,13 @@
         <ul class="right hide-on-med-and-down">          
           <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
           <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
-          <li><a href="#" class="dropdown-button" data-activates="dropdown">
+          <li><a href="#" class="dropdown-trigger" data-target="dropdown">
             <img style="height:36px; position: relative; top:14px;" class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}">
             {{Auth::user()->first_name}} {{Auth::user()->last_name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a></li>
         </ul>      
-        <a href="#" data-activates="nav-mobile" class="button-collapse blue-text text-darken-4"><i class="material-icons">menu</i></a>   
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>   
         @endguest
     </div>
   </nav>
@@ -32,7 +32,7 @@
 
 @auth
 <!-- SIDENAV -->
-<ul id="nav-mobile" class="side-nav">
+<ul id="slide-out" class="sidenav">
   <li><div class="user-view">
     <div class="background">
       <img src="{{asset('img/background3.jpg')}}" alt="">      
