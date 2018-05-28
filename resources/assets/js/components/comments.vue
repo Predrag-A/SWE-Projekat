@@ -1,32 +1,29 @@
 <template>
-  <div>
+  <ul class="collection with-header">
     <!-- Dodavanje komentara -->
-    <div class="row">
-      <h2>Komentari</h2>
-      <textarea v-model="data.content"
-      placeholder="Dodaj komentar">
-
-      </textarea>
-      <div>
-        <button @click="saveComment">Save</button>
-        <button @click="resetComment">Cancel</button>
+    <li class="collection-header">
+      <div class="input-field">
+        <textarea v-model="data.content" id="textarea_add" class="materialize-textarea">          
+        </textarea>
+        <label for="textarea_add">Dodaj komentar</label>
       </div>
-    </div>
+      <div>
+        <a href="JavaScript:void(0)" @click="saveComment"><i class="material-icons green-text">add</i></a>
+        <a href="JavaScript:void(0)" @click="resetComment" class="secondary-content"><i class="material-icons red-text">clear</i></a>
+      </div>
+    </li>
 
-    <div class="divider"></div>
-
-    <!-- Prikaz komentara -->
-    <div>
-        <comment v-for="comment in comments"
-                    :key="comment.id"
-                    :comment="comment"
-                    :user="user"
-                    :eventid="eventid"
-                    @comment-updated="updateComment($event)"
-                    @comment-deleted="deleteComment($event)">
-        </comment>
-    </div>
-  </div>
+    <!-- Prikaz komentara -->    
+    <comment v-for="comment in comments"
+                :key="comment.id"
+                :comment="comment"
+                :user="user"
+                :eventid="eventid"
+                @comment-updated="updateComment($event)"
+                @comment-deleted="deleteComment($event)">
+    </comment>
+    
+  </ul>
 </template>
 
 <script>

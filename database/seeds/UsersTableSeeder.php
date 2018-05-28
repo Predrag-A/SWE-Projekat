@@ -10,13 +10,11 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //Dodavanje korisnika
-        factory(App\User::class, 100)->create();
+    {       
 
         //Dodavanje test naloga
         DB::table('users')->insert([
-            //Super-admin nalog
+            // Super-admin nalog
             ['first_name' => 'Admin',
             'last_name' => 'Super_Admin',
             'email' => 'sadmin@test.com',
@@ -24,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('admin'),
             'jmbg' => '0000000000000',
             'status' => 'Super-Admin'],
-            //Obican admin nalog
+            // Obican admin nalog
             ['first_name' => 'Admin',
             'last_name' => 'Obican_Admin',
             'email' => 'admin@test.com',
@@ -32,6 +30,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('admin'),
             'jmbg' => '0000000000001',
             'status' => 'Admin'],
+            // Suspendovani korisnik nalog
             ['first_name' => 'Suspendovani',
             'last_name' => 'Korisnik',
             'email' => 'suspendovani@test.com',
@@ -40,5 +39,8 @@ class UsersTableSeeder extends Seeder
             'jmbg' => '0000000000002',
             'status' => 'Suspendovan']              
         ]);
+
+        //Dodavanje korisnika
+        factory(App\User::class, 100)->create();
     }
 }

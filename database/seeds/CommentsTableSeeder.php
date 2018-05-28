@@ -10,7 +10,8 @@ class CommentsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {        
+        //Dodavanje korisnika
+        factory(App\Comment::class, 100)->create();
     }
 }

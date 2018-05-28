@@ -4,7 +4,8 @@
 
 <div class="container">
 
-  <div class="card">
+  <div class="card">    
+    <event-map name="{{$event->id}}" lat={{$event->court->lat}} long={{$event->court->long}}></event-map>
     <div class="card-content">
       <div class="row">
         <h3>{{$event->sport->name}}</h3>
@@ -51,11 +52,7 @@
 
     <!-- KOMENTARI -->
     <div class="col s12 l8">
-      <div class="card">
-        <div class="card-content">
-          <comments :user="{{auth()->user()}}" :eventid="{{$event->id}}"></comments>
-        </div>
-      </div>
+      <comments :user="{{auth()->user()}}" :eventid="{{$event->id}}"></comments>        
     </div>
 
     <!-- LISTA PRIJAVLJENIH KORISNIKA -->

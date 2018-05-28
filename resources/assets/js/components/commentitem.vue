@@ -1,35 +1,33 @@
 <template>
-    <div>
+    <li class="collection-item">
       
-      <!-- Defaultni prikaz -->
-      <div v-show="state === 'default'">
-          <div>
-              <p>{{comment.content}}</p>
-              <button v-if="editable" @click="state = 'editing'">Izmeni</button>         
-              <button v-if="editable" @click="deleteComment">Obriši</button>
-          </div>
-          <div>
-              <p>{{comment.user.first_name}} {{comment.user.last_name}} 
-                <span>&bull;</span> <small>{{comment.created_at}}</small></p>
-          </div>
-      </div>
+        <!-- Defaultni prikaz -->
+        <div v-show="state === 'default'">
+            
+            {{comment.content}}<br>
+            <small>{{comment.user.first_name}} {{comment.user.last_name}}<span>&bull;</span> {{comment.updated_at}}</small>
+            
+            <a href="JavaScript:void(0)" v-if="editable" @click="state = 'editing'" class="secondary-content"><i class="material-icons">edit</i></a>
+        </div>
 
-      <!-- Prikaz kada se komentar edituje -->
-      <div v-show="state === 'editing'">
-          <div>
-              <h3>Update Comment</h3>
-          </div>
-          <textarea v-model="data.content"
-                    placeholder="Update comment"
-                    class="border">
-          </textarea>
-          <div>
-              <button @click="saveEdit">Snimi</button>
-              <button @click="resetEdit">Poništi</button>     
-          </div>
-      </div>
+        <!-- Prikaz kada se komentar edituje -->
+        <div v-show="state === 'editing'">
+            <div class="input-field">     
+                 
+                <textarea v-model="data.content"                        
+                        class="materialize-textarea"
+                        id ="textarea_edit">
+                </textarea>                 
+                <label for="textarea_edit" class="active">Izmeni komentar</label>             
+            </div>
+            <div>
+                <button @click="saveEdit" class = "btn waves-light">Snimi</button>
+                <button @click="resetEdit" class = "btn white blue-text text-darken-4 aves-light">Poništi</button>     
+                <a href="JavaScript:void(0)" @click="deleteComment" class="secondary-content red-text">Obriši</a>
+            </div>
+        </div>
 
-    </div>
+    </li>
 </template>
 <script>
     export default {
