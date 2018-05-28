@@ -5,7 +5,7 @@
         <div v-show="state === 'default'">
             
             {{comment.content}}<br>
-            <small>{{comment.user.first_name}} {{comment.user.last_name}}<span>&bull;</span> {{comment.updated_at}}</small>
+            <small><a v-bind:href="'/korisnici/' + comment.user.id" class="blue-text text-darken-2">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
             
             <a href="JavaScript:void(0)" v-if="editable" @click="state = 'editing'" class="secondary-content"><i class="material-icons">edit</i></a>
         </div>

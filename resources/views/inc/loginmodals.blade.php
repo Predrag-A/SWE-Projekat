@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="row center-align">
-      {{Form::button('Prijava <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}      
+      {{Form::button('Prijava <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 waves-effect waves-light'])}}      
     </div>
     <div class="row center-align">
       <div class="divider"></div>
@@ -73,7 +73,7 @@
       </div>    
     </div>
     <div class="row center-align">
-        {{Form::button('Registracija <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
+        {{Form::button('Registracija <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 waves-effect waves-light'])}}
     </div>
     <div class="divider"></div>
     <div class="row center-align">

@@ -10,7 +10,7 @@
       <!-- GOST -->
       @guest    
       <ul class="right">                  
-        <li><a class="waves-effect waves-light btn blue darken-4 modal-trigger" href="#registerModal">Registracija</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger" href="#registerModal">Registracija</a></li>
         <li><a class="waves-effect waves-light btn white blue-text text-darken-4 modal-trigger" href="#loginModal">Prijava</a></li>
       </ul>
       <!-- KORISNIK -->

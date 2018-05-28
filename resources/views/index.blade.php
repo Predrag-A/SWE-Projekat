@@ -11,7 +11,7 @@
         <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
       </div>
       <div class="row center">
-        <a class="waves-effect waves-light btn-large blue darken-4 modal-trigger" href="#registerModal">Get Started</a>
+        <a class="waves-effect waves-light btn-large modal-trigger" href="#registerModal">Get Started</a>
       </div>
       <br><br>
 
