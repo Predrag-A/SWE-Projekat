@@ -1,32 +1,43 @@
 <template>
-    <li class="collection-item">
-      
-        <!-- Defaultni prikaz -->
-        <div v-show="state === 'default'">
-            
-            {{comment.content}}<br>
-            <small><a v-bind:href="'/korisnici/' + comment.user.id" class="blue-text text-darken-2">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
-            
-            <a href="JavaScript:void(0)" v-if="editable" @click="state = 'editing'" class="secondary-content"><i class="material-icons">edit</i></a>
+    <li class="collection-item">    
+
+        <!-- Kada komentar nije sakriven -->
+        <div v-if="seen">
+            <a href="JavaScript:void(0)" v-on:click="seen = !seen"><i class="material-icons">expand_less</i></a>
+
+            <!-- Defaultni prikaz -->
+            <div v-show="state === 'default'" v-if="seen">            
+                
+                {{comment.content}}<br>
+                <small><a v-bind:href="'/korisnici/' + comment.user.id" class="blue-text text-darken-2">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
+                
+                <a href="JavaScript:void(0)" v-if="editable" @click="state = 'editing'" class="secondary-content"><i class="material-icons">edit</i></a>
+            </div>
+
+            <!-- Prikaz kada se komentar edituje -->
+            <div v-show="state === 'editing'" v-if="seen">
+                <div class="input-field">     
+                    
+                    <textarea v-model="data.content"                        
+                            class="materialize-textarea"
+                            id ="textarea_edit">
+                    </textarea>                 
+                    <label for="textarea_edit" class="active">Izmeni komentar</label>             
+                </div>
+                <div>
+                    <button @click="saveEdit" class = "btn-small waves-light">Snimi</button>
+                    <button @click="resetEdit" class = "btn-small white blue-text text-darken-4 aves-light">Poništi</button>     
+                    <a href="JavaScript:void(0)" @click="deleteComment" class="secondary-content red-text">Obriši</a>
+                </div>
+            </div>
         </div>
 
-        <!-- Prikaz kada se komentar edituje -->
-        <div v-show="state === 'editing'">
-            <div class="input-field">     
-                 
-                <textarea v-model="data.content"                        
-                        class="materialize-textarea"
-                        id ="textarea_edit">
-                </textarea>                 
-                <label for="textarea_edit" class="active">Izmeni komentar</label>             
-            </div>
-            <div>
-                <button @click="saveEdit" class = "btn waves-light">Snimi</button>
-                <button @click="resetEdit" class = "btn white blue-text text-darken-4 aves-light">Poništi</button>     
-                <a href="JavaScript:void(0)" @click="deleteComment" class="secondary-content red-text">Obriši</a>
-            </div>
-        </div>
+        <!-- Kada je komentar sakriven -->
+        <div v-if="!seen">
+            <a href="JavaScript:void(0)" v-on:click="seen = !seen"><i class="material-icons">expand_more</i></a>
+            <small class="blue-grey-text text-lighten-3"><a :href="'/korisnici/' + comment.user.id" class="blue-grey-text text-lighten-3">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
 
+        </div>
     </li>
 </template>
 <script>
@@ -53,6 +64,7 @@
             return {
               // Status koji govori da li se komentar menja
               state: 'default',
+              seen: true,
               data: {
                 content: this.comment.content,
               }

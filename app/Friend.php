@@ -8,4 +8,6 @@ class Friend extends Pivot
 {
     protected $table='friends';
     public $timestamps=false;
+
+    protected $fillable = ['requester', 'user_requested', 'status'];
 }

@@ -14,8 +14,10 @@
 
           <a href= "{{route('korisnici')}}/{{$user->id}}/edit" class = "waves-effect waves-light btn">Izmeni</a>
 
-          @endif
+          @endif        
           
+          <!-- Prijatelji -->
+          <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
         </div>
       </div>
     </div>

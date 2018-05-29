@@ -29,7 +29,7 @@ export default {
         zoom: 17,
         maxZoom: 17,
         minZoom: 14,
-        draggable: false,
+        draggable: true,
         center: this.coords,
         styles: [{
                   "elementType": "geometry",

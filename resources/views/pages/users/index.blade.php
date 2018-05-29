@@ -24,7 +24,7 @@
               <i>{{$user->city->name}}</i>
             </div>
             <div class="right-align">
-                <button type="submit">Temp</button>
+                <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
             </div>
 
           </div>
@@ -34,7 +34,7 @@
       @endforeach
   </div>
   <div class="row">    
-    {{$users->render()}}
+    {!! $users->render() !!}
   </div>
   @else
   <p>Trenutno nema kreiranih naloga.</p>

@@ -2,94 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
+use App\Friend;
 use Illuminate\Http\Request;
 
 class FriendsController extends Controller
-{
-
-    /*
-     * Sprecava pristup korisnicima koji nisu prijavljeni. 
-     * Ako nekom pogledu treba da se dozvoli pristup:
-     * $this->middleware('auth', ['except' => ['index', 'show']]);
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+{      
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function check($id)
+    {        
+        if(Auth::user()->is_friends_with($id) === 1)
+        {
+            return [ "status" => "friends" ];
+        }
+        
+        if(Auth::user()->has_pending_friend_request_from($id))
+        {            
+            return [ "status" => "pending" ];
+        }
+        if(Auth::user()->has_pending_friend_request_sent_to($id))
+        {
+            return [ "status" => "waiting" ];
+        }
+        return [ "status" => 0 ];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
+
+        $resp = auth()->user()->add_friend($request->input('user_id'));       
+
+        return response($resp, 200);
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function accept(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
+
+        $resp = auth()->user()->accept_friend($request->input('user_id'));       
+
+        return response($resp, 200);
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function delete(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'user_id' => 'required'
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        
+        // Ako korisnik koji je poslao zahtev brise prijateljstvo
+        $res = Friend::where('requester', auth()->user()->id)->where('user_requested', $request->input('user_id'))->get();
+        
+        if($res->count()){
+            $res->first()->delete();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        
+        // Ako korisnik koji je prihvatio zahtev brise prijateljstvo
+        $res = Friend::where('user_requested', auth()->user()->id)->where('requester', $request->input('user_id'))->get();
+        
+        if($res->count())
+            $res->first()->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response(1, 200);
+        
     }
 }

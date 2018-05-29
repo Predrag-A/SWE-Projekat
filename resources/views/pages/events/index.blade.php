@@ -29,7 +29,7 @@
         </div>      
       </div>
       @endforeach      
-      {{$events->render()}}
+      {!! $events->render() !!}
     </div>
   @else
   <p>Trenutno nema kreiranih dogadjaja.</p>

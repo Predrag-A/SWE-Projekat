@@ -62,6 +62,10 @@ Route::get('api/test', function(){
   return App\Event::with('comments')->get();
 });
 
+Route::get('api/proveri_prijateljstvo/{id}', 'FriendsController@check');
+Route::post('api/dodaj_prijatelja', 'FriendsController@add');
+Route::post('api/prihvati_prijatelja', 'FriendsController@accept');
+Route::post('api/obrisi_prijatelja', 'FriendsController@delete');
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
