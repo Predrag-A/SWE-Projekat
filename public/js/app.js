@@ -14286,7 +14286,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(72);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
@@ -14315,6 +14315,7 @@ Vue.component('comments', __webpack_require__(48));
 Vue.component('event-map', __webpack_require__(54));
 Vue.component('friendbutton', __webpack_require__(59));
 Vue.component('star-rating', __webpack_require__(62));
+Vue.component('like-rating', __webpack_require__(72));
 
 var app = new Vue({
   el: '#app'
@@ -49368,7 +49369,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.vue-star-rating-star[data-v-40553ff1] {\r\n    display: inline-block;\n}\n.vue-star-rating-pointer[data-v-40553ff1] {\r\n    cursor: pointer;\n}\n.vue-star-rating[data-v-40553ff1] {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.vue-star-rating-inline[data-v-40553ff1] {\r\n    display: -webkit-inline-box;\r\n    display: -ms-inline-flexbox;\r\n    display: inline-flex;\n}\n.vue-star-rating-rating-text[data-v-40553ff1] {\r\n    margin-top: 7px;\r\n    margin-left: 7px;\n}\n.vue-star-rating-rtl[data-v-40553ff1] {\r\n    direction: rtl;\n}\n.vue-star-rating-rtl .vue-star-rating-rating-text[data-v-40553ff1] {\r\n    margin-right: 10px;\r\n    direction:rtl;\n}\r\n", ""]);
+exports.push([module.i, "\n.vue-star-rating-star[data-v-40553ff1] {\n    display: inline-block;\n}\n.vue-star-rating-pointer[data-v-40553ff1] {\n    cursor: pointer;\n}\n.vue-star-rating[data-v-40553ff1] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.vue-star-rating-inline[data-v-40553ff1] {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n}\n.vue-star-rating-rating-text[data-v-40553ff1] {\n    margin-top: 7px;\n    margin-left: 7px;\n}\n.vue-star-rating-rtl[data-v-40553ff1] {\n    direction: rtl;\n}\n.vue-star-rating-rtl .vue-star-rating-rating-text[data-v-40553ff1] {\n    margin-right: 10px;\n    direction:rtl;\n}\n", ""]);
 
 // exports
 
@@ -50081,6 +50082,328 @@ if (false) {
 
 /***/ }),
 /* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\like-rating.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-03e6898c", Component.options)
+  } else {
+    hotAPI.reload("data-v-03e6898c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    user_id: {
+      required: true
+    },
+    negative_ratings: {
+      type: Number,
+      required: true
+    },
+    positive_ratings: {
+      type: Number,
+      required: true
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      status: "default",
+      data: {
+        gradeduser_id: -1
+      },
+      positive: 0,
+      negative: 0
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.readonly == true) {
+      this.status = "readonly";
+    } else {
+      axios.get('/api/osoba_status/' + this.user_id).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.status = data.status;
+      });
+    }
+    this.data.gradeduser_id = this.user_id;
+    this.positive = this.positive_ratings;
+    this.negative = this.negative_ratings;
+  },
+
+  methods: {
+    like: function like() {
+      var t = this;
+      axios.post('/api/osoba_like', t.data).then(function (_ref2) {
+        var data = _ref2.data;
+
+        if (data == 1) {
+          t.positive++;
+          if (t.status == "dislike") {
+            t.negative--;
+          }
+          t.status = "like";
+        }
+      });
+    },
+    dislike: function dislike() {
+      var _this2 = this;
+
+      var t = this;
+      axios.post('/api/osoba_dislike', t.data).then(function (_ref3) {
+        var data = _ref3.data;
+
+        console.log(data);
+        if (data == 1) {
+          t.negative++;
+          if (t.status == "like") {
+            t.positive--;
+          }
+          _this2.status = "dislike";
+        }
+      });
+    },
+    cancel: function cancel() {
+      var _this3 = this;
+
+      var t = this;
+      axios.post('/api/osoba_cancel', t.data).then(function (_ref4) {
+        var data = _ref4.data;
+
+        if (data == 1) {
+          if (t.status == "like") {
+            t.positive--;
+          }
+          if (t.status == "dislike") {
+            t.negative--;
+          }
+          _this3.status = "default";
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("span", { staticClass: "green-text" }, [_vm._v(_vm._s(this.positive))]),
+    _vm._v(" "),
+    _vm.status == "default"
+      ? _c("span", [
+          _c(
+            "a",
+            { attrs: { href: "JavaScript:void(0)" }, on: { click: _vm.like } },
+            [
+              _c(
+                "i",
+                { staticClass: "material-icons grey-text text-lighten-3" },
+                [_vm._v("thumb_up")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "JavaScript:void(0)" },
+              on: { click: _vm.dislike }
+            },
+            [
+              _c(
+                "i",
+                { staticClass: "material-icons grey-text text-lighten-3" },
+                [_vm._v("thumb_down")]
+              )
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.status == "like"
+      ? _c("span", [
+          _c(
+            "a",
+            {
+              attrs: { href: "JavaScript:void(0)" },
+              on: { click: _vm.cancel }
+            },
+            [
+              _c("i", { staticClass: "material-icons green-text" }, [
+                _vm._v("thumb_up")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "JavaScript:void(0)" },
+              on: { click: _vm.dislike }
+            },
+            [
+              _c(
+                "i",
+                { staticClass: "material-icons grey-text text-lighten-3" },
+                [_vm._v("thumb_down")]
+              )
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.status == "dislike"
+      ? _c("span", [
+          _c(
+            "a",
+            { attrs: { href: "JavaScript:void(0)" }, on: { click: _vm.like } },
+            [
+              _c(
+                "i",
+                { staticClass: "material-icons grey-text text-lighten-3" },
+                [_vm._v("thumb_up")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "JavaScript:void(0)" },
+              on: { click: _vm.cancel }
+            },
+            [
+              _c("i", { staticClass: "material-icons red-text" }, [
+                _vm._v("thumb_down")
+              ])
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.status == "readonly"
+      ? _c("span", [_vm._m(0), _vm._v(" "), _vm._m(1)])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("span", { staticClass: "red-text" }, [_vm._v(_vm._s(this.negative))])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("i", { staticClass: "material-icons green-text" }, [
+        _vm._v("thumb_up")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("i", { staticClass: "material-icons red-text" }, [
+        _vm._v("thumb_down")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-03e6898c", module.exports)
+  }
+}
+
+/***/ }),
+/* 75 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

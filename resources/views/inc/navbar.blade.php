@@ -18,7 +18,7 @@
         <ul class="right hide-on-med-and-down">          
           <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
           <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
-          <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i></a></li>
+          <li><a href="{{route('notifications')}}" class="waves-effect"><i class="material-icons">notifications</i></a></li>
           <li><a href="#" class="dropdown-trigger" data-target="dropdown">
             <img style="height:36px; position: relative; top:14px;" class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}">
             {{Auth::user()->first_name}} {{Auth::user()->last_name}}
@@ -45,7 +45,10 @@
     <div class="white-text">{{Auth::user()->status}}</div>
   </div></li>
   <li><a href="{{route('korisnici')}}/{{Auth::user()->id}}" class="waves-effect">Moj profil</a></li>
-  <li><a href="#" class="waves-effect">Notifikacije </a></li>
+  @if(Auth::user()->isAdmin())
+  <li><a href="{{route('admin')}}">Admin panel</a></li>
+  @endif
+  <li><a href="{{route('notifications')}}" class="waves-effect">Notifikacije </a></li>
   <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
   <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Početna strana</a></li>
@@ -58,6 +61,9 @@
 <ul id="dropdown" class="dropdown-content">
   <li><a href="{{route('korisnici')}}/{{Auth::user()->id}}">Moj profil</a></li>
   <li><a href="{{route('dashboard')}}">Početna strana</a></li>
+  @if(Auth::user()->isAdmin())
+  <li><a href="{{route('admin')}}">Admin panel</a></li>
+  @endif
   <li class="divider" tabindex="-1"></li>
   <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Odjavite se</a></li>
 </ul>

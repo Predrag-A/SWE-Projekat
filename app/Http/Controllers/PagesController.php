@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\City;
+use App\User;
 
 class PagesController extends Controller
 {
@@ -41,5 +42,19 @@ class PagesController extends Controller
 
     public function dashboard(){  
         return view('pages.dashboard');
+    }
+    
+    public function admin(){
+        if(auth()->user()->isAdmin()){
+
+            $users =  User::orderBy('first_name','asc')->where('id', '!=', auth()->user()->id)->paginate(20);
+            return view('pages.admin')->with(['users' => $users]);
+        }
+        
+        return redirect()->back()->with('error', 'Vaš nalog nema administratorske privilegije');
+    }
+
+    public function notifications(){
+        return view('pages.notifications');
     }
 }

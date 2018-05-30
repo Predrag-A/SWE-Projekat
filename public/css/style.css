@@ -10,3 +10,6 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+
+.tabs-content.carousel .carousel-item { height:1200px; }

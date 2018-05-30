@@ -30,11 +30,9 @@
   <script src="/js/app.js"></script> <!-- sa ovim se ukljucuje vue.js ili bilo koja JS skripta -->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>     
 
-  <script>      
-    
-    
-
+  <script>          
     $( document ).ready(function() {  
+      $('.tabs').tabs({swipeable: true});;
       $('.parallax').parallax();
       $('.modal').modal();      
       $('.sidenav').sidenav();
@@ -58,7 +56,7 @@
       $('.timepicker').timepicker({
         twelveHour:false
       });
-    });
+    });    
   </script>
   @include('inc.messages')
   

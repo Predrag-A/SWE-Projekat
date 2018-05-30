@@ -33,6 +33,8 @@ Route::resource('pridruzivanje', 'AttendsController');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/', 'PagesController@index')->name('index');
 Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
+Route::get('/admin_panel', 'PagesController@admin')->name('admin');
+Route::get('/notifikacije', 'PagesController@notifications')->name('notifications');
 
 Route::get('korisnici', 'UserController@index')->name('korisnici');
 Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');
@@ -75,6 +77,7 @@ Route::get('api/osoba_status/{id}', 'GradesUserController@status');
 Route::post('api/osoba_like', 'GradesUserController@like');
 Route::post('api/osoba_dislike', 'GradesUserController@dislike');
 Route::post('api/osoba_cancel', 'GradesUserController@cancel');
+
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

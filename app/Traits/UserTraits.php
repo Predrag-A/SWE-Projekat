@@ -13,15 +13,15 @@ trait UserTraits
      * Account Status
      */
     public function isAdmin(){
-      return $this->where('status', 'Admin')->first();
+      return $this->status == 'Admin' || $this->status == 'Super-Admin';
   }
 
   public function isSuperAdmin(){
-      return $this->where('status', 'Super-Admin')->first();
+      return $this->status == 'Super-Admin';
   }
 
   public function isBanned(){
-      return $this->where('status', 'Suspendovan')->first();
+      return $this->status == 'Suspendovan';
   }
 
   // Proverava da li user prisustvuje dogadjaju sa idjem $eventId
@@ -47,6 +47,7 @@ trait UserTraits
     
   }
 
+  // Vraca ocenu koju je dao terenu sa id-jem $courtId
   public function courtRating($courtId){
 
     $res = GradeCourt::where(['user_id' => $this->id, 'court_id' => $courtId])->get();
