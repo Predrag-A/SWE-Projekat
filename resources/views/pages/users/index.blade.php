@@ -19,11 +19,14 @@
             <div class="left-align">   
               <a href="{{route('korisnici')}}/{{$user->id}}" class="blue-text text-darken-2"><b>{{$user->first_name}} {{$user->last_name}}</b></a>
             </div>
-            <div class="left">
+            <div class="left-align">
               <i class="material-icons tiny">home</i>
               <i>{{$user->city->name}}</i>
             </div>
-            <div class="right-align">
+            <div class="left-align">
+              <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}" :readonly="true"></like-rating>
+            </div>
+            <div class="right">
                 <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
             </div>
 

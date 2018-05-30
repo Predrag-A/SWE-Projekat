@@ -70,6 +70,12 @@ Route::post('api/obrisi_prijatelja', 'FriendsController@delete');
 Route::post('api/oceniteren', 'GradesCourtController@grade');
 Route::post('api/resetujteren', 'GradesCourtController@reset');
 
+
+Route::get('api/osoba_status/{id}', 'GradesUserController@status');
+Route::post('api/osoba_like', 'GradesUserController@like');
+Route::post('api/osoba_dislike', 'GradesUserController@dislike');
+Route::post('api/osoba_cancel', 'GradesUserController@cancel');
+
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
 Route::prefix('/web/api')->group(function () {

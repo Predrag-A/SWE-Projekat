@@ -16,8 +16,11 @@
 
           @endif        
           
-          <!-- Prijatelji -->
+          <!-- PRIJATELJI -->
           <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
+
+          <!-- OCENJIVANJE -->
+        <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}"></like-rating>
         </div>
       </div>
     </div>

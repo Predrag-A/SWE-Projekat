@@ -10,7 +10,7 @@ class GradeCourtsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {        
+        factory(App\GradeCourt::class, 80)->create();
     }
 }
