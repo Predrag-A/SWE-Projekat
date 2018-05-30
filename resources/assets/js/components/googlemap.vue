@@ -7,9 +7,9 @@
                 <div class="col s12">
                     <div class="card-panel">        
                         <div class="row">
-                            <a :href="createbtnurl" class="btn">Napravi dogadjaj</a>
+                            <a :href="createbtnurl+'/create'" class="btn">Napravi dogadjaj</a>
                         </div>
-                        <table class="highlight responsive-table" id="tabela" hidden="true">
+                        <table class="highlight responsive-table centered" id="tabela" hidden="true">
                             <thead id="thead">
                                 <tr>
                                     <th>Sport:</th>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+//TODO: DA SE PRIKAZE BROJ PRIDRUZENIH LJUDI DOGADJAJU
+//TODO: DA SE DODA SELECT PO SPORTOVIMA
 export default {
   name: 'google-map',
   props: { //propovi se prosledjuju u komponentu kao stringovi
@@ -40,7 +42,6 @@ export default {
   },
   data () { 
     return {
-        //defaultCoord: new google.maps.LatLng(this.city_coord.long,this.city_coord.lat),
         defaultCoord: new google.maps.LatLng(44.2792544,20.7451155),
         mapName: this.name + '-map', //za id mape
         cities: [],
@@ -99,6 +100,30 @@ export default {
           });
       },
 
+      addRemoveBackButton(map) {
+        var self = this;
+        var backButton = document.createElement('a');
+        backButton.className = "waves-effect waves-light btn";
+        backButton.id = "backButton";
+        backButton.innerHTML = "<i class='material-icons left'>arrow_back</i>Nazad";
+        backButton.index = 1;
+        backButton.addEventListener('click', function() {
+            self.smoothZoom(map, 7, 13, false);
+            map.setCenter(self.defaultCoord);
+            self.cityMarkers.forEach(city => {
+              city.setVisible(true);
+            });
+            self.courtMarkers.forEach(court => {
+              court.setVisible(false);
+            });
+            self.courtMarkers = [];
+            var tabela = document.getElementById('tabela');
+            tabela.hidden = true;
+            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear(); 
+          });
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(backButton);
+      },
+
       initMap() {
           var element = document.getElementById(this.mapName)
           var options = {
@@ -106,6 +131,10 @@ export default {
               maxZoom: 7,
               minZoom: 7,
               draggable: false,
+              mapTypeControl: false,
+              fullscreenControl: false,
+              //gestureHandling: 'greedy', da scroll uvek ublizava
+              scrollwheel: false,
               center: this.defaultCoord,
               styles: [{
                   "elementType": "geometry",
@@ -363,7 +392,8 @@ export default {
           marker.addListener('click', function() {
               map.setCenter(koordinate);
               self.smoothZoom(map, zoom, map.getZoom(), true);
-              setTimeout(function(){marker.setVisible(false); self.getCourts(map,marker.content);},2000); //da se marker sakrije za 2000ms (dok se zumira ka mapi)
+              self.addRemoveBackButton(map);
+              setTimeout(function(){marker.setVisible(false); self.getCourts(map,marker.content);},1800); //da se marker sakrije za 2000ms (dok se zumira ka mapi)
           });
       },
 
@@ -381,7 +411,7 @@ export default {
           var self = this;
           marker.addListener('click', function() {
               infoWindow.open(map, marker);
-              setTimeout(function () { infoWindow.close(); }, 5000);
+              setTimeout(function () { infoWindow.close(); }, 3500);
               
               var tabela = document.getElementById('tabela');
               tabela.hidden = false;
@@ -395,13 +425,22 @@ export default {
                       vrsta1.innerHTML = self.sports[event.sport_id-1].name;
 
                       var vrsta2 = noviRed.insertCell(1);
-                      vrsta2.innerHTML = event.time;
+                      vrsta2.innerHTML = self.customTime(event.time);;
 
                       var vrsta3 = noviRed.insertCell(2);
-                      vrsta3.innerHTML = "<a href='createbtnurl' class='btn'>Napravi dogadjaj</a>";
+                      vrsta3.innerHTML = "<a href='" + self.createbtnurl + "/" + event.id + "'" +  "class='btn'>Detalji</a>";
                 }
               })
           });
+      },
+
+      customTime(time) {
+        var temp = time.split(" ");
+        var pom = temp[0].split("-").reverse();
+        var datum = pom.join(".");
+        var pom = temp[1].split(":");
+        datum = datum + " " + pom[0] + ":" + pom[1];
+        return datum;
       },
 
       smoothZoom(map, level, cnt, mode) {
@@ -453,7 +492,7 @@ export default {
                 }
                 else
                 {
-                    setTimeout(function(){map.setZoom(cnt);}, 500);
+                    setTimeout(function(){map.setZoom(cnt);}, 600);
                 }
             }
         }
@@ -473,6 +512,6 @@ export default {
   width: 100%;
   height: 550px;
   margin: 0 auto;
-  background: gray;
-}
+  background: white;
+};
 </style>

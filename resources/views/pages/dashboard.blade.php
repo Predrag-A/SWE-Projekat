@@ -2,6 +2,6 @@
 @section('content')
 
 <!-- ovo je vue.js komponenta gde pomocu propa saljemo neku vrednost-->
-<google-map name="serbia" createbtnurl="{{route('dogadjaji')}}/create"></google-map>
+<google-map name="serbia" createbtnurl="{{route('dogadjaji')}}"></google-map>
 
 @endsection

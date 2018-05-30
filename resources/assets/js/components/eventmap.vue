@@ -29,6 +29,9 @@ export default {
         minZoom: 14,
         draggable: true,
         center: this.coords,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        scrollwheel: false,
         styles: [{
                   "elementType": "geometry",
                   "stylers": [
