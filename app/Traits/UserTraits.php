@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\User;
 use App\GradeCourt;
+use App\GradeUser;
 use App\Attend;
 
 trait UserTraits
@@ -55,5 +56,18 @@ trait UserTraits
     }
     return 0;
 
+  }
+
+  public function likeCount(){
+    $res = GradeUser::where(['gradeduser_id' => $this->id, 'grade' => 1])->get();
+
+    return $res->count();
+  }
+
+  public function dislikeCount(){
+    
+    $res = GradeUser::where(['gradeduser_id' => $this->id, 'grade' => 0])->get();
+
+    return $res->count();
   }
 }

@@ -10,7 +10,7 @@ class GradeUsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {        
+        factory(App\GradeUser::class, 300)->create();
     }
 }
