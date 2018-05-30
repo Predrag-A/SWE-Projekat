@@ -7,11 +7,9 @@ export default {
   props: {
     lat:{
       required: true,
-      type: Number
     },
     long:{
       required: true,
-      type: Number
     },
     name: {
         required: true,
@@ -29,7 +27,7 @@ export default {
         zoom: 17,
         maxZoom: 17,
         minZoom: 14,
-        draggable: false,
+        draggable: true,
         center: this.coords,
         styles: [{
                   "elementType": "geometry",

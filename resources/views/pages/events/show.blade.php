@@ -24,30 +24,17 @@
               {{Form::hidden('_method', 'DELETE')}}
               {{Form::submit('Obriši', ['class' => 'waves-effect waves-light btn right red'])}}
           {!!Form::close()!!}
-        </div>
-        @else
-        <div>
-          <!-- DUGME ZA ODJAVLJIVANJE -->
-          @if(Auth::user()->isAttending($event->id))
-            {!!Form::open(['action' => ['AttendsController@destroy', $event->id], 'method' => 'POST'])!!}
-                {{Form::hidden('_method', 'DELETE')}}
-                {{Form::submit('Odjavi se', ['class' => 'waves-effect waves-light btn red'])}}
-            {!!Form::close()!!}
-          @else
-          <!-- DUGME ZA PRIJAVLJIVANJE -->
-            {!!Form::open(['action' => ['AttendsController@store', $event->id], 'method' => 'POST'])!!}
-                {{Form::hidden('event', $event->id)}}
-                {{Form::submit('Pridruži se', ['class' => 'waves-effect waves-light btn'])}}
-            {!!Form::close()!!}
-          @endif      
-
-        </div>
+        </div>        
         @endif
       </div>
-      
+
+      <!-- OCENE -->
+      <div>
+        Ocenite teren: <star-rating :show-rating="false" :rating="{{Auth::user()->courtRating($event->court->id)}}" :court_id="{{$event->court->id}}"></star-rating>
+      </div>
+            
     </div>
   </div>
-  
   <div class="row">
 
     <!-- KOMENTARI -->
@@ -58,9 +45,23 @@
     <!-- LISTA PRIJAVLJENIH KORISNIKA -->
     <div class="col s12 l4">
       <div class="center">
-        <h5>Prijavljeni korisnici</h5>
+        @if(Auth::user()->id !== $event->user_id)
+          <!-- DUGME ZA ODJAVLJIVANJE -->
+          @if(Auth::user()->isAttending($event->id))
+          {!!Form::open(['action' => ['AttendsController@destroy', $event->id], 'method' => 'POST'])!!}
+              {{Form::hidden('_method', 'DELETE')}}
+              {{Form::submit('Odjavi se', ['class' => 'btn red white-text'])}}
+          {!!Form::close()!!}
+          @else
+          <!-- DUGME ZA PRIJAVLJIVANJE -->
+          {!!Form::open(['action' => ['AttendsController@store', $event->id], 'method' => 'POST'])!!}
+              {{Form::hidden('event', $event->id)}}
+              {{Form::submit('Pridruži se', ['class' => 'btn white-text'])}}
+          {!!Form::close()!!}
+          @endif 
+        @endif
         <div class="row"></div>
-          @foreach($event->attends() as $user)
+          @foreach($event->attends as $user)
           <div class="col s6 l12">
             <div class="horizontal card">
     

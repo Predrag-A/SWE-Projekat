@@ -92,6 +92,7 @@
               axios.post('/komentari', t.data).then(({data}) => {
                   t.comments.unshift(data);
                   t.resetComment();
+                  M.toast({html:'Komentar kreiran', classes:'green lighten-3'});
               })             
           },
 

@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\UserTraits;
+use App\Traits\Friendable;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use UserTraits;
+    use Friendable;
 
     /**
      * The attributes that are mass assignable.
@@ -29,21 +31,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'status', 'jmbg'
     ];
-
-    /**
-     * Account Status
-     */
-    public function isAdmin(){
-        return $this->where('status', 'Admin')->first();
-    }
-
-    public function isSuperAdmin(){
-        return $this->where('status', 'Super-Admin')->first();
-    }
-
-    public function isBanned(){
-        return $this->where('status', 'Suspendovan')->first();
-    }
 
     /**
      * City
@@ -80,14 +67,16 @@ class User extends Authenticatable
         //return $this->belongsToMany('App\Event','attends','user_id','event_id');
     }
 
+    // Morao sam da izbacim zato sto ne uzima u obzir status
+    /*
     public function friends(){
         
-        return $this->belongsToMany('App\User','friends','user_id','friend_id');
+        return $this->belongsToMany('App\User','friends','requester','user_requested');
     }
 
     public function friendto(){
-        return $this->belongsToMany('App\User','friends','friend_id','user_id');
-    }
+        return $this->belongsToMany('App\User','friends','user_requested','requester');
+    }*/
 
     public function gradescourt(){
         return $this->belongsToMany('App\Court','grade_courts','user_id','court_id')->withPivot('grade');

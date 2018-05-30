@@ -10,7 +10,7 @@ class FriendsTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //
+    {       
+        factory(App\Friend::class, 80)->create();
     }
 }

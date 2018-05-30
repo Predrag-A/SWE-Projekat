@@ -3,10 +3,25 @@
 namespace App\Traits;
 
 use App\User;
+use App\GradeCourt;
 use App\Attend;
 
 trait UserTraits
 {
+   /**
+     * Account Status
+     */
+    public function isAdmin(){
+      return $this->where('status', 'Admin')->first();
+  }
+
+  public function isSuperAdmin(){
+      return $this->where('status', 'Super-Admin')->first();
+  }
+
+  public function isBanned(){
+      return $this->where('status', 'Suspendovan')->first();
+  }
 
   // Proverava da li user prisustvuje dogadjaju sa idjem $eventId
   public function isAttending($eventId){
@@ -31,6 +46,14 @@ trait UserTraits
     
   }
 
+  public function courtRating($courtId){
 
+    $res = GradeCourt::where(['user_id' => $this->id, 'court_id' => $courtId])->get();
 
+    if($res->count()){
+      return $res->first()->grade;
+    }
+    return 0;
+
+  }
 }

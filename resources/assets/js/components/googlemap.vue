@@ -337,7 +337,8 @@ export default {
                       "color": "#4e6d70"
                     }
                   ]
-                }]
+                }
+              ]
           }
           var map = new google.maps.Map(element, options);
 
@@ -381,7 +382,7 @@ export default {
           marker.addListener('click', function() {
               infoWindow.open(map, marker);
               setTimeout(function () { infoWindow.close(); }, 5000);
-
+              
               var tabela = document.getElementById('tabela');
               tabela.hidden = false;
               var tbody = document.getElementById('tbody');
