@@ -75,6 +75,8 @@ Route::post('api/resetujteren', 'GradesCourtController@reset');
 Route::prefix('/web/api')->group(function () {
     Route::get('usercity', 'DashboardController@getUserCity'); //getUserCity je samo funkcija u kontroleru
     Route::get('cities', 'DashboardController@getCities');
-    Route::get('cityEvents', 'DashboardController@getCityEvents');
+    Route::get('citycourts/{cityid}', 'DashboardController@getCityCourts');
+    Route::get('courtEvents/{courtid}', 'DashboardController@getCourtEvents');
+    Route::get('sports', 'DashboardController@getSports');
 });
 
