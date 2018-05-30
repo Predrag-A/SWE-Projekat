@@ -1,5 +1,5 @@
 <template>
-  <div class="row">    
+  <div class="row" v-if="user_id != auth">    
     
     <div class="center" v-if="loading">
       <div class="preloader-wrapper active">
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="center" v-if="!loading && user_id != auth">
+    <div class="center" v-if="!loading">
 
       <!-- AKO NISU PRIJATELJI -->
       <button v-if="status == 0" class="btn-small waves-effect waves-light" @click="add_friend">Dodaj Prijatelja</button>

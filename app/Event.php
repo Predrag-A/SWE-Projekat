@@ -29,17 +29,7 @@ class Event extends Model
         return $this->hasMany('App\Comment','event_id');
     }
 
-    public function attends(){
-        
-        $users = array();
-
-        $attends = Attend::where('event_id', $this->id)->get();
-
-        foreach($attends as $user):
-            array_push($users, \App\User::find($user->user_id));
-        endforeach;
-
-        return $users;
+    public function attends(){        
         
         // Opet nece ovo
         return $this->belongsToMany('App\User','attends','event_id','user_id');

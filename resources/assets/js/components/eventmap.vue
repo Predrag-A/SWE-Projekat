@@ -7,11 +7,9 @@ export default {
   props: {
     lat:{
       required: true,
-      type: Number
     },
     long:{
       required: true,
-      type: Number
     },
     name: {
         required: true,

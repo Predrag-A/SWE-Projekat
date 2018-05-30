@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\GradeCourt;
+use App\User;
+use Auth;
+
 class GradesCourtController extends Controller
 {
 
@@ -17,79 +21,35 @@ class GradesCourtController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function grade(Request $request){
+
+        $this->validate($request, [
+            'court_id' => 'required',
+            'grade' => 'required'
+        ]);
+
+        $res = GradeCourt::where(['user_id' => auth()->user()->id, 'court_id' => $request->input('court_id')])->get();
+        
+
+        if($res->count()){
+            $gradecourt = GradeCourt::find($res->first()->id);  
+        }
+        else{
+            $gradecourt = new GradeCourt();
+            $gradecourt->court_id = $request->input('court_id');
+            $gradecourt->user_id = auth()->user()->id;   
+        }
+
+        $gradecourt->grade = $request->input('grade');        
+        $gradecourt->save();
+
+        return response(1, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function reset(Request $request){
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        GradeCourt::where(['user_id' => auth()->user()->id, 'court_id' => $request->input('court_id')])->get()->first()->delete();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response(1, 200);
     }
 }

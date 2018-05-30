@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\User;
+use App\GradeCourt;
 use App\Attend;
 
 trait UserTraits
@@ -45,6 +46,14 @@ trait UserTraits
     
   }
 
+  public function courtRating($courtId){
 
+    $res = GradeCourt::where(['user_id' => $this->id, 'court_id' => $courtId])->get();
 
+    if($res->count()){
+      return $res->first()->grade;
+    }
+    return 0;
+
+  }
 }

@@ -27,7 +27,12 @@
         </div>        
         @endif
       </div>
-      
+
+      <!-- OCENE -->
+      <div>
+        Ocenite teren: <star-rating :show-rating="false" :rating="{{Auth::user()->courtRating($event->court->id)}}" :court_id="{{$event->court->id}}"></star-rating>
+      </div>
+            
     </div>
   </div>
   <div class="row">
@@ -56,7 +61,7 @@
           @endif 
         @endif
         <div class="row"></div>
-          @foreach($event->attends() as $user)
+          @foreach($event->attends as $user)
           <div class="col s6 l12">
             <div class="horizontal card">
     
