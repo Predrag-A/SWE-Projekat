@@ -14,7 +14,6 @@
                                 <tr>
                                     <th>Sport:</th>
                                     <th>Vreme:</th>
-                                    <th>Lokacija:</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -44,7 +43,12 @@ export default {
         //defaultCoord: new google.maps.LatLng(this.city_coord.long,this.city_coord.lat),
         defaultCoord: new google.maps.LatLng(44.2792544,20.7451155),
         mapName: this.name + '-map', //za id mape
-        cities: []
+        cities: [],
+        sports: [],
+        cityCourts: [],
+        cityMarkers: [],
+        courtMarkers: [],
+        cityEvents: []
     }
   },
   methods: {
@@ -60,6 +64,41 @@ export default {
         });
       },
 
+      getCourts(map, cityid) {
+          axios.get('/web/api/citycourts/'+ cityid).then(response => {
+            this.cityCourts = response.data; //vracaju se svi gradovi
+            if(this.cityCourts.length != 0)
+            {
+                for(var i = 0; i < this.cityCourts.length; i++)
+                {
+                    this.addCourtMarker(map, new google.maps.LatLng(this.cityCourts[i].lat, this.cityCourts[i].long), this.cityCourts[i].location, i+1);
+                    this.getEvents(i+1);
+                }
+            }
+            }).catch(error => {
+            console.log(error);
+        });
+      },
+
+      getEvents(courtid) {
+          var self = this;
+          axios.get('/web/api/courtEvents/' + courtid).then(response => {
+              response.data.forEach(function(event) {
+                  self.cityEvents.push(event);  
+              })
+          }).catch(error => {
+              console.log(error);
+          });
+      },
+
+      getSports() {
+          axios.get('/web/api/sports').then(response => {
+              this.sports = response.data;
+          }).catch(error => {
+              console.log(error);
+          });
+      },
+
       initMap() {
           var element = document.getElementById(this.mapName)
           var options = {
@@ -67,34 +106,306 @@ export default {
               maxZoom: 7,
               minZoom: 7,
               draggable: false,
-              center: this.defaultCoord
+              center: this.defaultCoord,
+              styles: [{
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#1d2c4d"
+                    }
+                  ]
+                },
+                {
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#8ec3b9"
+                    }
+                  ]
+                },
+                {
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                    {
+                      "color": "#1a3646"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "administrative.country",
+                  "elementType": "geometry.stroke",
+                  "stylers": [
+                    {
+                      "color": "#4b6878"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "administrative.land_parcel",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#64779e"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "administrative.province",
+                  "elementType": "geometry.stroke",
+                  "stylers": [
+                    {
+                      "color": "#4b6878"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "landscape.man_made",
+                  "elementType": "geometry.stroke",
+                  "stylers": [
+                    {
+                      "color": "#334e87"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "landscape.natural",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#023e58"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#283d6a"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#6f9ba5"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                    {
+                      "color": "#1d2c4d"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "poi.park",
+                  "elementType": "geometry.fill",
+                  "stylers": [
+                    {
+                      "color": "#023e58"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "poi.park",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#3C7680"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#304a7d"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#98a5be"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road",
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                    {
+                      "color": "#1d2c4d"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#2c6675"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "geometry.stroke",
+                  "stylers": [
+                    {
+                      "color": "#255763"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#b0d5ce"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                    {
+                      "color": "#023e58"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "transit",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#98a5be"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "transit",
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
+                    {
+                      "color": "#1d2c4d"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "transit.line",
+                  "elementType": "geometry.fill",
+                  "stylers": [
+                    {
+                      "color": "#283d6a"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "transit.station",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#3a4762"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "water",
+                  "elementType": "geometry",
+                  "stylers": [
+                    {
+                      "color": "#0e1626"
+                    }
+                  ]
+                },
+                {
+                  "featureType": "water",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
+                    {
+                      "color": "#4e6d70"
+                    }
+                  ]
+                }]
           }
           var map = new google.maps.Map(element, options);
 
-          if(this.cities != null)
+          if(this.cities.length != 0)
           {
-              for(var i = 0; i < this.cities.length; i++)
-              {       
-                    this.addMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom);
-              }
+                for(var i = 0; i < this.cities.length; i++)
+                {
+                    this.addCityMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom, i+1);
+                }
           }
       },
-      addMarker(map, koordinate, zoom) {
+
+      addCityMarker(map, koordinate, zoom, i) {
           var marker = new google.maps.Marker( {
               position: koordinate,
               map: map,
-              icon: 'https://i.imgur.com/YWVwzyS.png'
+              icon: 'https://i.imgur.com/YWVwzyS.png',
+              content: i
           });
+          this.cityMarkers.push(marker);
           var self = this;
           marker.addListener('click', function() {
               map.setCenter(koordinate);
-              self.smoothZoom(map, zoom, map.getZoom(), true, this);
-              setTimeout(function(){marker.setVisible(false);},2000); //da se marker sakrije za 2000ms (dok se zumira ka mapi)
+              self.smoothZoom(map, zoom, map.getZoom(), true);
+              setTimeout(function(){marker.setVisible(false); self.getCourts(map,marker.content);},2000); //da se marker sakrije za 2000ms (dok se zumira ka mapi)
           });
       },
-      smoothZoom(map, level, cnt, mode, marker) {
+
+      addCourtMarker(map, koordinate, lokacija, i){
+          var marker = new google.maps.Marker( {
+              position: koordinate,
+              map: map,
+              icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
+              content: i
+          });
+          this.courtMarkers.push(marker);
+          var infoWindow = new google.maps.InfoWindow({
+              content: lokacija
+          });
           var self = this;
-          if(mode == true)
+          marker.addListener('click', function() {
+              infoWindow.open(map, marker);
+              setTimeout(function () { infoWindow.close(); }, 5000);
+
+              var tabela = document.getElementById('tabela');
+              tabela.hidden = false;
+              var tbody = document.getElementById('tbody');
+              tbody.innerHTML = "";
+              self.cityEvents.forEach(function(event) {
+                  if(event.court_id == i){
+                      var noviRed = tbody.insertRow();
+
+                      var vrsta1 = noviRed.insertCell(0);
+                      vrsta1.innerHTML = self.sports[event.sport_id-1].name;
+
+                      var vrsta2 = noviRed.insertCell(1);
+                      vrsta2.innerHTML = event.time;
+
+                      var vrsta3 = noviRed.insertCell(2);
+                      vrsta3.innerHTML = "<a href='createbtnurl' class='btn'>Napravi dogadjaj</a>";
+                }
+              })
+          });
+      },
+
+      smoothZoom(map, level, cnt, mode) {
+          var self = this;
+          if(mode)
           {
             if (cnt >= level) {
                 return;
@@ -151,6 +462,7 @@ export default {
   //Lifehook created
   created() {
     this.getCities();
+    this.getSports();
   } 
 };
 </script>
