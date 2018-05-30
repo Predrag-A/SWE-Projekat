@@ -72,7 +72,7 @@ class EventController extends Controller
         $attends->event_id = $event->id;
         $attends->save();
         
-        return redirect('/dogadjaji')->with('success', "Događaj kreiran!");
+        return redirect('/dogadjaji'. '/' . $event->id)->with('success', "Događaj kreiran!");
 
     }
 

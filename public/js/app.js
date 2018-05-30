@@ -50230,7 +50230,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post('/api/osoba_dislike', t.data).then(function (_ref3) {
         var data = _ref3.data;
 
-        console.log(data);
         if (data == 1) {
           t.negative++;
           if (t.status == "like") {

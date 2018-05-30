@@ -27,8 +27,8 @@
           </div>
 
           <!-- LINK -->
-          <div class="card-action">
-            <a href="{{route('dogadjaji')}}/{{$event->id}}" class="card-title {{$event->sport->color}}-text">{{$event->court->name()}}</a>
+          <div class="card-action center">
+            <a href="{{route('dogadjaji')}}/{{$event->id}}" class="card-title {{$event->sport->color}}-text">Detalji</a>
           </div>
           
           <!-- TEKT U KARTICU -->

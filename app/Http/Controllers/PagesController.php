@@ -41,7 +41,8 @@ class PagesController extends Controller
     }
 
     public function dashboard(){  
-        return view('pages.dashboard');
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('pages.dashboard')->with('cities', $cities);    
     }
     
     public function admin(){

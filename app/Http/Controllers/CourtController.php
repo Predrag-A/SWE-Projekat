@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Court;
 
 class CourtController extends Controller
 {
@@ -24,7 +25,8 @@ class CourtController extends Controller
      */
     public function index()
     {
-        //
+        $courts = Court::all();
+        return view('pages.courts.index')->with('courts', $courts);
     }
 
     /**
@@ -56,7 +58,8 @@ class CourtController extends Controller
      */
     public function show($id)
     {
-        //
+        $court = Court::find($id);
+        return view('pages.courts.show')->with(['court'=>$court]);
     }
 
     /**

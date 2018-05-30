@@ -87,7 +87,6 @@ export default {
     dislike(){
       const t = this
       axios.post('/api/osoba_dislike', t.data).then(({data}) => {
-        console.log(data);
                   if(data == 1){
                     t.negative++;
                     if(t.status == "like"){
