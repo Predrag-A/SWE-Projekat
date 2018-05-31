@@ -39,7 +39,7 @@ class DashboardController extends Controller
     {
         $court = Court::find($courtid);
         $events = $court->events();
-        return Response::make($events->get());
+        return Response::make($events->get());  //moze i return ['data' => $data,];
     }
 
     public function getSports()  // .../web/api/sports

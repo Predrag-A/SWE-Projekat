@@ -38,6 +38,7 @@
       $('.parallax').parallax();
       $('.modal').modal();      
       $('.sidenav').sidenav();
+      $('.tooltipped').tooltip();
       $(".dropdown-trigger").dropdown({
         coverTrigger: false
       });
