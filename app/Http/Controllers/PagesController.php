@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\City;
 use App\User;
+use App\Notification;
 
 class PagesController extends Controller
 {
@@ -56,6 +57,9 @@ class PagesController extends Controller
     }
 
     public function notifications(){
-        return view('pages.notifications');
+
+        $notifications =  Notification::orderBy('created_at','desc')->where('receiver_id', auth()->user()->id)->paginate(15);
+
+        return view('pages.notifications')->with('notifications', $notifications);
     }
 }

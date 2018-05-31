@@ -15,6 +15,7 @@
   <div class="footer-copyright">
     <div class="container">
       <div class="left">
+        Izađi Na Teren
       </div>
       <div class="right">Copyright &copy; <?php echo date("Y"); ?>, Garbage Collectors</div>
     </div>    

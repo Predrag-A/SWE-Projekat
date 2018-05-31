@@ -14316,6 +14316,7 @@ Vue.component('event-map', __webpack_require__(54));
 Vue.component('friendbutton', __webpack_require__(59));
 Vue.component('star-rating', __webpack_require__(62));
 Vue.component('like-rating', __webpack_require__(72));
+Vue.component('notification', __webpack_require__(79));
 
 var app = new Vue({
   el: '#app'
@@ -47572,6 +47573,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 //TODO: DA SE PRIKAZE BROJ PRIDRUZENIH LJUDI DOGADJAJU
 //TODO: DA SE DODA SELECT PO SPORTOVIMA
@@ -47594,7 +47603,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       cityCourts: [],
       cityMarkers: [],
       courtMarkers: [],
-      cityEvents: []
+      cityEvents: [],
+      toggle: false,
+      pomNiz: []
     };
   },
 
@@ -47663,8 +47674,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           court.setVisible(false);
         });
         self.courtMarkers = [];
-        var tabela = document.getElementById('tabela');
-        tabela.hidden = true;
+        self.cityEvents = [];
+        self.pomNiz = [];
+        self.toggle = false;
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear();
       });
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(backButton);
@@ -47867,7 +47879,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         position: koordinate,
         map: map,
         icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
-        content: i
+        content: i, //id terena
+        url: "#kartice"
       });
       this.courtMarkers.push(marker);
       var infoWindow = new google.maps.InfoWindow({
@@ -47879,34 +47892,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setTimeout(function () {
           infoWindow.close();
         }, 3500);
-
-        var tabela = document.getElementById('tabela');
-        tabela.hidden = false;
-        var tbody = document.getElementById('tbody');
-        tbody.innerHTML = "";
+        var elem = $(marker.url);
+        $('html, body').animate({
+          scrollTop: elem.offset().top
+        }, 1000);
+        self.toggle = true;
+        self.pomNiz = [];
         self.cityEvents.forEach(function (event) {
           if (event.court_id == i) {
-            var noviRed = tbody.insertRow();
-
-            var vrsta1 = noviRed.insertCell(0);
-            vrsta1.innerHTML = self.sports[event.sport_id - 1].name;
-
-            var vrsta2 = noviRed.insertCell(1);
-            vrsta2.innerHTML = self.customTime(event.time);;
-
-            var vrsta3 = noviRed.insertCell(2);
-            vrsta3.innerHTML = "<a href='" + self.createbtnurl + "/" + event.id + "'" + "class='btn'>Detalji</a>";
+            self.pomNiz.push({
+              dogadjaj: event,
+              sport: self.sports[event.sport_id - 1],
+              url: self.createbtnurl + "/" + event.id,
+              location: lokacija
+            });
+            console.log(self.pomNiz);
           }
         });
       });
     },
     customTime: function customTime(time) {
       var temp = time.split(" ");
-      var pom = temp[0].split("-").reverse();
-      var datum = pom.join(".");
+      var pom = temp[0].split("-").reverse(); //pom[1]
+      var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+      var datum = pom[0] + ". " + meseci[pom[1] - 1] + " " + pom[2];
       var pom = temp[1].split(":");
-      datum = datum + " " + pom[0] + ":" + pom[1];
+      datum = datum + ", " + pom[0] + ":" + pom[1];
       return datum;
+    },
+    calculateToStart: function calculateToStart(time, startStop) {
+      var myVar = {};
+      if (startStop) {
+        var myTimer = function myTimer() {
+          var d = new Date();
+          document.getElementById('preostalo').innerHTML = d.toLocaleTimeString();
+        };
+
+        myVar = setInterval(myTimer, 1000);
+      } else {
+        clearInterval(myVar);
+      }
     },
     smoothZoom: function smoothZoom(map, level, cnt, mode) {
       var self = this;
@@ -47975,18 +48000,61 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col s12" }, [
           _c("div", { staticClass: "card-panel" }, [
-            _c("div", { staticClass: "row" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn",
-                  attrs: { href: _vm.createbtnurl + "/create" }
-                },
-                [_vm._v("Napravi dogadjaj")]
-              )
-            ]),
+            _vm._m(0),
             _vm._v(" "),
-            _vm._m(0)
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.toggle,
+                    expression: "toggle"
+                  }
+                ],
+                staticClass: "row",
+                attrs: { id: "kartice" }
+              },
+              _vm._l(_vm.pomNiz, function(event, index) {
+                return _c("div", { key: index, staticClass: "col s3 10" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card medium col-content z-depth-3",
+                      style: "border: 1px solid " + event.sport.color
+                    },
+                    [
+                      _c("div", { staticClass: "card-image" }, [
+                        _c("img", {
+                          attrs: { src: "img/" + event.sport.image }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "card-title" })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-content" }, [
+                        _c("h6", [_vm._v("Datum i vreme:")]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.customTime(event.dogadjaj.time)))
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("Adresa:")]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(event.location))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-action center" }, [
+                        _c("a", { attrs: { href: event.url } }, [
+                          _vm._v("Detalji")
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              })
+            )
           ])
         ])
       ])
@@ -47998,26 +48066,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      {
-        staticClass: "highlight responsive-table centered",
-        attrs: { id: "tabela", hidden: "true" }
-      },
-      [
-        _c("thead", { attrs: { id: "thead" } }, [
-          _c("tr", [
-            _c("th", [_vm._v("Sport:")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Vreme:")]),
-            _vm._v(" "),
-            _c("th")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", { attrs: { id: "tbody" } })
-      ]
-    )
+    return _c("div", { staticClass: "row" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn modal-trigger",
+          attrs: { href: "#eventCreateModal" }
+        },
+        [_vm._v("Napravi dogadjaj")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -50406,6 +50464,249 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(80)
+/* template */
+var __vue_template__ = __webpack_require__(81)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\notification.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3972137c", Component.options)
+  } else {
+    hotAPI.reload("data-v-3972137c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    notification: {
+      type: Object,
+      required: true
+    },
+    sender: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      status: 0,
+      visible: true,
+      data: {
+        notification_id: ""
+      }
+    };
+  },
+  created: function created() {
+    this.status = this.notification.status;
+    this.data.notification_id = this.notification.id;
+  },
+
+  methods: {
+    changeStatus: function changeStatus() {
+      var _this = this;
+
+      var t = this;
+      axios.post('/api/notifikacija_read', t.data).then(function (_ref) {
+        var data = _ref.data;
+
+        if (data == 1) {
+          _this.status = 1;
+        }
+      });
+    },
+    deleteNotification: function deleteNotification() {
+      var _this2 = this;
+
+      var t = this;
+      axios.post('/api/notifikacija_delete', t.data).then(function (_ref2) {
+        var data = _ref2.data;
+
+        if (data == 1) {
+          _this2.visible = false;
+          M.toast({ html: 'Notifikacija obrisana', classes: 'red lighten-3' });
+        }
+      });
+    },
+    customTime: function customTime() {
+      var temp = this.notification.created_at.split(" ");
+      var pom = temp[0].split("-").reverse(); //pom[1]
+      var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+      var datum = pom[0] + ". " + meseci[pom[1] - 1] + " " + pom[2];
+      var pom = temp[1].split(":");
+      datum = datum + ", " + pom[0] + ":" + pom[1];
+      return datum;
+    }
+  }
+});
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return this.visible
+    ? _c("li", [
+        !this.status
+          ? _c(
+              "div",
+              {
+                staticClass: "collapsible-header",
+                staticStyle: { display: "block" },
+                on: { click: _vm.changeStatus }
+              },
+              [
+                _c("i", { staticClass: "material-icons" }, [
+                  _vm._v("expand_more")
+                ]),
+                _c("span", [
+                  _c("b", [_vm._v(_vm._s(this.notification.title))])
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "right" }, [
+                  _vm._v(_vm._s(this.customTime()))
+                ])
+              ]
+            )
+          : _c(
+              "div",
+              {
+                staticClass: "collapsible-header grey lighten-3",
+                staticStyle: { display: "block" }
+              },
+              [
+                _c("i", { staticClass: "material-icons" }, [
+                  _vm._v("expand_more")
+                ]),
+                _vm._v(_vm._s(this.notification.title) + "    \n    "),
+                _c("span", { staticClass: "right" }, [
+                  _vm._v(_vm._s(this.customTime()))
+                ])
+              ]
+            ),
+        _vm._v(" "),
+        _c("div", { staticClass: "collapsible-body grey lighten-4" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("b", [
+              _c("a", { attrs: { href: "/korisnici/" + this.sender.id } }, [
+                _vm._v(
+                  _vm._s(this.sender.first_name) +
+                    " " +
+                    _vm._s(this.sender.last_name)
+                )
+              ])
+            ]),
+            _vm._v(" | " + _vm._s(this.sender.email) + "\n      "),
+            _c(
+              "a",
+              {
+                staticClass: "secondary-content red-text right",
+                attrs: { href: "JavaScript:void(0)" },
+                on: { click: _vm.deleteNotification }
+              },
+              [_vm._v("Obriši")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "divider row" }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row",
+            domProps: { innerHTML: _vm._s(this.notification.body) }
+          })
+        ])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3972137c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

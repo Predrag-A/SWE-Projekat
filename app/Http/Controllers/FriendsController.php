@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Friend;
+use App\Notification;
 use Illuminate\Http\Request;
 
 class FriendsController extends Controller
@@ -47,6 +48,14 @@ class FriendsController extends Controller
         ]);
 
         $resp = auth()->user()->accept_friend($request->input('user_id'));       
+        
+        // Notifikacija
+        $notification = new Notification();
+        $notification->sender_id = auth()->user()->id;
+        $notification->receiver_id = $request->input('user_id');
+        $notification->title = "Prihvaćen Zahtev Za Prijatelja";
+        $notification->body = "Korisnik je prihvatio vaš zahtev za prijateljstvo. Možete pregledati događaje koje je na stranici njihovog profila.";
+        $notification->save();
 
         return response($resp, 200);
         

@@ -71,4 +71,11 @@ trait UserTraits
 
     return $res->count();
   }
+
+  public function hasUnreadNotifications(){
+    $res = auth()->user()->notifications()->where('status', 0);
+    if($res->count())
+      return 1;
+    return 0;
+  }
 }

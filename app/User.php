@@ -90,4 +90,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\User','grade_users','gradeduser_id','user_id')->withPivot('grade');
     }
 
+    public function notifications(){        
+        return $this->hasMany('App\Notification','receiver_id');
+    }
+
 }

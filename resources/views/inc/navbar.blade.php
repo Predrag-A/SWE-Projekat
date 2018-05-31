@@ -15,15 +15,21 @@
       </ul>
       <!-- KORISNIK -->
       @else          
-        <ul class="right hide-on-med-and-down">          
-          <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
-          <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
-          <li><a href="{{route('notifications')}}" class="waves-effect"><i class="material-icons">notifications</i></a></li>
-          <li><a href="#" class="dropdown-trigger" data-target="dropdown">
+        <ul class="right">          
+          <li><a href="{{route('korisnici')}}" class="waves-effect hide-on-med-and-down">Korisnici</a></li>
+          <li><a href="{{route('dogadjaji')}}" class="waves-effect hide-on-med-and-down">Događaji</a></li>  
+          <li><a href="#" class="dropdown-trigger hide-on-med-and-down" data-target="dropdown">
             <img style="height:36px; position: relative; top:14px;" class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}">
             {{Auth::user()->first_name}} {{Auth::user()->last_name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a></li>
+          <li>
+              @if(Auth::user()->hasUnreadNotifications())
+              <a href="{{route('notifications')}}" class="btn-floating waves-effect pulse tooltipped" data-position="bottom" data-tooltip="Notifikacije"><i class="material-icons">notification_important</i></a>
+              @else
+              <a href="{{route('notifications')}}" class="btn-floating waves-effect tooltipped" data-position="bottom" data-tooltip="Notifikacije"><i class="material-icons">notifications</i></a>
+              @endif
+          </li>
         </ul>      
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>   
         @endguest
@@ -48,7 +54,6 @@
   @if(Auth::user()->isAdmin())
   <li><a href="{{route('admin')}}">Admin panel</a></li>
   @endif
-  <li><a href="{{route('notifications')}}" class="waves-effect">Notifikacije </a></li>
   <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
   <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Početna strana</a></li>

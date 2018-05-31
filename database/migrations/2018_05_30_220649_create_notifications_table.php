@@ -20,7 +20,8 @@ class CreateNotificationsTable extends Migration
             $table->integer('receiver_id');
             $table->foreign('receiver_id')->references('id')->on('users');  
             $table->text('title');
-            $table->mediumText('body');   
+            $table->mediumText('body');
+            $table->boolean('status')->default(0);   
             $table->timestamps();
         });
     }

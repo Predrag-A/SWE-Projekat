@@ -2,8 +2,22 @@
 @section('content')
 
 <div class="container">
-  <h1>Notifikacije</h1>
-  <p>PH</p>
+  
+  @if(count($notifications) > 0) 
+
+  <ul class="collapsible expandable">
+    @foreach($notifications as $notification)
+    <notification :notification="{{$notification}}" :sender="{{$notification->sender}}"></notification>
+    @endforeach    
+  </ul>
+  <div class="row center">    
+    {!! $notifications->render() !!}
+  </div>
+  @else
+  
+  <h4>Trenutno nemate notifikacije</h4>
+
+  @endif
 </div>
 
 @endsection

@@ -7,79 +7,51 @@ use App\Notification;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     * Sprecava pristup korisnicima koji nisu prijavljeni. 
+     * Ako nekom pogledu treba da se dozvoli pristup:
+     * $this->middleware('auth', ['except' => ['index', 'show']]);
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth', ['except' => ['index', 'about']]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function read(Request $request){
+
+        $this->validate($request, [
+            'notification_id' => 'required'
+        ]);        
+        
+        $notification = Notification::find($request->input('notification_id'));
+        
+        $notification->status = 1;
+
+        $notification->save();
+
+        return response(1, 200);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function delete(Request $request){
+
+        $this->validate($request, [
+            'notification_id' => 'required'
+        ]);        
+
+        Notification::find($request->input('notification_id'))->delete();
+
+        return response(1, 200);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function user(Request $request){
+
+        $this->validate($request, [
+            'notification_id' => 'required'
+        ]);     
+        $notification = Notification::find($request->input('notification_id'));
+        return User::find($notification->sender_id); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

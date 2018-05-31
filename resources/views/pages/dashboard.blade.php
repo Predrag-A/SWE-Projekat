@@ -8,18 +8,18 @@
   <div class="modal-content">
       {!! Form::open(['action' => 'EventController@store', 'method' => 'POST']) !!}
       
-    <div class="row col s12 m16">
-      <div class="input-field col s12 m6">
+    <div class="row">
+      <div class="input-field col s12 l6">
         {{Form::text('date','', ['required'=>'required', 'placeholder' => ' ', 'class' => 'datepicker'])}}
         {{Form::label('date','Datum',['for'=>'datum'])}}
       </div>
   
-      <div class="input-field col s12 m6">
+      <div class="input-field col s12 l6">
         {{Form::text('time','', ['required'=>'required', 'placeholder' => ' ','class' => 'timepicker'])}}
         {{Form::label('time','Vreme',['for'=>'vreme'])}}
       </div>
   
-      <div class="input-field col s12 m4">
+      <div class="input-field col s12 l4">
         <select name="city" id="city">
           <option value="" disabled selected>Izaberite grad</option>
           @foreach($cities as $city)
@@ -29,20 +29,27 @@
         <label>Grad</label>
       </div>   
   
-      <div class="input-field col s12 m4">
+      <div class="input-field col s12 l4">
         <select name="court" id="court">
           <option value="" disabled selected>Izaberite teren</option>       
         </select>
         <label>Teren</label>
       </div>  
   
-      <div class="input-field col s12 m4">
+      <div class="input-field col s12 l4">
         <select name="sport" id="sport">
           <option value="" disabled selected>Izaberite sport</option>       
         </select>
         <label>Sport</label>
+      </div>
+      
+      <div class="row col s12 l4 offset-l8">
+          <label class="right">      
+            {{Form::checkbox('friends')}} <span>Obavestite prijatelje</span>
+          </label>
       </div> 
     </div>
+    
     <div class="row center align">
       {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 waves-effect waves-light'])}}
     </div>
@@ -75,7 +82,7 @@
           });
         }
         else{
-          $('#court').append("<option value='' disabled selected>Grad trenutno nema dodate terene</option>");
+          $('#court').append("<option value='' disabled selected>Grad nema dodate terene</option>");
           $('#sport').empty();
         }
         $("#court").trigger('contentChangedCourt');

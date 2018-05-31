@@ -32,7 +32,8 @@
 
   <script>          
     $( document ).ready(function() {  
-      $('.tabs').tabs({swipeable: true});;
+      $('.collapsible.expandable').collapsible({accordion:false});
+      $('.tabs').tabs({swipeable: true});
       $('.parallax').parallax();
       $('.modal').modal();      
       $('.sidenav').sidenav();
