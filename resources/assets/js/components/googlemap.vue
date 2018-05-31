@@ -7,19 +7,27 @@
                 <div class="col s12">
                     <div class="card-panel">        
                         <div class="row">
-                            <a :href="createbtnurl+'/create'" class="btn">Napravi dogadjaj</a>
+                            <a class="btn modal-trigger" href="#eventCreateModal">Napravi dogadjaj</a>
                         </div>
-                        <table class="highlight responsive-table centered" id="tabela" hidden="true">
-                            <thead id="thead">
-                                <tr>
-                                    <th>Sport:</th>
-                                    <th>Vreme:</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody">
-                            </tbody>
-                        </table>
+                        <div class="row" v-show="toggle" id="kartice">
+                          <div v-for="(event,index) in pomNiz" :key="index" class="col s3 10">
+                            <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
+                              <div class="card-image">
+                                <img :src="'img/'+ event.sport.image">
+                                <span class="card-title"></span>
+                              </div>
+                              <div class="card-content">
+                                <h6>Datum i vreme:</h6>
+                                <span>{{customTime(event.dogadjaj.time)}}</span>
+                                <h6>Adresa:</h6>
+                                <span>{{event.location}}</span>
+                              </div>
+                              <div class="card-action center">
+                                <a :href=event.url>Detalji</a>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -49,7 +57,9 @@ export default {
         cityCourts: [],
         cityMarkers: [],
         courtMarkers: [],
-        cityEvents: []
+        cityEvents: [],
+        toggle: false,
+        pomNiz: []
     }
   },
   methods: {
@@ -85,7 +95,7 @@ export default {
           var self = this;
           axios.get('/web/api/courtEvents/' + courtid).then(response => {
               response.data.forEach(function(event) {
-                  self.cityEvents.push(event);  
+                  self.cityEvents.push(event);
               })
           }).catch(error => {
               console.log(error);
@@ -117,8 +127,9 @@ export default {
               court.setVisible(false);
             });
             self.courtMarkers = [];
-            var tabela = document.getElementById('tabela');
-            tabela.hidden = true;
+            self.cityEvents = [];
+            self.pomNiz = [];
+            self.toggle = false;
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].clear(); 
           });
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(backButton);
@@ -402,7 +413,8 @@ export default {
               position: koordinate,
               map: map,
               icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
-              content: i
+              content: i, //id terena
+              url: "#kartice"
           });
           this.courtMarkers.push(marker);
           var infoWindow = new google.maps.InfoWindow({
@@ -412,23 +424,21 @@ export default {
           marker.addListener('click', function() {
               infoWindow.open(map, marker);
               setTimeout(function () { infoWindow.close(); }, 3500);
-              
-              var tabela = document.getElementById('tabela');
-              tabela.hidden = false;
-              var tbody = document.getElementById('tbody');
-              tbody.innerHTML = "";
+              var elem = $(marker.url);
+              $('html, body').animate({
+                scrollTop: elem.offset().top
+              }, 1000 );
+              self.toggle = true;
+              self.pomNiz = [];
               self.cityEvents.forEach(function(event) {
                   if(event.court_id == i){
-                      var noviRed = tbody.insertRow();
-
-                      var vrsta1 = noviRed.insertCell(0);
-                      vrsta1.innerHTML = self.sports[event.sport_id-1].name;
-
-                      var vrsta2 = noviRed.insertCell(1);
-                      vrsta2.innerHTML = self.customTime(event.time);;
-
-                      var vrsta3 = noviRed.insertCell(2);
-                      vrsta3.innerHTML = "<a href='" + self.createbtnurl + "/" + event.id + "'" +  "class='btn'>Detalji</a>";
+                      self.pomNiz.push({
+                        dogadjaj: event,
+                        sport: self.sports[event.sport_id-1],
+                        url: self.createbtnurl + "/" + event.id,
+                        location: lokacija
+                      });
+                      console.log(self.pomNiz);
                 }
               })
           });
@@ -436,11 +446,27 @@ export default {
 
       customTime(time) {
         var temp = time.split(" ");
-        var pom = temp[0].split("-").reverse();
-        var datum = pom.join(".");
+        var pom = temp[0].split("-").reverse(); //pom[1]
+        var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+        var datum = pom[0] + ". " + meseci[pom[1]-1] + " " + pom[2];
         var pom = temp[1].split(":");
-        datum = datum + " " + pom[0] + ":" + pom[1];
+        datum = datum + ", " + pom[0] + ":" + pom[1];
         return datum;
+      },
+
+      calculateToStart(time, startStop){
+        var myVar = {};
+        if(startStop){
+          myVar = setInterval(myTimer,1000);
+
+          function myTimer(){
+            var d = new Date();
+            document.getElementById('preostalo').innerHTML = d.toLocaleTimeString();
+          }
+        }
+        else {
+          clearInterval(myVar);
+        }
       },
 
       smoothZoom(map, level, cnt, mode) {
