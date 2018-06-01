@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Request as RequestModel;
+use App\Notification;
 
 class RequestController extends Controller
 {
@@ -17,79 +19,32 @@ class RequestController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    public function answer(Request $request){
+        
+        $this->validate($request, [
+            'answer' => 'required',
+            'user_id' => 'required',
+            'request_id' => 'required',
+            'request_title' => 'required',
+            'request_body' => 'required',
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $req = RequestModel::find($request->input('request_id'));
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if($req){
+            $req->delete();
+            $notification = new Notification();
+            
+            $notification->sender_id = auth()->user()->id;
+            $notification->receiver_id = $request->input('user_id');
+            $notification->title = "Odgovor: '".$request->input('request_title')."'";
+            $notification->body = "<blockquote>".$request->input('request_body')."</blockquote><br>".$request->input('answer');
+            $notification->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+            return response(1, 200);
+        }
+        return response(0, 404);
+        
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

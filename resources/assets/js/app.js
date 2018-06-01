@@ -22,6 +22,7 @@ Vue.component('friendbutton', require('./components/friendbutton.vue'));
 Vue.component('star-rating', require('./components/star-rating.vue'));
 Vue.component('like-rating', require('./components/like-rating.vue'));
 Vue.component('notification', require('./components/notification.vue'));
+Vue.component('request', require('./components/request.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -12,4 +12,5 @@ main {
 }
 
 
-.tabs-content.carousel .carousel-item { height:1200px; }
+
+.tabs-content.carousel .carousel-item { height:1200px; overflow:auto;}

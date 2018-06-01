@@ -15,7 +15,9 @@
   </div>
   @else
   
-  <h4>Trenutno nemate notifikacije</h4>
+  <div class="row center">
+    <h4>Trenutno nemate notifikacije</h4>
+  </div>
 
   @endif
 </div>

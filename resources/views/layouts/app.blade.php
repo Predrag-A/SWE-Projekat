@@ -33,6 +33,7 @@
   <script>          
     $( document ).ready(function() {  
       $('.collapsible.expandable').collapsible({accordion:false});
+      $('.collapsible').collapsible();
       $('.tabs').tabs({swipeable: true});
       $('.parallax').parallax();
       $('.modal').modal();      
@@ -58,7 +59,7 @@
       $('.timepicker').timepicker({
         twelveHour:false
       });
-    });    
+    });        
   </script>
   @include('inc.messages')
   

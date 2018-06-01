@@ -14286,7 +14286,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(81);
 
 
 /***/ }),
@@ -14316,7 +14316,8 @@ Vue.component('event-map', __webpack_require__(54));
 Vue.component('friendbutton', __webpack_require__(59));
 Vue.component('star-rating', __webpack_require__(62));
 Vue.component('like-rating', __webpack_require__(72));
-Vue.component('notification', __webpack_require__(79));
+Vue.component('notification', __webpack_require__(75));
+Vue.component('request', __webpack_require__(78));
 
 var app = new Vue({
   el: '#app'
@@ -50461,23 +50462,14 @@ if (false) {
 
 /***/ }),
 /* 75 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(80)
+var __vue_script__ = __webpack_require__(76)
 /* template */
-var __vue_template__ = __webpack_require__(81)
+var __vue_template__ = __webpack_require__(77)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50516,7 +50508,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50618,7 +50610,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 81 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50707,6 +50699,257 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-3972137c", module.exports)
   }
 }
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\request.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d099bf0", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d099bf0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    request: {
+      type: Object,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      visible: true,
+      data: {
+        answer: "",
+        request_id: "",
+        user_id: "",
+        request_title: "",
+        request_body: ""
+      }
+    };
+  },
+  created: function created() {
+    this.data.user_id = this.user.id;
+    this.data.request_id = this.request.id;
+    this.data.request_title = this.request.title;
+    this.data.request_body = this.request.text;
+  },
+
+  methods: {
+    sendAnswer: function sendAnswer() {
+      var _this = this;
+
+      var t = this;
+      console.log(t.data.user_id + " " + t.data.request_id + " " + t.data.request_title + " " + t.data.request_body + " " + t.data.answer);
+      axios.post('/api/request_answer', t.data).then(function (_ref) {
+        var data = _ref.data;
+
+        if (data == 1) {
+          _this.visible = false;
+          M.toast({ html: 'Poslat odgovor na zahtev', classes: 'green lighten-3' });
+        } else {
+          _this.visible = false;
+          M.toast({ html: 'Zahtev je već izvršen', classes: 'red lighten-3' });
+        }
+      });
+    },
+    customTime: function customTime() {
+      var temp = this.request.created_at.split(" ");
+      var pom = temp[0].split("-").reverse(); //pom[1]
+      var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+      var datum = pom[0] + ". " + meseci[pom[1] - 1] + " " + pom[2];
+      var pom = temp[1].split(":");
+      datum = datum + ", " + pom[0] + ":" + pom[1];
+      return datum;
+    }
+  }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return this.visible
+    ? _c("li", [
+        _c("div", { staticClass: "collapsible-header" }, [
+          _c("i", { staticClass: "material-icons" }, [_vm._v("expand_more")]),
+          _c("span", [_c("b", [_vm._v(_vm._s(this.request.title))])])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "collapsible-body grey lighten-4" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("b", [
+              _c("a", { attrs: { href: "/korisnici/" + this.user.id } }, [
+                _vm._v(
+                  _vm._s(this.user.first_name) +
+                    " " +
+                    _vm._s(this.user.last_name)
+                )
+              ])
+            ]),
+            _vm._v(" | " + _vm._s(this.user.email) + "\n      "),
+            _c("span", { staticClass: "right" }, [
+              _vm._v(_vm._s(this.customTime()))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "divider row" }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row",
+            domProps: { innerHTML: _vm._s(this.request.text) }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "divider row" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "input-field" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.answer,
+                    expression: "data.answer"
+                  }
+                ],
+                staticClass: "materialize-textarea",
+                attrs: { id: "textarea_answer" },
+                domProps: { value: _vm.data.answer },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.data, "answer", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "textarea_answer" } }, [
+                _vm._v("Dodaj odgovor")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row center" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn",
+                attrs: { href: "JavaScript:void(0)" },
+                on: { click: _vm.sendAnswer }
+              },
+              [_vm._v("Pošalji odgovor")]
+            )
+          ])
+        ])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d099bf0", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

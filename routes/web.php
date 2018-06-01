@@ -81,6 +81,8 @@ Route::post('api/osoba_cancel', 'GradesUserController@cancel');
 Route::post('api/notifikacija_read', 'NotificationController@read');
 Route::post('api/notifikacija_delete', 'NotificationController@delete');
 
+Route::post('api/request_answer', 'RequestController@answer');
+
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
 Route::prefix('/web/api')->group(function () {
