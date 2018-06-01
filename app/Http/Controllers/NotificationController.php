@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notification;
+use App\User;
+use Auth;
 
 class NotificationController extends Controller
 {
@@ -52,6 +54,29 @@ class NotificationController extends Controller
         ]);     
         $notification = Notification::find($request->input('notification_id'));
         return User::find($notification->sender_id); 
+    }
+    
+    public function broadcast(Request $request){
+
+        $this->validate($request, [
+            'body' => 'required',
+            'title' => 'required'
+        ]);   
+            
+        $users = User::all();
+        
+        foreach($users as $user){
+            if($user->id != auth()->user()->id){
+                Notification::create([
+                    'sender_id' => auth()->user()->id,
+                    'receiver_id' => $user->id,
+                    'title' => "Obaveštenje: '" . $request->input('title') . "'",
+                    'body' => $request->input('body')
+                ]);
+            }
+        }
+
+        return response(1, 200);
     }
 
 }

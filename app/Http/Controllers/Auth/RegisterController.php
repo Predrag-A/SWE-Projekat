@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name'=> $data['last_name'],
             'email' => $data['email'],
@@ -74,5 +75,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'jmbg' => $data['jmbg'],
         ]);
+        
+        // Notifikacija prilikom registracije        
+        $sadmin = User::where('status', 'Super-Admin')->get()->first();
+
+        $notification = new Notification();
+        $notification->sender_id = $sadmin->id;
+        $notification->receiver_id = $user->id;
+        $notification->title = "Dobrodošli na INT";
+        $notification->body = "Welcome to the jungle. Ne znam šta da napišem. PH.";
+        $notification->save();
+
+        return $user;
+
     }
 }

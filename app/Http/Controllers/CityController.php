@@ -54,15 +54,23 @@ class CityController extends Controller
     public function store(Request $request) //kad se klikne na submit poziva se
     {
         $this->validate($request, [
-            'naziv'=>'required',
-            'sta god'=>'required'
+            'name'=>'required',
+            'long'=>'required',
+            'lat'=>'required',
+            'zoom'=>'required',
         ]); //mora se popune ta polja u formi
 
-        $grad=new City;
+        $city = new City();
+        $city->name = $request->input('name');
+        $city->lat = $request->input('lat');
+        $city->long = $request->input('long');
+        $city->zoom = $request->input('zoom');
+        $city->save();
+
         //$grad->naziv=$request->input('ime txt boxa');
         //$grad->save(); cuva u bazi!!!!!!
 
-        return 2346;
+        return $city;
     }
 
     /**

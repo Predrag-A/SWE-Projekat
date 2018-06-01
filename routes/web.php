@@ -64,23 +64,28 @@ Route::get('api/test', function(){
   return auth()->user()->courtRating(2);
 });
 
+// Prijateljstva
 Route::get('api/proveri_prijateljstvo/{id}', 'FriendsController@check');
 Route::post('api/dodaj_prijatelja', 'FriendsController@add');
 Route::post('api/prihvati_prijatelja', 'FriendsController@accept');
 Route::post('api/obrisi_prijatelja', 'FriendsController@delete');
 
+// Ocene za teren
 Route::post('api/oceniteren', 'GradesCourtController@grade');
 Route::post('api/resetujteren', 'GradesCourtController@reset');
 
-
+// Ocene za korisnika
 Route::get('api/osoba_status/{id}', 'GradesUserController@status');
 Route::post('api/osoba_like', 'GradesUserController@like');
 Route::post('api/osoba_dislike', 'GradesUserController@dislike');
 Route::post('api/osoba_cancel', 'GradesUserController@cancel');
 
+// Notifikacije
 Route::post('api/notifikacija_read', 'NotificationController@read');
 Route::post('api/notifikacija_delete', 'NotificationController@delete');
+Route::post('api/broadcast', 'NotificationController@broadcast');
 
+// Zahtevi
 Route::post('api/request_answer', 'RequestController@answer');
 
 // Rute za Vue komponente (prethodne rute su za laravel)

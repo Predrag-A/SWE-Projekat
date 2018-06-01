@@ -67,7 +67,6 @@ export default {
 
     sendAnswer(){      
       const t = this
-      console.log(t.data.user_id + " " + t.data.request_id  + " " + t.data.request_title + " " + t.data.request_body +" " +t.data.answer);
       axios.post('/api/request_answer', t.data).then(({data}) => {
                 if(data == 1){       
                   this.visible = false

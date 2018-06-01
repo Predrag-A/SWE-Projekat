@@ -23,6 +23,7 @@ Vue.component('star-rating', require('./components/star-rating.vue'));
 Vue.component('like-rating', require('./components/like-rating.vue'));
 Vue.component('notification', require('./components/notification.vue'));
 Vue.component('request', require('./components/request.vue'));
+Vue.component('admin-map', require('./components/adminmap.vue'));
 
 const app = new Vue({
     el: '#app'
