@@ -20,16 +20,6 @@ class PagesController extends Controller
     {
         $this->middleware('auth', ['except' => ['index', 'about']]);
     }
-    
-    public function index(){
-        if(Auth::check()){
-            return view('pages.dashboard');
-        }
-        else{
-        $cities = City::orderBy('name', 'asc')->get();
-        return view('index')->with('cities', $cities);
-        }
-    }
 
     public function about(){
         if(Auth::check()){

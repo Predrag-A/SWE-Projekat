@@ -31,7 +31,7 @@ Route::resource('pridruzivanje', 'AttendsController');
 
 // Rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
-Route::get('/', 'PagesController@index')->name('index');
+Route::get('/', 'PagesController@dashboard')->name('index');
 Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
 Route::get('/admin_panel', 'PagesController@admin')->name('admin');
 Route::get('/notifikacije', 'PagesController@notifications')->name('notifications');
