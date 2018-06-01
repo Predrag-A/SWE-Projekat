@@ -13,3 +13,19 @@ main {
 
 
 .tabs-content.carousel .carousel-item { height:1200px; }
+
+.fa-basketball-ball {
+  color: orange;
+}
+
+.fas.fa-futbol {
+  color: silver;
+}
+
+.fa-table-tennis {
+  color: lime;
+}
+
+.far.fa-futbol.fa-lg.futsal {
+  color: lightskyblue;
+}

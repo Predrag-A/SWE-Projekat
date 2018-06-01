@@ -38,6 +38,7 @@ Route::get('/notifikacije', 'PagesController@notifications')->name('notification
 
 Route::get('korisnici', 'UserController@index')->name('korisnici');
 Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');
+Route::get('tereni', 'CourtController@index')->name('tereni');
 
 // API rute
 Route::get('api/tereni', function(){
