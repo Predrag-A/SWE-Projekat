@@ -88,12 +88,11 @@ class EventController extends Controller
                 $notification->receiver_id = $user;
                 $notification->title = "Poziv Na Događaj";
                 $notification->body = "Korisnik vas je pozvao da prisustvujete događaju koji je upravo kreirao. Link do događaja možete naći ispod." . "<br>" .
-                "
-                <div class='col s6 offset-s3'>
-                    <div class='card medium col-content z-depth-3' style='border: 1px solid {{$event->sport->color}}'>                    
-                        <div class='card-image waves-effect waves-block waves-light'>
-                            <img class='activator' src='/img/" . $sport->image . "'>
-                            <span class='card-title activator'>" . $event->localizedDate() . ", " . $event->getTimeNoSeconds() . "</span>
+                "<div class='col s12 m6 l4 offset-m3 offset-l4'>
+                    <div class='card medium col-content z-depth-3' style='border: 1px solid".$sport->color."'>                    
+                        <div class='card-image'>
+                            <img src='/img/" . $sport->image . "'>
+                            <span class='card-title'>" . $event->localizedDate() . ", " . $event->getTimeNoSeconds() . "</span>
                         </div>
 
                         <div class='card-action center'>
@@ -102,27 +101,12 @@ class EventController extends Controller
                         
                         <div class='card-content'>
                             <span class='card-title " . $sport->color ."-text'>Kreirao:</span>
-                            <a href='/korisnici/".auth()->user()->id."' class='black-text'>".auth()->user()->first_name." ".auth()->user()->last_name."</a>       
-                        </div>
-                        
-                        <!-- TEXT STO ISKACE -->
-                        <div class='card-reveal'>
-                            <span class='card-title grey-text text-darken-4'>".$sport->name."<i class='material-icons right'>close</i></span>
-                            <div class='row'>              
-                            <h6>Pridruženi korisnici:</h6>
-                            <span>".$event->attendsCount()."</span>
-                            <h6>Adresa:</h6>
-                            <span>".$court->address().", ".$court->city->name."</span>
-                            <h6>Ocena terena:</h6>
-                            <star-rating :inline='true' :read-only='true' :rating='".$court->averageGrade()."' :round-start-rating='false' :star-size='25'></star-rating>
-                            <h6>Vaša ocena:</h6>
-                            <star-rating :inline='true' :read-only='true' :rating='".auth()->user()->courtRating($court->id)."' :round-start-rating='false' :star-size='25'></star-rating>
-                            </div>
-                        </div>
+                            <a href='/korisnici/".auth()->user()->id."' class='black-text'>".auth()->user()->first_name." ".auth()->user()->last_name."</a>   
+                            <star-rating></star-rating>    
+                        </div>                        
                     </div>      
                 </div>";
                 $notification->save();
-
             }
         }
 

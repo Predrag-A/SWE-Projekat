@@ -32,9 +32,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>     
 
   <script>          
-    $( document ).ready(function() {  
+    $( document ).ready(function() {    
+      $('.char-counter').characterCounter();
       $('.collapsible.expandable').collapsible({accordion:false});
-      $('.tabs').tabs({swipeable: true});
+      $('.collapsible').collapsible();
+      $('.tabs').tabs();
       $('.parallax').parallax();
       $('.modal').modal();      
       $('.sidenav').sidenav();
@@ -60,7 +62,7 @@
       $('.timepicker').timepicker({
         twelveHour:false
       });
-    });    
+    });        
   </script>
   @include('inc.messages')
   

@@ -14286,7 +14286,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(86);
 
 
 /***/ }),
@@ -14316,7 +14316,9 @@ Vue.component('event-map', __webpack_require__(54));
 Vue.component('friendbutton', __webpack_require__(59));
 Vue.component('star-rating', __webpack_require__(62));
 Vue.component('like-rating', __webpack_require__(72));
-Vue.component('notification', __webpack_require__(79));
+Vue.component('notification', __webpack_require__(75));
+Vue.component('request', __webpack_require__(78));
+Vue.component('admin-map', __webpack_require__(81));
 
 var app = new Vue({
   el: '#app'
@@ -50461,23 +50463,14 @@ if (false) {
 
 /***/ }),
 /* 75 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(80)
+var __vue_script__ = __webpack_require__(76)
 /* template */
-var __vue_template__ = __webpack_require__(81)
+var __vue_template__ = __webpack_require__(77)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50516,7 +50509,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50618,7 +50611,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 81 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50707,6 +50700,1458 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-3972137c", module.exports)
   }
 }
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\request.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d099bf0", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d099bf0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    request: {
+      type: Object,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      visible: true,
+      data: {
+        answer: "",
+        request_id: "",
+        user_id: "",
+        request_title: "",
+        request_body: ""
+      }
+    };
+  },
+  created: function created() {
+    this.data.user_id = this.user.id;
+    this.data.request_id = this.request.id;
+    this.data.request_title = this.request.title;
+    this.data.request_body = this.request.text;
+  },
+
+  methods: {
+    sendAnswer: function sendAnswer() {
+      var _this = this;
+
+      var t = this;
+      axios.post('/api/request_answer', t.data).then(function (_ref) {
+        var data = _ref.data;
+
+        if (data == 1) {
+          _this.visible = false;
+          M.toast({ html: 'Poslat odgovor na zahtev', classes: 'green lighten-3' });
+        } else {
+          _this.visible = false;
+          M.toast({ html: 'Zahtev je već izvršen', classes: 'red lighten-3' });
+        }
+      });
+    },
+    customTime: function customTime() {
+      var temp = this.request.created_at.split(" ");
+      var pom = temp[0].split("-").reverse(); //pom[1]
+      var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+      var datum = pom[0] + ". " + meseci[pom[1] - 1] + " " + pom[2];
+      var pom = temp[1].split(":");
+      datum = datum + ", " + pom[0] + ":" + pom[1];
+      return datum;
+    }
+  }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return this.visible
+    ? _c("li", [
+        _c("div", { staticClass: "collapsible-header" }, [
+          _c("i", { staticClass: "material-icons" }, [_vm._v("expand_more")]),
+          _c("span", [_c("b", [_vm._v(_vm._s(this.request.title))])])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "collapsible-body grey lighten-4" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("b", [
+              _c("a", { attrs: { href: "/korisnici/" + this.user.id } }, [
+                _vm._v(
+                  _vm._s(this.user.first_name) +
+                    " " +
+                    _vm._s(this.user.last_name)
+                )
+              ])
+            ]),
+            _vm._v(" | " + _vm._s(this.user.email) + "\n      "),
+            _c("span", { staticClass: "right" }, [
+              _vm._v(_vm._s(this.customTime()))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "divider row" }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "row",
+            domProps: { innerHTML: _vm._s(this.request.text) }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "divider row" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "input-field" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.answer,
+                    expression: "data.answer"
+                  }
+                ],
+                staticClass: "materialize-textarea",
+                attrs: { id: "textarea_answer" },
+                domProps: { value: _vm.data.answer },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.data, "answer", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "textarea_answer" } }, [
+                _vm._v("Dodaj odgovor")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row center" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn",
+                attrs: { href: "JavaScript:void(0)" },
+                on: { click: _vm.sendAnswer }
+              },
+              [_vm._v("Pošalji odgovor")]
+            )
+          ])
+        ])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d099bf0", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(82)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(84)
+/* template */
+var __vue_template__ = __webpack_require__(85)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-b30c40f8"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\adminmap.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b30c40f8", Component.options)
+  } else {
+    hotAPI.reload("data-v-b30c40f8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(83);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("794f7ef4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b30c40f8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./adminmap.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b30c40f8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./adminmap.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.adminmap[data-v-b30c40f8] {\r\n  width: 100%;\r\n  height: 550px;\r\n  margin: 0 auto;\r\n  background: white;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'adminmap',
+  props: {
+    name: {
+      required: true
+    },
+    cities: {
+      type: Array,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      defaultCoord: new google.maps.LatLng(44.2792544, 20.7451155),
+      mapName: 'event' + this.name + '-map', //za id mape
+      marker: "",
+      map: "",
+      cities_stored: [],
+      data: {
+        lat: " ",
+        long: " ",
+        zoom: " ",
+        name: "",
+        location: "",
+        football: false,
+        basketball: false,
+        handball: false,
+        tennis: false,
+        futsal: false,
+        volleyball: false,
+        city_id: ""
+      },
+      broadcast: {
+        title: "",
+        body: ""
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.initMap();
+    this.cities_stored = this.cities;
+  },
+  methods: {
+
+    // Metoda za dodavanje grada
+    addCity: function addCity() {
+      var t = this;
+      console.log(t.cities_stored);
+      if (t.data.name == "" || t.data.name == null) {
+        M.toast({ html: 'Niste ispravno uneli naziv grada', classes: 'red lighten-3' });
+        return;
+      }
+      if (t.data.lat == " " || t.data.lat == null) {
+        M.toast({ html: 'Niste uneli koordinate grada', classes: 'red lighten-3' });
+        return;
+      }
+      axios.post('/gradovi', t.data).then(function (_ref) {
+        var data = _ref.data;
+
+        if (data) {
+          M.toast({ html: "Grad " + t.data.name + " dodat", classes: 'green lighten-3' });
+        }
+      });
+    },
+
+
+    // Metoda za dodavanje terena
+    addCourt: function addCourt() {
+      var t = this;
+      if (t.data.location == "" || t.data.location == null) {
+        M.toast({ html: 'Niste ispravno uneli lokaciju terena', classes: 'red lighten-3' });
+        return;
+      }
+      if (t.data.lat == " " || t.data.lat == null) {
+        M.toast({ html: 'Niste uneli koordinate terena', classes: 'red lighten-3' });
+        return;
+      }
+      if (t.data.city_id == "" || t.data.lat == null) {
+        M.toast({ html: 'Niste uneli grad', classes: 'red lighten-3' });
+        return;
+      }
+      axios.post('/tereni', t.data).then(function (_ref2) {
+        var data = _ref2.data;
+
+        if (data == 1) {
+          M.toast({ html: 'Teren dodat', classes: 'green lighten-3' });
+        }
+      });
+    },
+
+
+    // Metoda za slanje obavestenja svima
+    notify: function notify() {
+      var t = this;
+      if (t.broadcast.title == "" || t.broadcast.title == null) {
+        M.toast({ html: 'Niste ispravno uneli naslov obaveštenja', classes: 'red lighten-3' });
+        return;
+      }
+      if (t.broadcast.body == "" || t.broadcast.body == null) {
+        M.toast({ html: 'Niste ispravno uneli telo obaveštenja', classes: 'red lighten-3' });
+        return;
+      }
+      axios.post('/api/broadcast', t.broadcast).then(function (_ref3) {
+        var data = _ref3.data;
+
+        if (data == 1) {
+          M.toast({ html: 'Obaveštenje poslato', classes: 'green lighten-3' });
+        }
+      });
+    },
+
+
+    // Metoda za resetovanje podataka o obavestenju
+    resetArea: function resetArea() {
+      this.broadcast.body = "", this.broadcast.title = "";
+    },
+
+
+    // Metoda za inicijalizaciju mape
+    initMap: function initMap() {
+      var t = this;
+      var element = document.getElementById(this.mapName);
+      var options = {
+        zoom: 7,
+        maxZoom: 15,
+        minZoom: 7,
+        draggable: true,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        disableDoubleClickZoom: true,
+        center: this.defaultCoord,
+        styles: [{
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#1d2c4d"
+          }]
+        }, {
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#8ec3b9"
+          }]
+        }, {
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+            "color": "#1a3646"
+          }]
+        }, {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+            "color": "#4b6878"
+          }]
+        }, {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#64779e"
+          }]
+        }, {
+          "featureType": "administrative.province",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+            "color": "#4b6878"
+          }]
+        }, {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+            "color": "#334e87"
+          }]
+        }, {
+          "featureType": "landscape.natural",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#023e58"
+          }]
+        }, {
+          "featureType": "poi",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#283d6a"
+          }]
+        }, {
+          "featureType": "poi",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#6f9ba5"
+          }]
+        }, {
+          "featureType": "poi",
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+            "color": "#1d2c4d"
+          }]
+        }, {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#023e58"
+          }]
+        }, {
+          "featureType": "poi.park",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#3C7680"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#304a7d"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#98a5be"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+            "color": "#1d2c4d"
+          }]
+        }, {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#2c6675"
+          }]
+        }, {
+          "featureType": "road.highway",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+            "color": "#255763"
+          }]
+        }, {
+          "featureType": "road.highway",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#b0d5ce"
+          }]
+        }, {
+          "featureType": "road.highway",
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+            "color": "#023e58"
+          }]
+        }, {
+          "featureType": "transit",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#98a5be"
+          }]
+        }, {
+          "featureType": "transit",
+          "elementType": "labels.text.stroke",
+          "stylers": [{
+            "color": "#1d2c4d"
+          }]
+        }, {
+          "featureType": "transit.line",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#283d6a"
+          }]
+        }, {
+          "featureType": "transit.station",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#3a4762"
+          }]
+        }, {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [{
+            "color": "#0e1626"
+          }]
+        }, {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#4e6d70"
+          }]
+        }]
+      };
+      t.map = new google.maps.Map(element, options);
+      google.maps.event.addListener(t.map, 'click', function (event) {
+        t.mapsListener(event);
+      });
+    },
+
+
+    // Metoda za map click listener
+    mapsListener: function mapsListener(event) {
+      var t = this;
+      var latLng = event.latLng;
+      t.marker = new google.maps.Marker({
+        position: latLng,
+        map: t.map,
+        icon: 'https://i.imgur.com/GvYScOu.png'
+      });
+      t.map.setOptions({ draggable: false, zoomControl: false, scrollwheel: false, clickable: false });
+      t.data.lat = latLng.lat();
+      t.data.long = latLng.lng();
+      t.data.zoom = t.map.getZoom();
+      t.marker.addListener('click', t.markerListener);
+      google.maps.event.clearListeners(t.map, 'click');
+    },
+
+    // Metoda za marker click listener
+    markerListener: function markerListener() {
+      var t = this;
+      t.marker.setMap(null);
+      t.map.setOptions({ draggable: true, zoomControl: true, scrollwheel: true });
+      google.maps.event.addListener(t.map, 'click', function (event) {
+        t.mapsListener(event);
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "adminmap", attrs: { id: _vm.mapName } }),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "row card-content" }, [
+        _c("div", { staticClass: "col s12" }, [
+          _c("div", { staticClass: "input-field col s12 l4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.lat,
+                  expression: "data.lat"
+                }
+              ],
+              attrs: {
+                value: " ",
+                disabled: "",
+                id: "lat",
+                type: "text",
+                name: "lat"
+              },
+              domProps: { value: _vm.data.lat },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "lat", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "lat" } }, [
+              _vm._v("Geografska Širina")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s12 l4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.long,
+                  expression: "data.long"
+                }
+              ],
+              attrs: {
+                value: " ",
+                disabled: "",
+                id: "long",
+                type: "text",
+                name: "long"
+              },
+              domProps: { value: _vm.data.long },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "long", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "long" } }, [
+              _vm._v("Geografska Dužina")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s12 l4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.zoom,
+                  expression: "data.zoom"
+                }
+              ],
+              attrs: { disabled: "", id: "zoom", type: "text", name: "zoom" },
+              domProps: { value: _vm.data.zoom },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "zoom", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "zoom" } }, [_vm._v("Zoom")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s12 l3" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s12" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.name,
+                  expression: "data.name"
+                }
+              ],
+              attrs: { id: "name", type: "text" },
+              domProps: { value: _vm.data.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "name" } }, [_vm._v("Naziv")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row center hide-on-large-only" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn waves-effect waves-light",
+                attrs: { type: "submit", name: "action" },
+                on: { click: _vm.addCity }
+              },
+              [_vm._v("Dodaj grad")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s12 l9" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s12 l7" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.location,
+                  expression: "data.location"
+                }
+              ],
+              attrs: { id: "location", type: "text" },
+              domProps: { value: _vm.data.location },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.data, "location", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "location" } }, [_vm._v("Lokacija")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field col s12 l5" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.city_id,
+                    expression: "data.city_id"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.data,
+                      "city_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { value: "", disabled: "", selected: "" } },
+                  [_vm._v("Izaberite grad")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.cities_stored, function(city) {
+                  return _c(
+                    "option",
+                    { key: city.id, domProps: { value: city.id } },
+                    [_vm._v(_vm._s(city.name))]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("label", [_vm._v("Grad")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.football,
+                    expression: "data.football"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "football", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.football)
+                    ? _vm._i(_vm.data.football, "1") > -1
+                    : _vm.data.football
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.football,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.football = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.football = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "football", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Fudbal")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.basketball,
+                    expression: "data.basketball"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "basketball", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.basketball)
+                    ? _vm._i(_vm.data.basketball, "1") > -1
+                    : _vm.data.basketball
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.basketball,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.basketball = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.basketball = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "basketball", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Košarka")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.handball,
+                    expression: "data.handball"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "handball", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.handball)
+                    ? _vm._i(_vm.data.handball, "1") > -1
+                    : _vm.data.handball
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.handball,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.handball = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.handball = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "handball", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Rukomet")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.tennis,
+                    expression: "data.tennis"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "tennis", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.tennis)
+                    ? _vm._i(_vm.data.tennis, "1") > -1
+                    : _vm.data.tennis
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.tennis,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.tennis = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.tennis = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "tennis", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Tenis")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.futsal,
+                    expression: "data.futsal"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "futsal", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.futsal)
+                    ? _vm._i(_vm.data.futsal, "1") > -1
+                    : _vm.data.futsal
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.futsal,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.futsal = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.futsal = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "futsal", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Futsal")])
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "col s4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.volleyball,
+                    expression: "data.volleyball"
+                  }
+                ],
+                attrs: { type: "checkbox", name: "volleyball", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.data.volleyball)
+                    ? _vm._i(_vm.data.volleyball, "1") > -1
+                    : _vm.data.volleyball
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.data.volleyball,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.data.volleyball = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.data.volleyball = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.$set(_vm.data, "volleyball", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [_vm._v("Odbojka")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row center" }, [
+          _c("div", { staticClass: "col s12 l3 hide-on-med-and-down" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn waves-effect waves-light",
+                attrs: { type: "submit", name: "action" },
+                on: { click: _vm.addCity }
+              },
+              [_vm._v("Dodaj grad")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col s12 l9" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn waves-effect waves-light",
+                attrs: { name: "action" },
+                on: { click: _vm.addCourt }
+              },
+              [_vm._v("Dodaj teren")]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
+      _vm._m(3),
+      _vm._v(" "),
+      _c("div", { staticClass: "row card-content" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.broadcast.title,
+                  expression: "broadcast.title"
+                }
+              ],
+              attrs: { id: "title", type: "text" },
+              domProps: { value: _vm.broadcast.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.broadcast, "title", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "title" } }, [_vm._v("Naslov")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-field" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.broadcast.body,
+                  expression: "broadcast.body"
+                }
+              ],
+              staticClass: "materialize-textarea",
+              attrs: { id: "textarea_add" },
+              domProps: { value: _vm.broadcast.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.broadcast, "body", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "textarea_add" } }, [
+              _vm._v("Sadržaj")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "secondary-content",
+                attrs: { href: "JavaScript:void(0)" },
+                on: { click: _vm.resetArea }
+              },
+              [
+                _c("i", { staticClass: "material-icons red-text" }, [
+                  _vm._v("clear")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "center" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn waves-effect waves-light",
+                attrs: { name: "action" },
+                on: { click: _vm.notify }
+              },
+              [
+                _vm._v("Pošalji Obaveštenje "),
+                _c("i", { staticClass: "material-icons right" }, [
+                  _vm._v("send")
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("blockquote", { staticClass: "blue-grey-text text-lighten-2" }, [
+      _vm._v("\n    Napomena:"),
+      _c("br"),
+      _vm._v(
+        "\n    Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju.\n    "
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row center" }, [
+      _c("h6", [_vm._v("Dodavanje grada")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row center" }, [
+      _c("h6", [_vm._v("Dodavanje terena")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("blockquote", { staticClass: "blue-grey-text text-lighten-2" }, [
+      _vm._v("\n      Napomena:"),
+      _c("br"),
+      _vm._v(
+        "\n      Poslato obaveštenje stiže svim registrovanim korisnicima. Koristiti sa pažnjom.\n    "
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b30c40f8", module.exports)
+  }
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

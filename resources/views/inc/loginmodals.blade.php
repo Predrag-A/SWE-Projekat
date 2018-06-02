@@ -60,7 +60,7 @@
         <label>Grad</label>
       </div>
       <div class="input-field col s12">
-        {{Form::number('jmbg','', ['required'=>'required'])}}
+        {{Form::number('jmbg','', ['class'=>'char-counter','required'=>'required', 'data-length' => '13'])}}
         {{Form::label('jmbg','JMBG',['for'=>'jmbg'])}}
       </div>
       <div class="input-field col s12">        
