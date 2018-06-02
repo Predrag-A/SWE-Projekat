@@ -5,11 +5,9 @@
         <div class="container">
             <div class="row">
                 <div class="col s12">
-                    <div class="card-panel">        
-                        <div class="row">
-                            <a class="btn modal-trigger" href="#eventCreateModal">Napravi dogadjaj</a>
-                        </div>
+                    <div class="card-panel">    
                         <div class="row" v-show="toggle" id="kartice">
+                          <h3 id="naslov">{{trenutniTeren}}</h3>
                           <div v-for="(event,index) in pomNiz" :key="index" class="col s3 10">
                             <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
                               <div class="card-image">
@@ -19,8 +17,6 @@
                               <div class="card-content">
                                 <h6>Datum i vreme:</h6>
                                 <span>{{customTime(event.dogadjaj.time)}}</span>
-                                <h6>Adresa:</h6>
-                                <span>{{event.location}}</span>
                               </div>
                               <div class="card-action center">
                                 <a :href=event.url>Detalji</a>
@@ -59,7 +55,8 @@ export default {
         courtMarkers: [],
         cityEvents: [],
         toggle: false,
-        pomNiz: []
+        pomNiz: [],
+        trenutniTeren: {}
     }
   },
   methods: {
@@ -389,6 +386,12 @@ export default {
                     this.addCityMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom, i+1);
                 }
           }
+          var newEvent = document.createElement('a');
+          newEvent.className = "btn modal-trigger green accent-3";
+          newEvent.href = "#eventCreateModal";
+          newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
+          newEvent.index = 1;
+          map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
       },
 
       addCityMarker(map, koordinate, zoom, i) {
@@ -414,7 +417,7 @@ export default {
               map: map,
               icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
               content: i, //id terena
-              url: "#kartice"
+              url: "#naslov"
           });
           this.courtMarkers.push(marker);
           var infoWindow = new google.maps.InfoWindow({
@@ -430,6 +433,7 @@ export default {
               }, 1000 );
               self.toggle = true;
               self.pomNiz = [];
+              self.trenutniTeren = lokacija.split(',')[0];
               self.cityEvents.forEach(function(event) {
                   if(event.court_id == i){
                       self.pomNiz.push({

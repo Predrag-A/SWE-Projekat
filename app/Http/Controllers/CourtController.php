@@ -26,7 +26,7 @@ class CourtController extends Controller
      */
     public function index()
     {
-        $courts = Court::all();
+        $courts = Court::orderBy('location','desc')->paginate(12);
         return view('pages.courts.index')->with('courts', $courts);
     }
 

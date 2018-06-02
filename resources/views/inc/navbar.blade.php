@@ -17,6 +17,7 @@
       @else          
         <ul class="right">          
           <li><a href="{{route('korisnici')}}" class="waves-effect hide-on-med-and-down">Korisnici</a></li>
+          <li><a href="{{route('tereni')}}" class="waves-effect hide-on-med-and-down">Tereni</a></li>
           <li><a href="{{route('dogadjaji')}}" class="waves-effect hide-on-med-and-down">Događaji</a></li>  
           <li>
               @if(Auth::user()->hasUnreadNotifications())
@@ -56,6 +57,7 @@
   <li><a href="{{route('admin')}}">Admin panel</a></li>
   @endif
   <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
+  <li><a href="{{route('tereni')}}" class="waves-effect">Tereni</a></li>
   <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Početna strana</a></li>
   <li>

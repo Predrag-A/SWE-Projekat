@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">  
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   </head>
   <body>   
@@ -40,6 +41,7 @@
       $('.modal').modal();      
       $('.sidenav').sidenav();
       $('.tooltipped').tooltip();
+      $('.slider').slider();
       $(".dropdown-trigger").dropdown({
         coverTrigger: false
       });

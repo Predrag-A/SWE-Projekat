@@ -62,4 +62,14 @@ class Court extends Model
         $arr = explode(",", $this->location);
         return $arr[0];
     }
+
+    public function getPictures() {
+        $i = 1;
+        $slike = array();
+        while(file_exists(public_path().'/storage/tereni/Teren'.$this->id.'Slika'.$i.'.jpg')) {
+            array_push($slike,'/storage/tereni/Teren'.$this->id.'Slika'.$i.'.jpg');
+            $i++;
+        }
+        return $slike;
+    }
 }
