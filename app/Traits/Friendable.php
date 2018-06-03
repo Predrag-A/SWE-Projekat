@@ -116,7 +116,28 @@ trait Friendable
 		{
 			return 0;
 		}
-  }
+	}
+	
+	public function check($id){
+				if(auth()->user()->is_friends_with($id) === 1)
+        {
+					// 1 je ako su prijatelji
+            return 1;
+        }
+        
+        if(auth()->user()->has_pending_friend_request_from($id))
+        {            
+					// 2 je ako je dobio zahtev
+            return 2;
+        }
+        if(auth()->user()->has_pending_friend_request_sent_to($id))
+        {
+					// 3 je ako ceka da se zahtev potvrdi
+            return 3;
+				}
+				// 0 je ako nije nista odozgo
+        return 0;
+	}
   
   // Funkcija za vracanje idjeva zahteva
 	public function pending_friend_requests_ids()

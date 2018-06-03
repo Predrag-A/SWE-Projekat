@@ -4,8 +4,8 @@
 <div class="row">
   <div class="col s12">  
     <ul class="tabs">
-      <li class="tab col s4 offset-s1"><a href="#tab-1">Zahtevi</a></li>
-      <li class="tab col s4 offset-s2 "><a href="#tab-2">Dodavanje</a></li>
+      <li class="tab col s6"><a href="#tab-1">Zahtevi</a></li>
+      <li class="tab col s6"><a href="#tab-2">Dodavanje</a></li>
     </ul>
   </div>
 

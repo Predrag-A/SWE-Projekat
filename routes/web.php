@@ -65,7 +65,6 @@ Route::get('api/test', function(){
 });
 
 // Prijateljstva
-Route::get('api/proveri_prijateljstvo/{id}', 'FriendsController@check');
 Route::post('api/dodaj_prijatelja', 'FriendsController@add');
 Route::post('api/prihvati_prijatelja', 'FriendsController@accept');
 Route::post('api/obrisi_prijatelja', 'FriendsController@delete');

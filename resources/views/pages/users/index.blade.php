@@ -27,7 +27,7 @@
               <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}" :readonly="true"></like-rating>
             </div>
             <div class="right">
-                <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
+            <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input={{Auth::user()->check($user->id)}}></friendbutton>
             </div>
 
           </div>

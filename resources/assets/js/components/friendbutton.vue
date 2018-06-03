@@ -1,33 +1,19 @@
 <template>
-  <div class="row" v-if="user_id != auth">    
-    
-    <div class="center" v-if="loading">
-      <div class="preloader-wrapper active">
-        <div class="spinner-layer">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="row" v-if="user_id != auth">   
 
-    <div class="center" v-if="!loading">
+    <div class="center">
 
-      <!-- AKO NISU PRIJATELJI -->
+      <!-- AKO NISU PRIJATELJI, STATUS 0 -->
       <button v-if="status == 0" class="btn-small waves-effect waves-light" @click="add_friend">Dodaj Prijatelja</button>
       
-      <!-- AKO JE KORISNIKU STIGAO ZAHTEV -->
-      <button v-if="status == 'pending'" class="btn-small waves-effect waves-light" @click="accept_friend">Prihvati Zahtev</button>
+      <!-- AKO JE KORISNIKU STIGAO ZAHTEV, STATUS 2 -->
+      <button v-if="status == 2" class="btn-small waves-effect waves-light" @click="accept_friend">Prihvati Zahtev</button>
       
-      <!-- AKO JE KORISNIK POSLAO ZAHTEV -->
-      <button v-if="status == 'waiting'" class="btn-small waves-effect waves-light" @click="delete_friend">Obriši Zahtev</button>
+      <!-- AKO JE KORISNIK POSLAO ZAHTEV, STATUS 3 -->
+      <button v-if="status == 3" class="btn-small waves-effect waves-light" @click="delete_friend">Obriši Zahtev</button>
       
-      <!-- AKO JESU PRIJATELJI -->   
-      <div v-if="status == 'friends'">
+      <!-- AKO JESU PRIJATELJI, STATUS 1 -->   
+      <div v-if="status == 1">
         <div class="row">
           Prijatelji <i class="material-icons tiny">check</i>
         </div>
@@ -47,13 +33,14 @@ export default {
     },
     auth: {
       required: true,
+    },
+    status_input: {
+      required: true,
     }
   },
   data: function() {
     return {
-      status: '',
-      // Koristi se ako je server spor pa da se prikaze loading dok se ne ucitaju podaci
-      loading: true,
+      status: '',      
       data:{
         user_id: -1,
       },
@@ -61,12 +48,8 @@ export default {
   },   
   mounted(){
     
-    axios.get('/api/proveri_prijateljstvo/' + this.user_id)
-                  .then(({data}) => {
-                      this.status = data.status;
-                      this.loading = false;
-                      this.data.user_id = this.user_id;
-                  })
+    this.status = this.status_input
+    this.data.user_id = this.user_id;
   },
 
   methods: {
@@ -75,7 +58,7 @@ export default {
       const t = this;      
       axios.post('/api/dodaj_prijatelja', t.data).then(({data}) => {
                   if(data == 1){
-                    this.status = 'waiting';
+                    this.status = 3;
                   }
               }) 
     },
@@ -85,7 +68,7 @@ export default {
       const t = this;      
       axios.post('/api/prihvati_prijatelja', t.data).then(({data}) => {
                   if(data == 1){
-                    this.status = 'friends';
+                    this.status = 1;
                   }
               }) 
     },
@@ -94,8 +77,7 @@ export default {
       const t = this;      
       axios.post('/api/obrisi_prijatelja', t.data).then(({data}) => {
                   if(data == 1){                    
-                    this.status = '0';
-                  }
+                    this.status = 0;                  }
               }) 
     }
 

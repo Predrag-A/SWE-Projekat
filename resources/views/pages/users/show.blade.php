@@ -17,7 +17,7 @@
           @endif        
           
           <!-- PRIJATELJI -->
-          <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}"></friendbutton>
+          <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input="{{Auth::user()->check($user->id)}}"></friendbutton>
 
           <!-- OCENJIVANJE -->          
           @if(Auth::user()->id == $user->id)          

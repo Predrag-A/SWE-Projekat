@@ -49144,20 +49144,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -49167,65 +49153,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     auth: {
       required: true
+    },
+    status_input: {
+      required: true
     }
   },
   data: function data() {
     return {
       status: '',
-      // Koristi se ako je server spor pa da se prikaze loading dok se ne ucitaju podaci
-      loading: true,
       data: {
         user_id: -1
       }
     };
   },
   mounted: function mounted() {
-    var _this = this;
 
-    axios.get('/api/proveri_prijateljstvo/' + this.user_id).then(function (_ref) {
-      var data = _ref.data;
-
-      _this.status = data.status;
-      _this.loading = false;
-      _this.data.user_id = _this.user_id;
-    });
+    this.status = this.status_input;
+    this.data.user_id = this.user_id;
   },
 
 
   methods: {
     add_friend: function add_friend() {
-      var _this2 = this;
+      var _this = this;
 
       var t = this;
-      axios.post('/api/dodaj_prijatelja', t.data).then(function (_ref2) {
-        var data = _ref2.data;
+      axios.post('/api/dodaj_prijatelja', t.data).then(function (_ref) {
+        var data = _ref.data;
 
         if (data == 1) {
-          _this2.status = 'waiting';
+          _this.status = 3;
         }
       });
     },
     accept_friend: function accept_friend() {
-      var _this3 = this;
+      var _this2 = this;
 
       var t = this;
-      axios.post('/api/prihvati_prijatelja', t.data).then(function (_ref3) {
-        var data = _ref3.data;
+      axios.post('/api/prihvati_prijatelja', t.data).then(function (_ref2) {
+        var data = _ref2.data;
 
         if (data == 1) {
-          _this3.status = 'friends';
+          _this2.status = 1;
         }
       });
     },
     delete_friend: function delete_friend() {
-      var _this4 = this;
+      var _this3 = this;
 
       var t = this;
-      axios.post('/api/obrisi_prijatelja', t.data).then(function (_ref4) {
-        var data = _ref4.data;
+      axios.post('/api/obrisi_prijatelja', t.data).then(function (_ref3) {
+        var data = _ref3.data;
 
         if (data == 1) {
-          _this4.status = '0';
+          _this3.status = 0;
         }
       });
     }
@@ -49243,83 +49224,59 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.user_id != _vm.auth
     ? _c("div", { staticClass: "row" }, [
-        _vm.loading
-          ? _c("div", { staticClass: "center" }, [_vm._m(0)])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.loading
-          ? _c("div", { staticClass: "center" }, [
-              _vm.status == 0
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn-small waves-effect waves-light",
-                      on: { click: _vm.add_friend }
-                    },
-                    [_vm._v("Dodaj Prijatelja")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.status == "pending"
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn-small waves-effect waves-light",
-                      on: { click: _vm.accept_friend }
-                    },
-                    [_vm._v("Prihvati Zahtev")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.status == "waiting"
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn-small waves-effect waves-light",
-                      on: { click: _vm.delete_friend }
-                    },
-                    [_vm._v("Obriši Zahtev")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.status == "friends"
-                ? _c("div", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn-small waves-effect waves-light",
-                        on: { click: _vm.delete_friend }
-                      },
-                      [_vm._v("Ukloni iz prijatelja")]
-                    )
-                  ])
-                : _vm._e()
-            ])
-          : _vm._e()
+        _c("div", { staticClass: "center" }, [
+          _vm.status == 0
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn-small waves-effect waves-light",
+                  on: { click: _vm.add_friend }
+                },
+                [_vm._v("Dodaj Prijatelja")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.status == 2
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn-small waves-effect waves-light",
+                  on: { click: _vm.accept_friend }
+                },
+                [_vm._v("Prihvati Zahtev")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.status == 3
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn-small waves-effect waves-light",
+                  on: { click: _vm.delete_friend }
+                },
+                [_vm._v("Obriši Zahtev")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.status == 1
+            ? _c("div", [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn-small waves-effect waves-light",
+                    on: { click: _vm.delete_friend }
+                  },
+                  [_vm._v("Ukloni iz prijatelja")]
+                )
+              ])
+            : _vm._e()
+        ])
       ])
     : _vm._e()
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "preloader-wrapper active" }, [
-      _c("div", { staticClass: "spinner-layer" }, [
-        _c("div", { staticClass: "circle-clipper left" }, [
-          _c("div", { staticClass: "circle" })
-        ]),
-        _c("div", { staticClass: "gap-patch" }, [
-          _c("div", { staticClass: "circle" })
-        ]),
-        _c("div", { staticClass: "circle-clipper right" }, [
-          _c("div", { staticClass: "circle" })
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
