@@ -8,7 +8,7 @@
                     <div class="card-panel">    
                         <div class="row" v-show="toggle" id="kartice">
                           <h3 id="naslov">{{trenutniTeren}}</h3>
-                          <div v-for="(event,index) in pomNiz" :key="index" class="col s3 10">
+                          <div v-for="(event,index) in pomNiz" :key="index" class="col s6 m4">
                             <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
                               <div class="card-image">
                                 <img :src="'img/'+ event.sport.image">
@@ -42,6 +42,9 @@ export default {
       },
       createbtnurl: {
           required: true
+      },
+      userstatus: {
+        required: true
       }
   },
   data () { 
@@ -387,8 +390,13 @@ export default {
                 }
           }
           var newEvent = document.createElement('a');
-          newEvent.className = "btn modal-trigger green accent-3";
-          newEvent.href = "#eventCreateModal";
+          if(this.userstatus == "Suspendovan"){
+            newEvent.className = "btn disabled";
+          }
+          else{            
+            newEvent.className = "btn modal-trigger green accent-3";
+            newEvent.href = "#eventCreateModal";
+          }
           newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
           newEvent.index = 1;
           map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);

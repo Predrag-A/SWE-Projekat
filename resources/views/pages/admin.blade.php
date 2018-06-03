@@ -22,7 +22,7 @@
         {!! $requests->render() !!}
       </div>
       @else    
-      <div class="row center">
+      <div class="row center blue-grey-text text-lighten-2">
         <h4>Trenutno nema aktivnih zahteva</h4>
       </div>
       @endif

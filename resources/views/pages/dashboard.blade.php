@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- ovo je vue.js komponenta gde pomocu propa saljemo neku vrednost-->
-<google-map name="serbia" createbtnurl="{{route('dogadjaji')}}"></google-map>
+<google-map name="serbia" createbtnurl="{{route('dogadjaji')}}" userstatus="{{Auth::user()->status}}"></google-map>
 
 <div id="eventCreateModal" class="modal" style="height:500px; width:70%">
   <div class="modal-content">

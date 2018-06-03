@@ -47579,10 +47579,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 //TODO: DA SE PRIKAZE BROJ PRIDRUZENIH LJUDI DOGADJAJU
 //TODO: DA SE DODA SELECT PO SPORTOVIMA
@@ -47593,6 +47589,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       required: true
     },
     createbtnurl: {
+      required: true
+    },
+    userstatus: {
       required: true
     }
   },
@@ -47607,7 +47606,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       courtMarkers: [],
       cityEvents: [],
       toggle: false,
-      pomNiz: []
+      pomNiz: [],
+      trenutniTeren: {}
     };
   },
 
@@ -47857,6 +47857,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.addCityMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom, i + 1);
         }
       }
+      var newEvent = document.createElement('a');
+      if (this.userstatus == "Suspendovan") {
+        newEvent.className = "btn disabled";
+      } else {
+        newEvent.className = "btn modal-trigger green accent-3";
+        newEvent.href = "#eventCreateModal";
+      }
+      newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
+      newEvent.index = 1;
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
     },
     addCityMarker: function addCityMarker(map, koordinate, zoom, i) {
       var marker = new google.maps.Marker({
@@ -47882,7 +47892,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         map: map,
         icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
         content: i, //id terena
-        url: "#kartice"
+        url: "#naslov"
       });
       this.courtMarkers.push(marker);
       var infoWindow = new google.maps.InfoWindow({
@@ -47900,6 +47910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, 1000);
         self.toggle = true;
         self.pomNiz = [];
+        self.trenutniTeren = lokacija.split(',')[0];
         self.cityEvents.forEach(function (event) {
           if (event.court_id == i) {
             self.pomNiz.push({
@@ -48002,8 +48013,6 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col s12" }, [
           _c("div", { staticClass: "card-panel" }, [
-            _vm._m(0),
-            _vm._v(" "),
             _c(
               "div",
               {
@@ -48018,44 +48027,47 @@ var render = function() {
                 staticClass: "row",
                 attrs: { id: "kartice" }
               },
-              _vm._l(_vm.pomNiz, function(event, index) {
-                return _c("div", { key: index, staticClass: "col s3 10" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "card medium col-content z-depth-3",
-                      style: "border: 1px solid " + event.sport.color
-                    },
-                    [
-                      _c("div", { staticClass: "card-image" }, [
-                        _c("img", {
-                          attrs: { src: "img/" + event.sport.image }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "card-title" })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-content" }, [
-                        _c("h6", [_vm._v("Datum i vreme:")]),
-                        _vm._v(" "),
-                        _c("span", [
-                          _vm._v(_vm._s(_vm.customTime(event.dogadjaj.time)))
+              [
+                _c("h3", { attrs: { id: "naslov" } }, [
+                  _vm._v(_vm._s(_vm.trenutniTeren))
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.pomNiz, function(event, index) {
+                  return _c("div", { key: index, staticClass: "col s6 m4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card medium col-content z-depth-3",
+                        style: "border: 1px solid " + event.sport.color
+                      },
+                      [
+                        _c("div", { staticClass: "card-image" }, [
+                          _c("img", {
+                            attrs: { src: "img/" + event.sport.image }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "card-title" })
                         ]),
                         _vm._v(" "),
-                        _c("h6", [_vm._v("Adresa:")]),
+                        _c("div", { staticClass: "card-content" }, [
+                          _c("h6", [_vm._v("Datum i vreme:")]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.customTime(event.dogadjaj.time)))
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v(_vm._s(event.location))])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-action center" }, [
-                        _c("a", { attrs: { href: event.url } }, [
-                          _vm._v("Detalji")
+                        _c("div", { staticClass: "card-action center" }, [
+                          _c("a", { attrs: { href: event.url } }, [
+                            _vm._v("Detalji")
+                          ])
                         ])
-                      ])
-                    ]
-                  )
-                ])
-              })
+                      ]
+                    )
+                  ])
+                })
+              ],
+              2
             )
           ])
         ])
@@ -48063,23 +48075,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn modal-trigger",
-          attrs: { href: "#eventCreateModal" }
-        },
-        [_vm._v("Napravi dogadjaj")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

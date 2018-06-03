@@ -25,7 +25,6 @@ Route::resource('tereni','CourtController');
 Route::resource('dogadjaji','EventController');
 Route::resource('sportovi','SportController');
 Route::resource('korisnici','UserController');
-Route::resource('zahtevi','RequestController');
 Route::resource('komentari','CommentController');
 Route::resource('pridruzivanje', 'AttendsController');
 
@@ -88,6 +87,7 @@ Route::post('api/broadcast', 'NotificationController@broadcast');
 
 // Zahtevi
 Route::post('api/request_answer', 'RequestController@answer');
+Route::post('api/request_send', 'RequestController@send')->name('request');
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

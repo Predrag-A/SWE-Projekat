@@ -1,10 +1,12 @@
 <footer class="page-footer">
   <div class="container">
     <div class="row center">
-    <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="FAQ" href=""><i class="fas fa-question"></i></a>
-    &nbsp;
-    <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Kontakt" href=""><i class="material-icons">email</i></a>
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="FAQ" href=""><i class="fas fa-question"></i></a>
         &nbsp;
+        @auth
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light modal-trigger" data-position="top" data-tooltip="Kontakt" href="#requestmodal"><i class="material-icons">email</i></a>
+        &nbsp;        
+        @endauth
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="O nama" href="{{route('about')}}"><i class="fas fa-info"></i></a>
         &nbsp;
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Facebook" href=""><i class="fab fa-facebook-f"></i></a>
@@ -21,7 +23,7 @@
   <div class="footer-copyright">
     <div class="container">
       <div class="left">
-        #IzadjiNaTeren
+        #IzađiNaTeren
       </div>
       <div class="right">Copyright &copy; <?php echo date("Y"); ?>, Garbage Collectors</div>
     </div>    

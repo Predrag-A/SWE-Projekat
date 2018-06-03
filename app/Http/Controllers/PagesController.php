@@ -31,6 +31,11 @@ class PagesController extends Controller
         }
     }
 
+    public function index(){  
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('index')->with('cities', $cities);    
+    }
+
     public function dashboard(){  
         $cities = City::orderBy('name', 'asc')->get();
         return view('pages.dashboard')->with('cities', $cities);    

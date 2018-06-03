@@ -47,4 +47,20 @@ class RequestController extends Controller
         
     }
     
+    public function send(Request $request){
+
+        $this->validate($request, [
+            'request' => 'required|max:255',
+            'request_title' => 'required|max:25',
+        ]);
+
+        $req = new RequestModel();
+        $req->title = $request->input('request_title');
+        $req->text = $request->input('request');
+        $req->user_id = auth()->user()->id;
+        $req->save();
+
+        return redirect()->back()->with('success', 'Vaša poruka je prosleđena administratorima');
+    }
+    
 }
