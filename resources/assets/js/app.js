@@ -24,6 +24,7 @@ Vue.component('like-rating', require('./components/like-rating.vue'));
 Vue.component('notification', require('./components/notification.vue'));
 Vue.component('request', require('./components/request.vue'));
 Vue.component('admin-map', require('./components/adminmap.vue'));
+Vue.component('friend-list', require('./components/friendlist.vue'));
 
 const app = new Vue({
     el: '#app'

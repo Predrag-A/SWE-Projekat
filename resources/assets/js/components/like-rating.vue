@@ -1,6 +1,6 @@
 <template>  
   <div class="row">
-    <span class="green-text">{{this.positive}}</span>
+    <span>{{this.positive}}</span>
     <!-- DEFAULTNI -->
     <span v-if="status == 'default'">      
       <a href="JavaScript:void(0)" @click="like"><i class="material-icons grey-text text-lighten-3">thumb_up</i></a>
@@ -24,7 +24,7 @@
       <span><i class="material-icons green-text">thumb_up</i></span>
       <span><i class="material-icons red-text">thumb_down</i></span>
     </span>  
-    <span class="red-text">{{this.negative}}</span>
+    <span>{{this.negative}}</span>
   </div>
 </template>
 <script>

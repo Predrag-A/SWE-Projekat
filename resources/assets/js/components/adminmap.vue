@@ -5,7 +5,7 @@
     <div class="card">
       <div class="adminmap" :id="mapName"></div>   
       <blockquote class="blue-grey-text text-lighten-2">
-      Napomena:<br>
+      <b>Napomena:</b><br>
       Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju.
       </blockquote>   
       <div class="row card-content">   
@@ -94,7 +94,7 @@
     <!-- DEO ZA BROADCAST -->
     <div class="card">
       <blockquote class="blue-grey-text text-lighten-2">
-        Napomena:<br>
+        <b>Napomena:</b><br>
         Poslato obaveštenje stiže svim registrovanim korisnicima. Koristiti sa pažnjom.
       </blockquote>
       <div class="row card-content">

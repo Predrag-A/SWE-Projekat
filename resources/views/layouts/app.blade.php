@@ -44,7 +44,8 @@
       $('.tooltipped').tooltip();
       $('.slider').slider();
       $(".dropdown-trigger").dropdown({
-        coverTrigger: false
+        coverTrigger: false,
+        hover: true
       });
       $('select').formSelect();
       $('.datepicker').datepicker({ 

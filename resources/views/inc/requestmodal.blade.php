@@ -3,6 +3,9 @@
   <form action="{{ route('request') }}" method="post">
     {{csrf_field()}}
     <div class="modal-content">
+      <blockquote>
+        Poruka koju ovde unesete biće prosleđena administratorima. Odgovor možete očekivati u roku od najkasnije 2-3 dana.
+      </blockquote>
       <!-- NASLOV -->
       <div class="input-field">
         <input id="request_title" type="text" class="char-counter" name="request_title" data-length="25">

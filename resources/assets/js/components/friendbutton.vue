@@ -13,10 +13,7 @@
       <button v-if="status == 3" class="btn-small waves-effect waves-light" @click="delete_friend">Obriši Zahtev</button>
       
       <!-- AKO JESU PRIJATELJI, STATUS 1 -->   
-      <div v-if="status == 1">
-        <div class="row">
-          Prijatelji <i class="material-icons tiny">check</i>
-        </div>
+      <div v-if="status == 1">        
         <button class="btn-small waves-effect waves-light" @click="delete_friend">Ukloni iz prijatelja</button>
       </div>
     </div>

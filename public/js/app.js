@@ -14319,6 +14319,7 @@ Vue.component('like-rating', __webpack_require__(72));
 Vue.component('notification', __webpack_require__(75));
 Vue.component('request', __webpack_require__(78));
 Vue.component('admin-map', __webpack_require__(81));
+Vue.component('friend-list', __webpack_require__(90));
 
 var app = new Vue({
   el: '#app'
@@ -49141,9 +49142,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -49260,8 +49258,6 @@ var render = function() {
           _vm._v(" "),
           _vm.status == 1
             ? _c("div", [
-                _vm._m(0),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -49276,17 +49272,7 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _vm._v("\n        Prijatelji "),
-      _c("i", { staticClass: "material-icons tiny" }, [_vm._v("check")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -50282,7 +50268,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("span", { staticClass: "green-text" }, [_vm._v(_vm._s(this.positive))]),
+    _c("span", [_vm._v(_vm._s(this.positive))]),
     _vm._v(" "),
     _vm.status == "default"
       ? _c("span", [
@@ -50380,7 +50366,7 @@ var render = function() {
       ? _c("span", [_vm._m(0), _vm._v(" "), _vm._m(1)])
       : _vm._e(),
     _vm._v(" "),
-    _c("span", { staticClass: "red-text" }, [_vm._v(_vm._s(this.negative))])
+    _c("span", [_vm._v(_vm._s(this.negative))])
   ])
 }
 var staticRenderFns = [
@@ -52055,7 +52041,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("blockquote", { staticClass: "blue-grey-text text-lighten-2" }, [
-      _vm._v("\n    Napomena:"),
+      _c("b", [_vm._v("Napomena:")]),
       _c("br"),
       _vm._v(
         "\n    Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju.\n    "
@@ -52083,7 +52069,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("blockquote", { staticClass: "blue-grey-text text-lighten-2" }, [
-      _vm._v("\n      Napomena:"),
+      _c("b", [_vm._v("Napomena:")]),
       _c("br"),
       _vm._v(
         "\n      Poslato obaveštenje stiže svim registrovanim korisnicima. Koristiti sa pažnjom.\n    "
@@ -52105,6 +52091,199 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(91)
+/* template */
+var __vue_template__ = __webpack_require__(92)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\friendlist.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-35219cd3", Component.options)
+  } else {
+    hotAPI.reload("data-v-35219cd3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    users: {
+      type: Array,
+      required: true
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 9
+    }
+  },
+  data: function data() {
+    return {
+      pageNumber: 0
+    };
+  },
+  methods: {
+    nextPage: function nextPage() {
+      this.pageNumber++;
+    },
+    prevPage: function prevPage() {
+      this.pageNumber--;
+    }
+  },
+  computed: {
+    pageCount: function pageCount() {
+      var l = this.users.length,
+          s = this.size;
+      return Math.floor(l / s);
+    },
+    paginatedData: function paginatedData() {
+      var start = this.pageNumber * this.size,
+          end = start + this.size;
+      return this.users.slice(start, end);
+    }
+  }
+});
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.paginatedData, function(user) {
+        return _c("div", { key: user.id, staticClass: "col s4" }, [
+          _c("div", { staticClass: "card-image" }, [
+            _c("img", { attrs: { src: "/storage/avatars/" + user.user_img } }),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "blue-text text-darken-2",
+                attrs: { href: "/korisnici/" + user.id }
+              },
+              [
+                _c("small", [
+                  _vm._v(_vm._s(user.first_name) + " " + _vm._s(user.last_name))
+                ])
+              ]
+            )
+          ])
+        ])
+      })
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn-small waves-effect waves-light",
+          attrs: { disabled: _vm.pageNumber === 0 },
+          on: { click: _vm.prevPage }
+        },
+        [
+          _c("i", { staticClass: "material-icons right" }, [
+            _vm._v("arrow_back_ios")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn-small waves-effect waves-light",
+          attrs: { disabled: _vm.pageNumber >= _vm.pageCount },
+          on: { click: _vm.nextPage }
+        },
+        [
+          _c("i", { staticClass: "material-icons right" }, [
+            _vm._v("arrow_forward_ios")
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-35219cd3", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
