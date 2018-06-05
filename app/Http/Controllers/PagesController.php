@@ -46,7 +46,8 @@ class PagesController extends Controller
 
             $requests =  Request::orderBy('created_at','desc')->paginate(15);            
             $cities = City::orderBy('name', 'asc')->get();
-            return view('pages.admin')->with(['requests' => $requests, 'cities'=>$cities]);
+            $users = User::orderBy('id', 'asc')->get();
+            return view('pages.admin')->with(['requests' => $requests, 'cities'=>$cities, 'users'=>$users]);
         }
         
         return redirect()->back()->with('error', 'Vaš nalog nema administratorske privilegije');

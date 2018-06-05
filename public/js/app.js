@@ -14286,7 +14286,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(86);
+module.exports = __webpack_require__(89);
 
 
 /***/ }),
@@ -14319,7 +14319,7 @@ Vue.component('like-rating', __webpack_require__(72));
 Vue.component('notification', __webpack_require__(75));
 Vue.component('request', __webpack_require__(78));
 Vue.component('admin-map', __webpack_require__(81));
-Vue.component('friend-list', __webpack_require__(90));
+Vue.component('friend-list', __webpack_require__(86));
 
 var app = new Vue({
   el: '#app'
@@ -49230,7 +49230,7 @@ var render = function() {
                   staticClass: "btn-small waves-effect waves-light",
                   on: { click: _vm.add_friend }
                 },
-                [_vm._v("Dodaj Prijatelja")]
+                [_vm._v("Dodaj Za Prijatelja")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -52088,23 +52088,14 @@ if (false) {
 
 /***/ }),
 /* 86 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(91)
+var __vue_script__ = __webpack_require__(87)
 /* template */
-var __vue_template__ = __webpack_require__(92)
+var __vue_template__ = __webpack_require__(88)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52143,11 +52134,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 91 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -52211,7 +52205,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 92 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52223,22 +52217,15 @@ var render = function() {
       "div",
       { staticClass: "row" },
       _vm._l(_vm.paginatedData, function(user) {
-        return _c("div", { key: user.id, staticClass: "col s4" }, [
+        return _c("div", { key: user.id, staticClass: "col s4 center" }, [
           _c("div", { staticClass: "card-image" }, [
-            _c("img", { attrs: { src: "/storage/avatars/" + user.user_img } }),
+            _c("a", { attrs: { href: "/korisnici/" + user.id } }, [
+              _c("img", { attrs: { src: "/storage/avatars/" + user.user_img } })
+            ]),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "blue-text text-darken-2",
-                attrs: { href: "/korisnici/" + user.id }
-              },
-              [
-                _c("small", [
-                  _vm._v(_vm._s(user.first_name) + " " + _vm._s(user.last_name))
-                ])
-              ]
-            )
+            _c("small", { staticClass: "blue-text text-darken-2" }, [
+              _vm._v(_vm._s(user.first_name))
+            ])
           ])
         ])
       })
@@ -52248,7 +52235,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn-small waves-effect waves-light",
+          staticClass: "btn-flat waves-effect waves-teal",
           attrs: { disabled: _vm.pageNumber === 0 },
           on: { click: _vm.prevPage }
         },
@@ -52258,11 +52245,11 @@ var render = function() {
           ])
         ]
       ),
-      _vm._v(" "),
+      _vm._v("\n     \n    " + _vm._s(this.pageNumber + 1) + "\n     \n    "),
       _c(
         "button",
         {
-          staticClass: "btn-small waves-effect waves-light",
+          staticClass: "btn-flat waves-effect waves-teal",
           attrs: { disabled: _vm.pageNumber >= _vm.pageCount },
           on: { click: _vm.nextPage }
         },
@@ -52284,6 +52271,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-35219cd3", module.exports)
   }
 }
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

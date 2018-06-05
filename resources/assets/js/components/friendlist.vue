@@ -1,19 +1,22 @@
 <template>
   <div>
     <div class="row">
-      <div v-for="user in paginatedData" v-bind:key="user.id" class="col s4">
-        <div class="card-image">
-          <img :src="'/storage/avatars/' + user.user_img">
-          <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2"><small>{{user.first_name}} {{user.last_name}}</small></a>
+      <div v-for="user in paginatedData" v-bind:key="user.id" class="col s4 center">
+        <div class="card-image">          
+          <a :href="'/korisnici/' + user.id"><img :src="'/storage/avatars/' + user.user_img"></a>
+          <small class="blue-text text-darken-2">{{user.first_name}}</small>
         </div>
       </div>
     </div>
     
     <div class="row center">
-      <button :disabled="pageNumber === 0" @click="prevPage" class="btn-small waves-effect waves-light">
+      <button :disabled="pageNumber === 0" @click="prevPage" class="btn-flat waves-effect waves-teal">
           <i class="material-icons right">arrow_back_ios</i>
       </button>
-      <button :disabled="pageNumber >= pageCount" @click="nextPage" class="btn-small waves-effect waves-light">
+      &nbsp;
+      {{this.pageNumber + 1}}
+      &nbsp;
+      <button :disabled="pageNumber >= pageCount" @click="nextPage" class="btn-flat waves-effect waves-teal">
           <i class="material-icons right">arrow_forward_ios</i>
       </button>
     </div>    

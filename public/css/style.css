@@ -11,8 +11,6 @@ main {
   flex: 1 0 auto;
 }
 
-.tabs-content.carousel .carousel-item { height:1200px; }
-
 .fa-basketball-ball {
   color: orange;
 }
@@ -27,4 +25,9 @@ main {
 
 .far.fa-futbol.fa-lg.futsal {
   color: lightskyblue;
+}
+
+.card-profile-image {
+  height: 150px;
+  width: 150px;
 }

@@ -4,7 +4,7 @@
     <div class="center">
 
       <!-- AKO NISU PRIJATELJI, STATUS 0 -->
-      <button v-if="status == 0" class="btn-small waves-effect waves-light" @click="add_friend">Dodaj Prijatelja</button>
+      <button v-if="status == 0" class="btn-small waves-effect waves-light" @click="add_friend">Dodaj Za Prijatelja</button>
       
       <!-- AKO JE KORISNIKU STIGAO ZAHTEV, STATUS 2 -->
       <button v-if="status == 2" class="btn-small waves-effect waves-light" @click="accept_friend">Prihvati Zahtev</button>

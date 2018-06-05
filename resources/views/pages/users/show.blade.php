@@ -3,45 +3,57 @@
 
 
 <div class="container">
-  <div class="card blue-grey">
-    <div class="card-content white-text">
-      <div class="row">
-        <h3>{{$user->first_name}} {{$user->last_name}}</h3>
-        <p>{{$user->status}}</p>
+  <div class="row">
+  
+    <div class="card blue-grey white-text col s12">
+      <div class="card-content">
 
-        @if(Auth::user()->id == $user->id)
+        <!-- DEO SA SLIKOM -->
+        <div class="col s4 l2 center">
 
-        <a href= "{{route('korisnici')}}/{{$user->id}}/edit" class = "waves-effect waves-light btn">Izmeni</a>
+          <!-- SLIKA -->
+          <img class="circle col s12" src="{{route('index')}}/storage/avatars/{{$user->user_img}}">             
 
-        @endif        
+          <!-- OCENJIVANJE -->          
+          <div class="row col s12">
+            <p>{{$user->status}}</p>
+            @if(Auth::user()->id == $user->id)          
+            <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}" :readonly="true"></like-rating>
+
+            @else       
+            <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}"></like-rating>
+            @endif                     
+          </div>
+        </div> 
         
-        <!-- PRIJATELJI -->
-        <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input="{{Auth::user()->check($user->id)}}"></friendbutton>
+        <!-- OSTALI INFO -->
+        <div class="col s8 l10">
+          <div class="card-title">{{$user->first_name}} {{$user->last_name}}</div>          
 
-        <!-- OCENJIVANJE -->          
-        @if(Auth::user()->id == $user->id)          
-        <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}" :readonly="true"></like-rating>
+          @if(Auth::user()->id == $user->id)
 
-        @else       
-        <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}"></like-rating>
-        @endif         
+          <a href= "{{route('korisnici')}}/{{$user->id}}/edit" class = "waves-effect waves-light btn">Izmeni</a>
 
+          @endif 
+        </div>
+        
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m7 card">
+
+    <div class="col s12 m8 card">
       <div class="card-content">Temp</div>
     </div>
 
-    <div class="col s12 m5 card">              
+    <div class="col s12 m4 card">
       <!-- LISTA PRIJATELJA -->
       <div class="row center blue-grey-text text-lighten-2">
-        <h5>Prijatelji:</h5>
+        <h5>Prijatelji:  {{count($user->friends())}}</h5>
       </div>
-      <friend-list :users={!! json_encode($user->friends()) !!} :size=9></friend-list>
+      <friend-list :users={!! json_encode($user->friends()) !!} :size=9></friend-list>      
+      <!-- PRIJATELJI -->
+      <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input="{{Auth::user()->check($user->id)}}"></friendbutton> 
     </div>
-    
+   
   </div>
 </div>
 
