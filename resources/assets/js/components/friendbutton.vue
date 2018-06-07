@@ -4,6 +4,7 @@
     <div class="center">
 
       <!-- AKO NISU PRIJATELJI, STATUS 0 -->
+
       <button v-if="status == 0" class="btn-small waves-effect waves-light green tooltipped" @click="add_friend" data-position="top" data-tooltip="Dodaj za prijatelja"><i class="fas fa-user-plus"></i></button>
       
       <!-- AKO JE KORISNIKU STIGAO ZAHTEV, STATUS 2 -->

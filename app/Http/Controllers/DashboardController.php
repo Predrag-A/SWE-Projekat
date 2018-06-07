@@ -38,8 +38,14 @@ class DashboardController extends Controller
     public function getCourtEvents($courtid) // .../web/api/courtEvents/{courtid}
     {
         $court = Court::find($courtid);
-        $events = $court->events();
-        return Response::make($events->get());  //moze i return ['data' => $data,];
+        $events = $court->events()->get();
+        $res = array();
+        foreach($events as $event){
+            if(!$event->isOver()){
+                array_push($res, $event);
+            }
+        }
+        return Response::make($res);  //moze i return ['data' => $data,];
     }
 
     public function getSports()  // .../web/api/sports

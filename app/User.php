@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     public $timestamps = false;
     protected $fillable = [
-        'first_name', 'last_name', 'city_id', 'email', 'password', 'jmbg', 'user_img'
+        'first_name', 'last_name', 'city_id', 'email', 'password', 'jmbg', 'user_img','status'
     ];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'status', 'jmbg'
+        'password', 'remember_token',
     ];
 
     /**

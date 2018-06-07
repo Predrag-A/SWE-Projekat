@@ -3,7 +3,8 @@
   <form action="{{ route('request') }}" method="post">
     {{csrf_field()}}
     <div class="modal-content">
-      <blockquote>
+      <blockquote class="blue-grey-text text-lighten-2">
+        <b>Napomena</b><br>
         Poruka koju ovde unesete biće prosleđena administratorima. Odgovor možete očekivati u roku od najkasnije 2-3 dana.
       </blockquote>
       <!-- NASLOV -->

@@ -13,7 +13,7 @@
         <div>Lokacija: {{$event->court->location}}</div>
         <div>Kreirao: {{$event->user->first_name}} {{$event->user->last_name}}</div>    
             
-        @if(Auth::user()->id == $event->user_id)
+        @if(Auth::user()->id == $event->user_id && !$event->isOver()) 
         <div class="valign-wrapper">
           
           <!-- DUGME ZA EDITOVANJE -->
@@ -47,18 +47,20 @@
       <div class="center">
         @if(Auth::user()->id !== $event->user_id)
           <!-- DUGME ZA ODJAVLJIVANJE -->
-          @if(Auth::user()->isAttending($event->id))
-          {!!Form::open(['action' => ['AttendsController@destroy', $event->id], 'method' => 'POST'])!!}
-              {{Form::hidden('_method', 'DELETE')}}
-              {{Form::submit('Odjavi se', ['class' => 'btn red white-text'])}}
-          {!!Form::close()!!}
-          @else
-          <!-- DUGME ZA PRIJAVLJIVANJE -->
-          {!!Form::open(['action' => ['AttendsController@store', $event->id], 'method' => 'POST'])!!}
-              {{Form::hidden('event', $event->id)}}
-              {{Form::submit('Pridruži se', ['class' => 'btn white-text'])}}
-          {!!Form::close()!!}
-          @endif 
+          @if(!$event->isOver())
+            @if(Auth::user()->isAttending($event->id))
+            {!!Form::open(['action' => ['AttendsController@destroy', $event->id], 'method' => 'POST'])!!}
+                {{Form::hidden('_method', 'DELETE')}}
+                {{Form::submit('Odjavi se', ['class' => 'btn red white-text'])}}
+            {!!Form::close()!!}
+            @else
+            <!-- DUGME ZA PRIJAVLJIVANJE -->
+            {!!Form::open(['action' => ['AttendsController@store', $event->id], 'method' => 'POST'])!!}
+                {{Form::hidden('event', $event->id)}}
+                {{Form::submit('Pridruži se', ['class' => 'btn white-text'])}}
+            {!!Form::close()!!}
+            @endif 
+          @endif
         @endif
         <div class="row"></div>
           @foreach($event->attends as $user)

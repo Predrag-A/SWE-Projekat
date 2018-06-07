@@ -11,8 +11,6 @@ main {
   flex: 1 0 auto;
 }
 
-.tabs-content.carousel .carousel-item { height:1200px; }
-
 .fa-basketball-ball {
   color: orange;
 }
@@ -43,4 +41,8 @@ main {
 
 .parallax-container.two {
   height: 500px;
+
+.card-profile-image {
+  height: 150px;
+  width: 150px;
 }

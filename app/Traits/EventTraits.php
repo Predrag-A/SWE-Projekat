@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Event;
 use App\Attend;
+use Carbon\Carbon;
 
 trait EventTraits
 {
@@ -48,6 +49,10 @@ trait EventTraits
 
   public function attendsCount(){
     return $this->attends()->get()->count();
+  }
+
+  public function isOver(){
+    return Carbon::parse($this->time)->isPast();
   }
 
 }

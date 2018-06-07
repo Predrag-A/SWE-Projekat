@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\City;
+use App\Notification;
 use Auth;
 
 class UserController extends Controller
@@ -61,8 +62,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('pages.users.show')->with('user', $user);
+        $user = User::find($id);              
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('pages.users.show')->with(['user'=> $user, 'cities' => $cities]);
     }
 
     /**
@@ -94,10 +96,62 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'img' => 'image|nullable|max:1999'
-        ]);
+            'last_name' => 'string|max:255',
+            'first_name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users',
+            'city_id' => 'integer',
+            'img' => 'image|nullable|max:1999',
+            'status' => 'string'
+        ]);        
+
+            
+        $user = User::find($id);
+        
+
+        // Hendlovanje izmene statusa, ako je status nema potrebe da se ide dalje
+        if($request->input('status')){
+
+            // Provera da li je status uopste izmenjen
+            if($request->input('status') == $user->status){
+                return redirect('/korisnici'. '/' . $user->id)->with('error', 'Status nije izmenjen');
+            }
+
+            $user->status = $request->input('status');
+            $user->save();
+            
+            
+            $notification = new Notification();
+            $notification->sender_id = auth()->user()->id;
+            $notification->receiver_id = $user->id;
+
+            // Slanje odgovarajuce notifikacije u odnosu na promenjeni status
+            if($request->input('status') == "Super-Admin"){
+                
+                auth()->user()->status = "Admin";
+                auth()->user()->save();
+
+                $notification->title = "Promena Statusa: Super-Admin";
+                $notification->body = "Dobili ste status Super-Administratora.";
+            }
+            else if($request->input('status') == "Admin"){
+
+                $notification->title = "Promena Statusa: Admin";
+                $notification->body = "Dobili ste status Administratora.";
+            }
+            else if($request->input('status') == "Korisnik"){
+                $notification->title = "Promena Statusa: Korisnik";
+                $notification->body = "Dobili ste status Korisnika.";
+            }
+            else{
+                $notification->title = "Promena Statusa: Suspendovani";
+                $notification->body = "Nalog vam je suspendovan. Ne možete da kreirate događaje. RIP.";
+            }
+            
+            $notification->save();
+            
+            return redirect('/korisnici'. '/' . $user->id)->with('success', 'Uspešna izmena statusa');
+
+        }
 
         // Hendlovanje uploada
         if($request->hasFile('img')){
@@ -112,17 +166,41 @@ class UserController extends Controller
             $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
             // Upload slike
             $path = $request->file('img')->storeAs('public/avatars', $fileNameToStore);            
+        }        
+
+        if($request->input('first_name')){            
+            $user->first_name = $request->input('first_name');
         }
 
-        $user = User::find($id);
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
+        
+        if($request->input('last_name')){            
+            $user->last_name = $request->input('last_name');
+        }
+
+        
+        if($request->input('email')){            
+            $user->email = $request->input('email');
+        }
+
+        
+        if($request->input('password')){  
+            $this->validate($request,[                
+            'password' => 'string|between:8,255|confirmed',
+            ]);          
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        if($request->input('city_id')){            
+            $user->city_id = $request->input('city_id');
+        }
+
+
 
         if($request->hasFile('img')){
             // Brisanje prethodne slike iz memorije
             if($user->user_img !== 'default.jpg'){
                 Storage::delete('public/avatars/' . $user->user_img);
-            }            
+            }
             $user->user_img = $fileNameToStore;
         }
 
