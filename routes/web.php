@@ -88,6 +88,9 @@ Route::post('api/broadcast', 'NotificationController@broadcast');
 Route::post('api/request_answer', 'RequestController@answer');
 Route::post('api/request_send', 'RequestController@send')->name('request');
 
+// Dogadjaji
+Route::get('api/city_name', 'EventController@cityName');
+
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
 Route::prefix('/web/api')->group(function () {

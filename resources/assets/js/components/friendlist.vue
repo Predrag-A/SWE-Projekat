@@ -1,10 +1,19 @@
 <template>
   <div>
     <div class="row">
-      <div v-for="user in paginatedData" v-bind:key="user.id" class="col s4 center">
-        <div class="card-image">          
-          <a :href="'/korisnici/' + user.id"><img :src="'/storage/avatars/' + user.user_img"></a>
-          <small class="blue-text text-darken-2">{{user.first_name}}</small>
+      <div v-if="this.users.length == 0" class="row center blue-grey-text text-lighten-2">
+        <h4>Lista prijatelja je prazna</h4>
+      </div>
+      <div v-for="user in paginatedData" v-bind:key="user.id" class="col s12 m6">
+        <div class="row">
+          <!-- SLIKA -->
+          <img class="circle left" style="width:50px" :src="'/storage/avatars/' + user.user_img"> 
+
+          <!-- PODACI -->        
+          <p>
+            <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2 title"><b>{{user.first_name}} {{user.last_name}}</b></a>     
+
+          </p>
         </div>
       </div>
     </div>
@@ -13,9 +22,7 @@
       <button :disabled="pageNumber === 0" @click="prevPage" class="btn-flat waves-effect waves-teal">
           <i class="material-icons right">arrow_back_ios</i>
       </button>
-      &nbsp;
       {{this.pageNumber + 1}}
-      &nbsp;
       <button :disabled="pageNumber >= pageCount" @click="nextPage" class="btn-flat waves-effect waves-teal">
           <i class="material-icons right">arrow_forward_ios</i>
       </button>
@@ -28,12 +35,17 @@ export default {
   props: {
     users: {
       type: Array,
-      required: true
+      required: true,
     },
     size:{
       type: Number,
       required:false,
-      default:9,
+      default:10,
+    },
+    search:{
+      type: Boolean,
+      required:false,
+      default:false,
     }
   },
   data: function() {

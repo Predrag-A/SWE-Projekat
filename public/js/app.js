@@ -52164,6 +52164,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -52174,7 +52181,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     size: {
       type: Number,
       required: false,
-      default: 9
+      default: 10
+    },
+    search: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data: function data() {
@@ -52216,19 +52228,45 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.paginatedData, function(user) {
-        return _c("div", { key: user.id, staticClass: "col s4 center" }, [
-          _c("div", { staticClass: "card-image" }, [
-            _c("a", { attrs: { href: "/korisnici/" + user.id } }, [
-              _c("img", { attrs: { src: "/storage/avatars/" + user.user_img } })
-            ]),
-            _vm._v(" "),
-            _c("small", { staticClass: "blue-text text-darken-2" }, [
-              _vm._v(_vm._s(user.first_name))
+      [
+        this.users.length == 0
+          ? _c(
+              "div",
+              { staticClass: "row center blue-grey-text text-lighten-2" },
+              [_c("h4", [_vm._v("Lista prijatelja je prazna")])]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.paginatedData, function(user) {
+          return _c("div", { key: user.id, staticClass: "col s12 m6" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("img", {
+                staticClass: "circle left",
+                staticStyle: { width: "50px" },
+                attrs: { src: "/storage/avatars/" + user.user_img }
+              }),
+              _vm._v(" "),
+              _c("p", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "blue-text text-darken-2 title",
+                    attrs: { href: "/korisnici/" + user.id }
+                  },
+                  [
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(user.first_name) + " " + _vm._s(user.last_name)
+                      )
+                    ])
+                  ]
+                )
+              ])
             ])
           ])
-        ])
-      })
+        })
+      ],
+      2
     ),
     _vm._v(" "),
     _c("div", { staticClass: "row center" }, [
@@ -52245,7 +52283,7 @@ var render = function() {
           ])
         ]
       ),
-      _vm._v("\n     \n    " + _vm._s(this.pageNumber + 1) + "\n     \n    "),
+      _vm._v("\n    " + _vm._s(this.pageNumber + 1) + "\n    "),
       _c(
         "button",
         {
