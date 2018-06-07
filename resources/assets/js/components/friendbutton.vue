@@ -4,17 +4,18 @@
     <div class="center">
 
       <!-- AKO NISU PRIJATELJI, STATUS 0 -->
-      <button v-if="status == 0" class="btn-small waves-effect waves-light" @click="add_friend">Dodaj Za Prijatelja</button>
+
+      <button v-if="status == 0" class="btn-small waves-effect waves-light green tooltipped" @click="add_friend" data-position="top" data-tooltip="Dodaj za prijatelja"><i class="fas fa-user-plus"></i></button>
       
       <!-- AKO JE KORISNIKU STIGAO ZAHTEV, STATUS 2 -->
-      <button v-if="status == 2" class="btn-small waves-effect waves-light" @click="accept_friend">Prihvati Zahtev</button>
+      <button v-if="status == 2" class="btn-small waves-effect waves-light green tooltipped" @click="accept_friend" data-position="top" data-tooltip="Prihvati zahtev"><i class="fas fa-user-check"></i></button>
       
       <!-- AKO JE KORISNIK POSLAO ZAHTEV, STATUS 3 -->
-      <button v-if="status == 3" class="btn-small waves-effect waves-light" @click="delete_friend">Obriši Zahtev</button>
+      <button v-if="status == 3" class="btn-small waves-effect waves-light orange tooltipped" @click="delete_friend" data-position="top" data-tooltip="Otkaži zahtev"><i class="fas fa-user-times"></i></button>
       
       <!-- AKO JESU PRIJATELJI, STATUS 1 -->   
       <div v-if="status == 1">        
-        <button class="btn-small waves-effect waves-light" @click="delete_friend">Ukloni iz prijatelja</button>
+        <button class="btn-small waves-effect waves-light red tooltipped" @click="delete_friend" data-position="top" data-tooltip="Izbaci iz prijatelja"><i class="fas fa-user-minus"></i></button>
       </div>
     </div>
 

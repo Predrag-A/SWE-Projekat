@@ -22,7 +22,7 @@
           
           <!-- SLIKA -->
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://www.shindiristudio.com/sccair/wp-content/uploads/2014/11/31.jpg">
+            <img class="activator" src="{{$court->getMainPicture()}}">
             <span class="card-title activator"></span>
           </div>
 

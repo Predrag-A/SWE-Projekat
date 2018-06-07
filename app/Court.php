@@ -72,4 +72,12 @@ class Court extends Model
         }
         return $slike;
     }
+
+    public function getMainPicture() {
+        $slika = "";
+        if(file_exists(public_path().'/storage/tereni/Teren'.$this->id.'Slika1.jpg'))
+            return '/storage/tereni/Teren'.$this->id.'Slika1.jpg';
+        else
+            return '';
+    }
 }

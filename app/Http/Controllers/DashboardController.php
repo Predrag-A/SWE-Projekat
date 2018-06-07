@@ -52,4 +52,10 @@ class DashboardController extends Controller
     {
         return Sport::all();
     }
+
+    public function getEventAttends($eventid) // .../web/api/eventAttend/{eventid}
+    {
+        $event = Event::find($eventid);
+        return Response::make($event->attendsCount());
+    }
 }
