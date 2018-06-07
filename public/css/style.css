@@ -21,10 +21,26 @@ main {
   color: silver;
 }
 
+.fas.fa-futbol.prefix {
+  color: black;
+}
+
 .fa-table-tennis {
   color: lime;
 }
 
 .far.fa-futbol.fa-lg.futsal {
   color: lightskyblue;
+}
+
+.parallax-container {
+  height: 600px;
+}
+
+.parallax-container.one {
+  height: 300px;
+}
+
+.parallax-container.two {
+  height: 500px;
 }

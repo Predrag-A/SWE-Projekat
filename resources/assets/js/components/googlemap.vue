@@ -2,10 +2,15 @@
   <div class="kontenjer">
         <div class="google-map" :id="mapName"> <!-- v-bind id sa propertijem mapName -->
         </div>
+        <div v-if="userstatus === 'Suspendovan'" class="fixed-action-btn">
+          <a class="btn-floating modal-trigger btn-large green accent-3 tooltipped disabled" data-position="left" data-tooltip="Vas nalog je suspendovan" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
+        </div>
+        <div v-else class="fixed-action-btn">
+          <a class="btn-floating modal-trigger btn-large green accent-3 tooltipped" data-position="left" data-tooltip="Novi dogadjaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="col s12">
-                    <div class="card-panel">    
+                <div class="col s12">    
                         <div class="row" v-show="toggle" id="kartice">
                           <h3 id="naslov">{{trenutniTeren}}</h3>
                           <div v-for="(event,index) in pomNiz" :key="index" class="col s6 m4">
@@ -15,16 +20,17 @@
                                 <span class="card-title"></span>
                               </div>
                               <div class="card-content">
-                                <h6>Datum i vreme:</h6>
+                                <h6 :class="event.sport.color + '-text'">Datum i vreme:</h6>
                                 <span>{{customTime(event.dogadjaj.time)}}</span>
+                                <h6 :class="event.sport.color + '-text'">Pridruženi korisnici:</h6>
+                                <span>{{attends[index+1]}}</span>
                               </div>
                               <div class="card-action center">
-                                <a :href=event.url>Detalji</a>
+                                <a :href="event.url">Detalji</a>
                               </div>
                             </div>
                           </div>
                       </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -32,8 +38,6 @@
 </template>
 
 <script>
-//TODO: DA SE PRIKAZE BROJ PRIDRUZENIH LJUDI DOGADJAJU
-//TODO: DA SE DODA SELECT PO SPORTOVIMA
 export default {
   name: 'google-map',
   props: { //propovi se prosledjuju u komponentu kao stringovi
@@ -59,6 +63,7 @@ export default {
         cityEvents: [],
         toggle: false,
         pomNiz: [],
+        attends: [],
         trenutniTeren: {}
     }
   },
@@ -96,6 +101,7 @@ export default {
           axios.get('/web/api/courtEvents/' + courtid).then(response => {
               response.data.forEach(function(event) {
                   self.cityEvents.push(event);
+                  self.getEventAttends(event.id);
               })
           }).catch(error => {
               console.log(error);
@@ -105,6 +111,14 @@ export default {
       getSports() {
           axios.get('/web/api/sports').then(response => {
               this.sports = response.data;
+          }).catch(error => {
+              console.log(error);
+          });
+      },
+
+      getEventAttends(eventid) {
+          axios.get('web/api/eventAttend/' + eventid).then(response => {
+              this.attends[eventid] = response.data;
           }).catch(error => {
               console.log(error);
           });
@@ -389,24 +403,25 @@ export default {
                     this.addCityMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom, i+1);
                 }
           }
-          var newEvent = document.createElement('a');
-          if(this.userstatus == "Suspendovan"){
-            newEvent.className = "btn disabled";
-          }
-          else{            
-            newEvent.className = "btn modal-trigger green accent-3";
-            newEvent.href = "#eventCreateModal";
-          }
-          newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
-          newEvent.index = 1;
-          map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
+          //var newEvent = document.createElement('a');
+          //if(this.userstatus == "Suspendovan"){
+          //  newEvent.className = "btn disabled";
+          //}
+          //else{            
+          //  newEvent.className = "btn modal-trigger green accent-3";
+          //  newEvent.href = "#eventCreateModal";
+          //}
+          //newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
+          //newEvent.index = 1;
+          //map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
       },
 
       addCityMarker(map, koordinate, zoom, i) {
           var marker = new google.maps.Marker( {
               position: koordinate,
               map: map,
-              icon: 'https://i.imgur.com/YWVwzyS.png',
+              animation: google.maps.Animation.DROP,
+              //icon: 'https://cdn3.iconfinder.com/data/icons/iconic-1/32/map_pin_alt-48.png',
               content: i
           });
           this.cityMarkers.push(marker);
@@ -423,10 +438,13 @@ export default {
           var marker = new google.maps.Marker( {
               position: koordinate,
               map: map,
-              icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
+              icon: 'https://png.icons8.com/ios/48/d35400/stadium-filled.png',
               content: i, //id terena
               url: "#naslov"
           });
+
+          //marker.setIcon(this.setIconForCourt(this.mostPopularSport(i)));
+
           this.courtMarkers.push(marker);
           var infoWindow = new google.maps.InfoWindow({
               content: lokacija
@@ -450,11 +468,63 @@ export default {
                         url: self.createbtnurl + "/" + event.id,
                         location: lokacija
                       });
-                      console.log(self.pomNiz);
                 }
               })
           });
       },
+
+      setIconForCourt(sport) {
+        switch(sport) {
+            case "Fudbal":
+                return 'https://png.icons8.com/android/48/000000/football.png';
+                break;
+            case "Košarka":
+                return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+                break; 
+            case "Rukomet":
+                return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+                break;
+            case "Tenis":
+                return 'https://png.icons8.com/ios/48/27ae60/tennis-2-filled.png';
+                break;
+            case "Futsal":
+                return 'https://png.icons8.com/ios/48/bdc3c7/football-filled.png';
+                break;
+            case "Odbojka":
+                return 'https://png.icons8.com/ios/48/2980b9/volleyball-2-filled.png';
+                break;
+            default:
+                return 'https://png.icons8.com/color/48/000000/olympic-rings.png';
+        }
+      },
+
+      /*mostPopularSport(courtid) {
+        var eventsOnCourt = [];
+        var self = this;
+        //console.log(this.cityEvents);
+        for(var i=0; i < this.cityEvents.size; i++) //NECE NI FOR
+        {
+          console.log("upao");
+        }
+        console.log(this.cityEvents);
+        this.cityEvents.forEach(function(event) {  //NECE FOREACH A cityEvents ima elemente
+          console.log('uslov', event.court_id == courtid);
+          if(event.court_id == courtid) {
+            eventsOnCourt.push(event.sport_id);
+             
+          }
+        })
+        var popularSport = 0;
+        var times = 0;
+        self.sports.forEach(function(sport) {
+          if(eventsOnCourt.filter(x => x===sport.id).length > times)
+          {
+            times = eventsOnCourt.filter(x => x===sport.id).length;
+            popularSport = sport.name;
+          }
+        })
+        return popularSport;
+      },*/
 
       customTime(time) {
         var temp = time.split(" ");
@@ -548,7 +618,7 @@ export default {
 <style scoped>
 .google-map {
   width: 100%;
-  height: 550px;
+  height: 573px;
   margin: 0 auto;
   background: white;
 };

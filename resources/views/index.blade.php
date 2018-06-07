@@ -6,15 +6,14 @@
   <div class="section no-pad-bot">
     <div class="container">
       <br><br>
-      <h1 class="header center blue-text text-darken-4">Parallax Template</h1>
+      <br><br>
+      <h1 class="header center white-text text-darken-4">IZAĐI NA TEREN</h1>
+      <br><br>
+      <br><br>
       <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
-      </div>
-      <div class="row center">
-        <a class="waves-effect waves-light btn-large modal-trigger" href="#registerModal">Get Started</a>
+        <h5 class="header col s12 white-text light">Najbolja besplatna aplikacija za sportske fanatike!</h5>
       </div>
       <br><br>
-
     </div>
   </div>
   <div class="parallax"><img src="{{asset('img/background1.jpg')}}" alt="Unsplashed background img 1"></div>
@@ -28,28 +27,22 @@
     <div class="row">
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center brown-text"><i class="large material-icons">flash_on</i></h2>
-          <h5 class="center">Speeds up development</h5>
-
-          <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+          <h2 class="center green-text"><i class="large material-icons">event_available</i></h2>
+          <h5 class="center">Kreiraj dogadjaj ...</h5>
         </div>
       </div>
 
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center brown-text"><i class="large material-icons">group</i></h2>
-          <h5 class="center">User Experience Focused</h5>
-
-          <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+          <h2 class="center green-text"><i class="large material-icons">group</i></h2>
+          <h5 class="center">... okupi ekipu ...</h5>
         </div>
       </div>
 
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center brown-text"><i class="large material-icons">settings</i></h2>
-          <h5 class="center">Easy to work with</h5>
-
-          <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+          <h2 class="center green-text"><i class="large material-icons">sentiment_very_satisfied</i></h2>
+          <h5 class="center">... i zabavi se!</h5>
         </div>
       </div>
     </div>
@@ -58,11 +51,11 @@
 </div>
 
 <!-- DRUGI PARALLAX -->
-<div class="parallax-container valign-wrapper">
+<div class="parallax-container one valign-wrapper">
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 white-text">Nemoj samo da sedis vec okupi ekipu i zabavi se!</h5>
       </div>
     </div>
   </div>
@@ -76,8 +69,8 @@
     <div class="row">
       <div class="col s12 center">
         <h3><i class="mdi-content-send brown-text"></i></h3>
-        <h4>Contact Us</h4>
-        <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        <h4>Registruj se!</h4>
+        <p class="center-align light">Registracija je potpuno besplatna i zato nemoj da cekas vec kreni u akciju, okupi ekipu, pokazi ko je bolji i zabavi se!</p>
       </div>
     </div>
 
@@ -85,15 +78,14 @@
 </div>
 
 <!-- TRECI PARALLAX -->
-<div class="parallax-container valign-wrapper">
+<div class="parallax-container two valign-wrapper">
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 white-text">Fair play pre svega!</h5>
       </div>
     </div>
   </div>
   <div class="parallax"><img src="{{asset('img/background3.jpg')}}" alt="Unsplashed background img 3"></div>
 </div>    
-
 @endsection

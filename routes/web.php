@@ -96,5 +96,6 @@ Route::prefix('/web/api')->group(function () {
     Route::get('citycourts/{cityid}', 'DashboardController@getCityCourts');
     Route::get('courtEvents/{courtid}', 'DashboardController@getCourtEvents');
     Route::get('sports', 'DashboardController@getSports');
+    Route::get('eventAttend/{eventid}' , 'DashboardController@getEventAttends');
 });
 
