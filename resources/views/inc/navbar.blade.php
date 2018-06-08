@@ -18,7 +18,6 @@
         <ul class="right">          
           <li><a href="{{route('korisnici')}}" class="waves-effect hide-on-med-and-down">Korisnici</a></li>
           <li><a href="{{route('tereni')}}" class="waves-effect hide-on-med-and-down">Tereni</a></li>
-          <li><a href="{{route('dogadjaji')}}" class="waves-effect hide-on-med-and-down">Događaji</a></li>  
           <li>
               @if(Auth::user()->hasUnreadNotifications())
               <a href="{{route('notifications')}}" class="btn-floating waves-effect pulse tooltipped" data-position="bottom" data-tooltip="Notifikacije"><i class="material-icons">notification_important</i></a>
@@ -44,7 +43,7 @@
 <ul id="slide-out" class="sidenav">
   <li><div class="user-view">
     <div class="background">
-      <img src="{{asset('img/background3.jpg')}}" alt="">      
+      <img src="{{asset('img/background1.jpg')}}" alt="">      
     </div>
     <div><img class="circle" src="{{route('index')}}/storage/avatars/{{Auth::user()->user_img}}"></div>    
     <div class="white-text name">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</div>
@@ -58,7 +57,6 @@
   @endif
   <li><a href="{{route('korisnici')}}" class="waves-effect">Korisnici</a></li>
   <li><a href="{{route('tereni')}}" class="waves-effect">Tereni</a></li>
-  <li><a href="{{route('dogadjaji')}}" class="waves-effect">Događaji</a></li>
   <li><a class="waves-effect" href="{{route('dashboard')}}">Početna strana</a></li>
   <li>
     <a class="waves-effect blue darken-4 white-text" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">Odjavite se</a>      

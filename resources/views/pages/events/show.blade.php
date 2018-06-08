@@ -22,7 +22,7 @@
           <!-- DUGME ZA BRISANJE -->
           {!!Form::open(['action' => ['EventController@destroy', $event->id], 'method' => 'POST'])!!}
               {{Form::hidden('_method', 'DELETE')}}
-              {{Form::submit('Obriši', ['class' => 'waves-effect waves-light btn right red'])}}
+              {{Form::button('Obriši', ['type' => 'submit', 'class' => 'waves-effect waves-light btn right red'])}}
           {!!Form::close()!!}
         </div>        
         @endif

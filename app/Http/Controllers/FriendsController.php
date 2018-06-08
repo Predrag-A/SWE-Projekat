@@ -36,7 +36,7 @@ class FriendsController extends Controller
         $notification->sender_id = auth()->user()->id;
         $notification->receiver_id = $request->input('user_id');
         $notification->title = "Prihvaćen Zahtev Za Prijatelja";
-        $notification->body = "Korisnik je prihvatio vaš zahtev za prijateljstvo. Možete pregledati događaje koje je na stranici njihovog profila.";
+        $notification->body = "Korisnik je prihvatio vaš zahtev za prijateljstvo. Možete pregledati događaje kojima je pridružen na stranici njihovog profila.";
         $notification->save();
 
         return response($resp, 200);

@@ -47503,7 +47503,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.google-map[data-v-52ce01bc] {\r\n  width: 100%;\r\n  height: 550px;\r\n  margin: 0 auto;\r\n  background: white;\n};\r\n", ""]);
+exports.push([module.i, "\n.google-map[data-v-52ce01bc] {\r\n  width: 100%;\r\n  height: 573px;\r\n  margin: 0 auto;\r\n  background: white;\n};\r\n", ""]);
 
 // exports
 
@@ -47580,9 +47580,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
-//TODO: DA SE PRIKAZE BROJ PRIDRUZENIH LJUDI DOGADJAJU
-//TODO: DA SE DODA SELECT PO SPORTOVIMA
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'google-map',
   props: { //propovi se prosledjuju u komponentu kao stringovi
@@ -47608,6 +47612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       cityEvents: [],
       toggle: false,
       pomNiz: [],
+      attends: [],
       trenutniTeren: {}
     };
   },
@@ -47646,6 +47651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('/web/api/courtEvents/' + courtid).then(function (response) {
         response.data.forEach(function (event) {
           self.cityEvents.push(event);
+          self.getEventAttends(event.id);
         });
       }).catch(function (error) {
         console.log(error);
@@ -47656,6 +47662,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.get('/web/api/sports').then(function (response) {
         _this3.sports = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    getEventAttends: function getEventAttends(eventid) {
+      var _this4 = this;
+
+      axios.get('web/api/eventAttend/' + eventid).then(function (response) {
+        _this4.attends[eventid] = response.data;
       }).catch(function (error) {
         console.log(error);
       });
@@ -47858,22 +47873,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.addCityMarker(map, new google.maps.LatLng(this.cities[i].lat, this.cities[i].long), this.cities[i].zoom, i + 1);
         }
       }
-      var newEvent = document.createElement('a');
-      if (this.userstatus == "Suspendovan") {
-        newEvent.className = "btn disabled";
-      } else {
-        newEvent.className = "btn modal-trigger green accent-3";
-        newEvent.href = "#eventCreateModal";
-      }
-      newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
-      newEvent.index = 1;
-      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
+      //var newEvent = document.createElement('a');
+      //if(this.userstatus == "Suspendovan"){
+      //  newEvent.className = "btn disabled";
+      //}
+      //else{            
+      //  newEvent.className = "btn modal-trigger green accent-3";
+      //  newEvent.href = "#eventCreateModal";
+      //}
+      //newEvent.innerHTML = "<i class='material-icons left'>add</i>Napravi dogadjaj";
+      //newEvent.index = 1;
+      //map.controls[google.maps.ControlPosition.TOP_RIGHT].push(newEvent);
     },
     addCityMarker: function addCityMarker(map, koordinate, zoom, i) {
       var marker = new google.maps.Marker({
         position: koordinate,
         map: map,
-        icon: 'https://i.imgur.com/YWVwzyS.png',
+        animation: google.maps.Animation.DROP,
+        //icon: 'https://cdn3.iconfinder.com/data/icons/iconic-1/32/map_pin_alt-48.png',
         content: i
       });
       this.cityMarkers.push(marker);
@@ -47891,10 +47908,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var marker = new google.maps.Marker({
         position: koordinate,
         map: map,
-        icon: 'https://cdn0.iconfinder.com/data/icons/sports-android-l-lollipop-icon-pack/24/football-48.png',
+        icon: 'https://png.icons8.com/ios/48/d35400/stadium-filled.png',
         content: i, //id terena
         url: "#naslov"
       });
+
+      //marker.setIcon(this.setIconForCourt(this.mostPopularSport(i)));
+
       this.courtMarkers.push(marker);
       var infoWindow = new google.maps.InfoWindow({
         content: lokacija
@@ -47920,11 +47940,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               url: self.createbtnurl + "/" + event.id,
               location: lokacija
             });
-            console.log(self.pomNiz);
           }
         });
       });
     },
+    setIconForCourt: function setIconForCourt(sport) {
+      switch (sport) {
+        case "Fudbal":
+          return 'https://png.icons8.com/android/48/000000/football.png';
+          break;
+        case "Košarka":
+          return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+          break;
+        case "Rukomet":
+          return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+          break;
+        case "Tenis":
+          return 'https://png.icons8.com/ios/48/27ae60/tennis-2-filled.png';
+          break;
+        case "Futsal":
+          return 'https://png.icons8.com/ios/48/bdc3c7/football-filled.png';
+          break;
+        case "Odbojka":
+          return 'https://png.icons8.com/ios/48/2980b9/volleyball-2-filled.png';
+          break;
+        default:
+          return 'https://png.icons8.com/color/48/000000/olympic-rings.png';
+      }
+    },
+
+
+    /*mostPopularSport(courtid) {
+      var eventsOnCourt = [];
+      var self = this;
+      //console.log(this.cityEvents);
+      for(var i=0; i < this.cityEvents.size; i++) //NECE NI FOR
+      {
+        console.log("upao");
+      }
+      console.log(this.cityEvents);
+      this.cityEvents.forEach(function(event) {  //NECE FOREACH A cityEvents ima elemente
+        console.log('uslov', event.court_id == courtid);
+        if(event.court_id == courtid) {
+          eventsOnCourt.push(event.sport_id);
+           
+        }
+      })
+      var popularSport = 0;
+      var times = 0;
+      self.sports.forEach(function(sport) {
+        if(eventsOnCourt.filter(x => x===sport.id).length > times)
+        {
+          times = eventsOnCourt.filter(x => x===sport.id).length;
+          popularSport = sport.name;
+        }
+      })
+      return popularSport;
+    },*/
+
     customTime: function customTime(time) {
       var temp = time.split(" ");
       var pom = temp[0].split("-").reverse(); //pom[1]
@@ -48010,73 +48083,118 @@ var render = function() {
   return _c("div", { staticClass: "kontenjer" }, [
     _c("div", { staticClass: "google-map", attrs: { id: _vm.mapName } }),
     _vm._v(" "),
+    _vm.userstatus === "Suspendovan"
+      ? _c("div", { staticClass: "fixed-action-btn" }, [_vm._m(0)])
+      : _c("div", { staticClass: "fixed-action-btn" }, [_vm._m(1)]),
+    _vm._v(" "),
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col s12" }, [
-          _c("div", { staticClass: "card-panel" }, [
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.toggle,
-                    expression: "toggle"
-                  }
-                ],
-                staticClass: "row",
-                attrs: { id: "kartice" }
-              },
-              [
-                _c("h3", { attrs: { id: "naslov" } }, [
-                  _vm._v(_vm._s(_vm.trenutniTeren))
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.pomNiz, function(event, index) {
-                  return _c("div", { key: index, staticClass: "col s6 m4" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "card medium col-content z-depth-3",
-                        style: "border: 1px solid " + event.sport.color
-                      },
-                      [
-                        _c("div", { staticClass: "card-image" }, [
-                          _c("img", {
-                            attrs: { src: "img/" + event.sport.image }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "card-title" })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "card-content" }, [
-                          _c("h6", [_vm._v("Datum i vreme:")]),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.customTime(event.dogadjaj.time)))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "card-action center" }, [
-                          _c("a", { attrs: { href: event.url } }, [
-                            _vm._v("Detalji")
-                          ])
-                        ])
-                      ]
-                    )
-                  ])
-                })
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.toggle,
+                  expression: "toggle"
+                }
               ],
-              2
-            )
-          ])
+              staticClass: "row",
+              attrs: { id: "kartice" }
+            },
+            [
+              _c("h3", { attrs: { id: "naslov" } }, [
+                _vm._v(_vm._s(_vm.trenutniTeren))
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.pomNiz, function(event, index) {
+                return _c("div", { key: index, staticClass: "col s6 m4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card medium col-content z-depth-3",
+                      style: "border: 1px solid " + event.sport.color
+                    },
+                    [
+                      _c("div", { staticClass: "card-image" }, [
+                        _c("img", {
+                          attrs: { src: "img/" + event.sport.image }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "card-title" })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-content" }, [
+                        _c("h6", { class: event.sport.color + "-text" }, [
+                          _vm._v("Datum i vreme:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.customTime(event.dogadjaj.time)))
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", { class: event.sport.color + "-text" }, [
+                          _vm._v("Pridruženi korisnici:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.attends[index + 1]))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-action center" }, [
+                        _c("a", { attrs: { href: event.url } }, [
+                          _vm._v("Detalji")
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              })
+            ],
+            2
+          )
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn-floating modal-trigger btn-large tooltipped disabled",
+        attrs: {
+          "data-position": "left",
+          "data-tooltip": "Vaš nalog je suspendovan",
+          href: "#eventCreateModal"
+        }
+      },
+      [_c("i", { staticClass: "material-icons left" }, [_vm._v("add")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn-floating modal-trigger btn-large tooltipped",
+        attrs: {
+          "data-position": "left",
+          "data-tooltip": "Novi događaj",
+          href: "#eventCreateModal"
+        }
+      },
+      [_c("i", { staticClass: "material-icons left" }, [_vm._v("add")])]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -49142,18 +49260,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
   props: {
-    user_id: {
-      requred: true
+    userid: {
+      requred: false
     },
-    auth: {
-      required: true
-    },
-    status_input: {
-      required: true
+    statusinput: {
+      required: false
     }
   },
   data: function data() {
@@ -49166,8 +49291,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
 
-    this.status = this.status_input;
-    this.data.user_id = this.user_id;
+    this.status = this.statusinput;
+    this.data.user_id = this.userid;
   },
 
 
@@ -49220,57 +49345,94 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.user_id != _vm.auth
-    ? _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "center" }, [
-          _vm.status == 0
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn-small waves-effect waves-light",
-                  on: { click: _vm.add_friend }
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "center" }, [
+      _vm.status == 0
+        ? _c("div", [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn-small waves-effect waves-light green tooltipped",
+                attrs: {
+                  "data-position": "top",
+                  "data-tooltip": "Dodaj za prijatelja"
                 },
-                [_vm._v("Dodaj Za Prijatelja")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.status == 2
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn-small waves-effect waves-light",
-                  on: { click: _vm.accept_friend }
+                on: { click: _vm.add_friend }
+              },
+              [_c("i", { staticClass: "fas fa-user-plus" })]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.status == 1
+        ? _c("div", [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn-small waves-effect waves-light red tooltipped",
+                attrs: {
+                  "data-position": "top",
+                  "data-tooltip": "Izbaci iz prijatelja"
                 },
-                [_vm._v("Prihvati Zahtev")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.status == 3
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn-small waves-effect waves-light",
-                  on: { click: _vm.delete_friend }
+                on: { click: _vm.delete_friend }
+              },
+              [_c("i", { staticClass: "fas fa-user-minus" })]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.status == 2
+        ? _c("div", [
+            _c(
+              "button",
+              {
+                staticClass: "btn-small waves-effect waves-light tooltipped",
+                attrs: {
+                  "data-position": "top",
+                  "data-tooltip": "Prihvati zahtev"
                 },
-                [_vm._v("Obriši Zahtev")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.status == 1
-            ? _c("div", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn-small waves-effect waves-light",
-                    on: { click: _vm.delete_friend }
-                  },
-                  [_vm._v("Ukloni iz prijatelja")]
-                )
-              ])
-            : _vm._e()
-        ])
-      ])
-    : _vm._e()
+                on: { click: _vm.accept_friend }
+              },
+              [_c("i", { staticClass: "fas fa-user-check" })]
+            ),
+            _vm._v(" \n       \n      "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn-small waves-effect waves-light orange tooltipped",
+                attrs: {
+                  "data-position": "bottom",
+                  "data-tooltip": "Otkaži zahtev"
+                },
+                on: { click: _vm.delete_friend }
+              },
+              [_c("i", { staticClass: "fas fa-user-times" })]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.status == 3
+        ? _c("div", [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn-small waves-effect waves-light orange tooltipped",
+                attrs: {
+                  "data-position": "top",
+                  "data-tooltip": "Otkaži zahtev"
+                },
+                on: { click: _vm.delete_friend }
+              },
+              [_c("i", { staticClass: "fas fa-user-times" })]
+            )
+          ])
+        : _vm._e()
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50278,7 +50440,7 @@ var render = function() {
             [
               _c(
                 "i",
-                { staticClass: "material-icons grey-text text-lighten-3" },
+                { staticClass: "material-icons grey-text text-lighten-2" },
                 [_vm._v("thumb_up")]
               )
             ]
@@ -50293,7 +50455,7 @@ var render = function() {
             [
               _c(
                 "i",
-                { staticClass: "material-icons grey-text text-lighten-3" },
+                { staticClass: "material-icons grey-text text-lighten-2" },
                 [_vm._v("thumb_down")]
               )
             ]
@@ -50310,9 +50472,11 @@ var render = function() {
               on: { click: _vm.cancel }
             },
             [
-              _c("i", { staticClass: "material-icons green-text" }, [
-                _vm._v("thumb_up")
-              ])
+              _c(
+                "i",
+                { staticClass: "material-icons green-text text-lighten-2" },
+                [_vm._v("thumb_up")]
+              )
             ]
           ),
           _vm._v(" "),
@@ -50325,7 +50489,7 @@ var render = function() {
             [
               _c(
                 "i",
-                { staticClass: "material-icons grey-text text-lighten-3" },
+                { staticClass: "material-icons grey-text text-lighten-2" },
                 [_vm._v("thumb_down")]
               )
             ]
@@ -50341,7 +50505,7 @@ var render = function() {
             [
               _c(
                 "i",
-                { staticClass: "material-icons grey-text text-lighten-3" },
+                { staticClass: "material-icons grey-text text-lighten-2" },
                 [_vm._v("thumb_up")]
               )
             ]
@@ -50354,9 +50518,11 @@ var render = function() {
               on: { click: _vm.cancel }
             },
             [
-              _c("i", { staticClass: "material-icons red-text" }, [
-                _vm._v("thumb_down")
-              ])
+              _c(
+                "i",
+                { staticClass: "material-icons red-text text-lighten-2" },
+                [_vm._v("thumb_down")]
+              )
             ]
           )
         ])
@@ -50375,7 +50541,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [
-      _c("i", { staticClass: "material-icons green-text" }, [
+      _c("i", { staticClass: "material-icons green-text text-lighten-2" }, [
         _vm._v("thumb_up")
       ])
     ])
@@ -50385,7 +50551,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [
-      _c("i", { staticClass: "material-icons red-text" }, [
+      _c("i", { staticClass: "material-icons red-text text-lighten-2" }, [
         _vm._v("thumb_down")
       ])
     ])
@@ -52139,6 +52305,39 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__friendbutton__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__friendbutton___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__friendbutton__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52172,6 +52371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     users: {
@@ -52183,15 +52383,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       required: false,
       default: 10
     },
+    requests: {
+      type: Array,
+      required: false
+    },
     search: {
       type: Boolean,
       required: false,
       default: false
     }
   },
+  components: {
+    friendbutton: __WEBPACK_IMPORTED_MODULE_0__friendbutton___default.a
+  },
   data: function data() {
     return {
-      pageNumber: 0
+      pageNumber: 0,
+      requestData: [],
+      userData: []
     };
   },
   methods: {
@@ -52202,16 +52411,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.pageNumber--;
     }
   },
+  created: function created() {
+    this.requestData = this.requests;
+    this.userData = this.users;
+    console.log(this.requestData);
+  },
+
   computed: {
     pageCount: function pageCount() {
-      var l = this.users.length,
+      var l = this.userData.length,
           s = this.size;
       return Math.floor(l / s);
     },
     paginatedData: function paginatedData() {
       var start = this.pageNumber * this.size,
           end = start + this.size;
-      return this.users.slice(start, end);
+      return this.userData.slice(start, end);
     }
   }
 });
@@ -52225,11 +52440,65 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    this.requests != undefined && this.requests.length > 0
+      ? _c(
+          "div",
+          { staticClass: "row" },
+          [
+            _c("h6", { staticClass: "blue-grey-text text-lighten-2" }, [
+              _vm._v("Zahtevi:")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.requestData, function(user) {
+              return _c("ul", { key: user.id, staticClass: "collection" }, [
+                _c("li", { staticClass: "collection-item avatar" }, [
+                  _c("img", {
+                    staticClass: "circle",
+                    attrs: { src: "/storage/avatars/" + user.user_img }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "blue-text text-darken-2 title",
+                      attrs: { href: "/korisnici/" + user.id }
+                    },
+                    [
+                      _c("b", [
+                        _vm._v(
+                          _vm._s(user.first_name) + " " + _vm._s(user.last_name)
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { staticClass: "secondary-content hide-on-small-only" },
+                    [
+                      _c("friendbutton", {
+                        attrs: { userid: user.id, statusinput: 2 }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ])
+            }),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
       [
-        this.users.length == 0
+        this.userData.length == 0
           ? _c(
               "div",
               { staticClass: "row center blue-grey-text text-lighten-2" },
@@ -52300,7 +52569,26 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row center" }, [
+      _c("div", { staticClass: "divider" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h6", { staticClass: "blue-grey-text text-lighten-2 col s12" }, [
+        _vm._v("Prijatelji:")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

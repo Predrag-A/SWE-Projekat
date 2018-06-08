@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-<nav>
+  <nav>
     <div class="nav-wrapper">
       <form>
         <div class="input-field">

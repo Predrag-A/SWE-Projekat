@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {        
-        $users =  User::orderBy('first_name','asc')->where('id', '!=', auth()->user()->id)->paginate(10);
+        $users =  User::orderBy('first_name','asc')->where('id', '!=', auth()->user()->id)->paginate(20);
         return view('pages.users.index')->with('users', $users);
     }
 
@@ -75,15 +75,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
-        if(auth()->user()->id != $id){
-            $users =  User::orderBy('first_name','asc')->paginate(10);
-            return redirect('/korisnici')->with(['error' => 'Nije moguće izmeniti tuđi nalog!', 'users' => $users]);
-        }
-
-        $user = User::find($id);
-        $cities = City::all();
-        return view('pages.users.edit')->with(['user'=> $user, 'cities' => $cities]);
+        return redirect()->back();
     }
 
     /**
@@ -218,5 +210,27 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request){
+        $this->validate($request, [
+            'searchData' => 'string|max:30'
+        ]);  
+
+        $query = $request->input('searchData');
+        
+        $city = City::where('name', 'like', '%'.$query.'%')->first();
+
+        if($city){            
+            $res = User::where('first_name', 'LIKE', '%'. strtolower($query) .'%')->orWhere('last_name', 'LIKE', '%'. $query. '%')->orWhere('city_id', $city->id);
+        }
+        else{            
+            $res = User::where('first_name', 'LIKE', '%'. strtolower($query) .'%')->orWhere('last_name', 'LIKE', '%'. $query .'%');
+        }
+        
+        $users = $res->orderBy('first_name','asc')->where('id', '!=', auth()->user()->id)->paginate(20);
+        
+
+        return view('pages.users.index')->with('users', $users);
     }
 }

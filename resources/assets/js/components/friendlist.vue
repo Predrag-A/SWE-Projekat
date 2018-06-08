@@ -1,7 +1,39 @@
 <template>
   <div>
-    <div class="row">
-      <div v-if="this.users.length == 0" class="row center blue-grey-text text-lighten-2">
+
+    <!-- ZAHTEVI ZA PRIJATELJE -->
+    <div v-if="this.requests != undefined && this.requests.length > 0" class="row">
+      
+        <h6 class="blue-grey-text text-lighten-2">Zahtevi:</h6>
+        <ul v-for="user in requestData" v-bind:key="user.id" class="collection">        
+            
+            <li class="collection-item avatar">
+
+              <!-- SLIKA -->
+              <img class="circle" :src="'/storage/avatars/' + user.user_img"> 
+
+              <!-- PODACI -->
+              <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2 title"><b>{{user.first_name}} {{user.last_name}}</b></a>
+              
+              <!-- DUGME -->          
+              <span class="secondary-content hide-on-small-only">
+                <friendbutton :userid="user.id" :statusinput="2"></friendbutton>
+              </span>
+
+            </li>
+        </ul>
+
+        <div class="row center">
+          <div class="divider"></div>
+        </div>
+        <div class="row">
+          <h6 class="blue-grey-text text-lighten-2 col s12">Prijatelji:</h6>
+        </div>
+    </div>
+
+    <!-- LISTA PRIJATELJA -->
+    <div class="row">      
+      <div v-if="this.userData.length == 0" class="row center blue-grey-text text-lighten-2">
         <h4>Lista prijatelja je prazna</h4>
       </div>
       <div v-for="user in paginatedData" v-bind:key="user.id" class="col s12 m6">
@@ -11,9 +43,8 @@
 
           <!-- PODACI -->        
           <p>
-            <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2 title"><b>{{user.first_name}} {{user.last_name}}</b></a>     
-
-          </p>
+            <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2 title"><b>{{user.first_name}} {{user.last_name}}</b></a>
+          </p>                 
         </div>
       </div>
     </div>
@@ -31,6 +62,7 @@
 </template>
 
 <script>
+import friendbutton from './friendbutton'
 export default {
   props: {
     users: {
@@ -42,15 +74,24 @@ export default {
       required:false,
       default:10,
     },
+    requests: {
+      type: Array,
+      required: false,
+    },
     search:{
       type: Boolean,
       required:false,
       default:false,
     }
   },
+  components:{
+    friendbutton,
+  },
   data: function() {
     return {
       pageNumber: 0,
+      requestData: [],
+      userData: [],
     }
   },
   methods: {
@@ -61,16 +102,21 @@ export default {
       this.pageNumber--;
     }
   },
+  created(){
+    this.requestData = this.requests;
+    this.userData = this.users;
+    console.log(this.requestData)
+  },
   computed:{
     pageCount(){
-      let l = this.users.length,
+      let l = this.userData.length,
           s = this.size;
       return Math.floor(l/s);
     },
     paginatedData(){
       const start = this.pageNumber * this.size,
             end = start + this.size;
-      return this.users
+      return this.userData
                .slice(start, end);
     }
   },

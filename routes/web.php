@@ -23,7 +23,6 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::resource('gradovi','CityController');
 Route::resource('tereni','CourtController');
 Route::resource('dogadjaji','EventController');
-Route::resource('sportovi','SportController');
 Route::resource('korisnici','UserController');
 Route::resource('komentari','CommentController');
 Route::resource('pridruzivanje', 'AttendsController');
@@ -90,6 +89,9 @@ Route::post('api/request_send', 'RequestController@send')->name('request');
 
 // Dogadjaji
 Route::get('api/city_name', 'EventController@cityName');
+
+// Korisnici
+Route::post('/korisnici', 'UserController@search')->name('usersearch');
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

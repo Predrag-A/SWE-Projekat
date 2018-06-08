@@ -29,9 +29,11 @@
               <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}"></like-rating>
               @endif 
             </p>
+            @if(Auth::user()->id != $user->id)
             <p>
-              <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input="{{Auth::user()->check($user->id)}}"></friendbutton> 
+              <friendbutton :userid="{{$user->id}}" :statusinput="{{Auth::user()->check($user->id)}}"></friendbutton> 
             </p>
+            @endif
           </div>          
           
         </div>
@@ -283,7 +285,7 @@
 
                 </div>
                 <div id="friendtab" class="col s12">
-                  <friend-list :users={!! json_encode($user->friends()) !!} :size=14></friend-list>
+                <friend-list :users={!! json_encode($user->friends()) !!} :size=14 @if(Auth::user()->id == $user->id) :requests={!! json_encode(Auth::user()->pending_friend_requests()) !!} @endif></friend-list>
                 </div>            
             </div>
           </div>

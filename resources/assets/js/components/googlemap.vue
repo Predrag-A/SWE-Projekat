@@ -3,10 +3,10 @@
         <div class="google-map" :id="mapName"> <!-- v-bind id sa propertijem mapName -->
         </div>
         <div v-if="userstatus === 'Suspendovan'" class="fixed-action-btn">
-          <a class="btn-floating modal-trigger btn-large green accent-3 tooltipped disabled" data-position="left" data-tooltip="Vas nalog je suspendovan" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
+          <a class="btn-floating modal-trigger btn-large tooltipped disabled" data-position="left" data-tooltip="Vaš nalog je suspendovan" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
         </div>
         <div v-else class="fixed-action-btn">
-          <a class="btn-floating modal-trigger btn-large green accent-3 tooltipped" data-position="left" data-tooltip="Novi dogadjaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
+          <a class="btn-floating modal-trigger btn-large tooltipped" data-position="left" data-tooltip="Novi događaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
         </div>
         <div class="container">
             <div class="row">

@@ -2,13 +2,25 @@
 @section('content')
 
 <div class="container">
-  <ul class = "collection with-header">
-    <li class="collection-header">
-      Pretraga ide ovde PH
-    </li>
+
+  <form action="{{ route('usersearch') }}" method="post">
+    {{csrf_field()}}        
+    <div class="row">
+      <div class="col s3 m2 l1" style="padding-top:10px;">
+        <button class="btn-floating btn-large" type="submit"><i class="material-icons">search</i></button>
+      </div>
+      <div class="input-field col s9 m10 l11">          
+        <input id="search" type="search" name="searchData" required>
+        <i class="material-icons">close</i>
+      </div>
+    </div>
+  </form>
+
+  @if(count($users) > 0)
+  <ul class = "collection row">
     @foreach($users as $user)
     
-    <li class="collection-item avatar">
+    <li class="collection-item avatar col s12 l6">
 
       <!-- SLIKA -->
       <img class="circle" src="{{route('index')}}/storage/avatars/{{$user->user_img}}"> 
@@ -19,12 +31,11 @@
         <i class="material-icons tiny">home</i>
         <i>{{$user->city->name}}</i>
         <like-rating :positive_ratings="{{$user->likeCount()}}" :negative_ratings="{{$user->dislikeCount()}}" :user_id="{{$user->id}}" :readonly="true"></like-rating>        
-        <friendbutton class="hide-on-med-and-up" :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input={{Auth::user()->check($user->id)}}></friendbutton>
       </p>
 
       <!-- DUGME -->          
-      <span class="secondary-content hide-on-small-only">
-        <friendbutton :user_id="{{$user->id}}" :auth="{{Auth::user()->id}}" :status_input={{Auth::user()->check($user->id)}}></friendbutton>
+      <span class="secondary-content">
+        <friendbutton :userid="{{$user->id}}" :statusinput={{Auth::user()->check($user->id)}}></friendbutton>
       </span>
 
     </li>
@@ -33,6 +44,11 @@
   <div class="row center">    
     {!! $users->render() !!}
   </div>
+  @else
+  <div class="row center blue-grey-text text-lighten-2">
+    <h4>Nije pronađen nijedan korisnik</h4>
+  </div>
+  @endif
 
 </div>
 

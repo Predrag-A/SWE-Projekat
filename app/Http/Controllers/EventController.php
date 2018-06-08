@@ -30,8 +30,7 @@ class EventController extends Controller
      */
     public function index()
     {        
-        $events =  Event::orderBy('time','desc')->paginate(12);
-        return view('pages.events.index')->with('events', $events);
+        return redirect()->back();
     }
 
     /**
@@ -40,9 +39,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        $cities = City::orderBy('name', 'asc')->get();
-        return view('pages.events.create')->with('cities', $cities);
+    {                
+        return redirect()->back();
     }
 
     /**
@@ -197,6 +195,6 @@ class EventController extends Controller
 
         $event->delete();
 
-        return redirect('/dogadjaji')->with('success', "Događaj obrisan!");
+        return redirect('/dashboard')->with('success', "Događaj obrisan!");
     }
 }

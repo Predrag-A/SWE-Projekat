@@ -27,21 +27,21 @@
     <div class="row">
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center green-text"><i class="large material-icons">event_available</i></h2>
+          <h2 class="center green-text text-lighten-2"><i class="large material-icons">event_available</i></h2>
           <h5 class="center">Kreiraj dogadjaj ...</h5>
         </div>
       </div>
 
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center green-text"><i class="large material-icons">group</i></h2>
+          <h2 class="center green-text text-lighten-2"><i class="large material-icons">group</i></h2>
           <h5 class="center">... okupi ekipu ...</h5>
         </div>
       </div>
 
       <div class="col s12 m4">
         <div class="icon-block">
-          <h2 class="center green-text"><i class="large material-icons">sentiment_very_satisfied</i></h2>
+          <h2 class="center green-text text-lighten-2"><i class="large material-icons">sentiment_very_satisfied</i></h2>
           <h5 class="center">... i zabavi se!</h5>
         </div>
       </div>

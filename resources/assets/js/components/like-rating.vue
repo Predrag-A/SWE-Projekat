@@ -3,26 +3,26 @@
     <span>{{this.positive}}</span>
     <!-- DEFAULTNI -->
     <span v-if="status == 'default'">      
-      <a href="JavaScript:void(0)" @click="like"><i class="material-icons grey-text text-lighten-3">thumb_up</i></a>
-      <a href="JavaScript:void(0)" @click="dislike"><i class="material-icons grey-text text-lighten-3">thumb_down</i></a>
+      <a href="JavaScript:void(0)" @click="like"><i class="material-icons grey-text text-lighten-2">thumb_up</i></a>
+      <a href="JavaScript:void(0)" @click="dislike"><i class="material-icons grey-text text-lighten-2">thumb_down</i></a>
     </span>
 
     <!-- POZITIVAN RATING -->
     <span v-if="status == 'like'">
-      <a href="JavaScript:void(0)" @click="cancel"><i class="material-icons green-text">thumb_up</i></a>
-      <a href="JavaScript:void(0)" @click="dislike"><i class="material-icons grey-text text-lighten-3">thumb_down</i></a>
+      <a href="JavaScript:void(0)" @click="cancel"><i class="material-icons green-text text-lighten-2">thumb_up</i></a>
+      <a href="JavaScript:void(0)" @click="dislike"><i class="material-icons grey-text text-lighten-2">thumb_down</i></a>
     </span>
 
     <!-- NEGATIVAN RATING -->
     <span v-if="status == 'dislike'">
-      <a href="JavaScript:void(0)" @click="like"><i class="material-icons grey-text text-lighten-3">thumb_up</i></a>
-      <a href="JavaScript:void(0)" @click="cancel"><i class="material-icons red-text">thumb_down</i></a>
+      <a href="JavaScript:void(0)" @click="like"><i class="material-icons grey-text text-lighten-2">thumb_up</i></a>
+      <a href="JavaScript:void(0)" @click="cancel"><i class="material-icons red-text text-lighten-2">thumb_down</i></a>
     </span>
 
     <!-- READ ONLY -->
     <span v-if="status == 'readonly'">
-      <span><i class="material-icons green-text">thumb_up</i></span>
-      <span><i class="material-icons red-text">thumb_down</i></span>
+      <span><i class="material-icons green-text text-lighten-2">thumb_up</i></span>
+      <span><i class="material-icons red-text text-lighten-2">thumb_down</i></span>
     </span>  
     <span>{{this.negative}}</span>
   </div>

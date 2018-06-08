@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col s12">  
-    <ul class="tabs">
+    <ul class="tabs tabs-fixed-width">
       <li class="tab col s6"><a href="#tab-1">Zahtevi</a></li>
       <li class="tab col s6"><a href="#tab-2">Dodavanje</a></li>
     </ul>
