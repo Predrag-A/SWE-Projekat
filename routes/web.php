@@ -93,6 +93,9 @@ Route::get('api/city_name', 'EventController@cityName');
 // Korisnici
 Route::post('/korisnici', 'UserController@search')->name('usersearch');
 
+// Tereni
+Route::post('/tereni', 'CourtController@search')->name('courtsearch');
+
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze
 Route::prefix('/web/api')->group(function () {

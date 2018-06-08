@@ -2,17 +2,19 @@
 @section('content')
 
 <div class="container">
-  <nav>
-    <div class="nav-wrapper">
-      <form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
+  
+  <form action="{{ route('courtsearch') }}" method="post">
+    {{csrf_field()}}        
+    <div class="row">
+      <div class="col s3 m2 l1" style="padding-top:10px;">
+        <button class="btn-floating btn-large waves-effect waves-light" type="submit"><i class="material-icons">search</i></button>
+      </div>
+      <div class="input-field col s9 m10 l11">          
+        <input id="search" type="search" name="searchData" required>
+        <i class="material-icons">close</i>
+      </div>
     </div>
-  </nav>
+  </form>
 
   @if(count($courts) > 0)
   <div class = "row">
@@ -55,7 +57,9 @@
       {!! $courts->render() !!}
     </div>
   @else
-  <p>Trenutno nema dodatih terena.</p>
+  <div class="row center blue-grey-text text-lighten-2">
+    <h4>Nije pronađen nijedan teren</h4>
+  </div>
   @endif
 </div>
 

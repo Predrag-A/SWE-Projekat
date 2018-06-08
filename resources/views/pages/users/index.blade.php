@@ -7,7 +7,7 @@
     {{csrf_field()}}        
     <div class="row">
       <div class="col s3 m2 l1" style="padding-top:10px;">
-        <button class="btn-floating btn-large" type="submit"><i class="material-icons">search</i></button>
+        <button class="btn-floating btn-large waves-effect waves-light" type="submit"><i class="material-icons">search</i></button>
       </div>
       <div class="input-field col s9 m10 l11">          
         <input id="search" type="search" name="searchData" required>

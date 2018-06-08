@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Court;
 use App\CourtSport;
+use App\City;
 
 class CourtController extends Controller
 {
@@ -149,5 +150,28 @@ class CourtController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'searchData' => 'string|max:30'
+        ]);  
+
+        $query = $request->input('searchData');
+        
+        $city = City::where('name', 'like', '%'.$query.'%')->first();
+
+        if($city){            
+            $res = Court::where('location', 'LIKE', '%'. strtolower($query) .'%')->orWhere('city_id', $city->id);
+        }
+        else{            
+            $res = Court::where('location', 'LIKE', '%'. strtolower($query) .'%');
+        }
+        
+        $courts = $res->orderBy('location','desc')->paginate(12);
+        
+
+        return view('pages.courts.index')->with('courts', $courts);
     }
 }
