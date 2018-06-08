@@ -17,7 +17,7 @@
       <div v-if="status == 2">
         <button class="btn-small waves-effect waves-light tooltipped" @click="accept_friend" data-position="top" data-tooltip="Prihvati zahtev"><i class="fas fa-user-check"></i></button> 
         &nbsp;
-        <button class="btn-small waves-effect waves-light orange tooltipped" @click="delete_friend" data-position="bottom" data-tooltip="Otkaži zahtev"><i class="fas fa-user-times"></i></button>   
+        <button v-if="cancelvisible" class="btn-small waves-effect waves-light orange tooltipped" @click="delete_friend" data-position="bottom" data-tooltip="Otkaži zahtev"><i class="fas fa-user-times"></i></button>   
       </div>  
       
       <!-- AKO JE KORISNIK POSLAO ZAHTEV, STATUS 3 -->
@@ -40,6 +40,11 @@ export default {
     },    
     statusinput: {
       required: false,
+    },
+    cancelvisible: {
+      type: Boolean,
+      required:false, 
+      default: true,     
     }
   },
   data: function() {

@@ -228,7 +228,7 @@ class UserController extends Controller
             $res = User::where('first_name', 'LIKE', '%'. strtolower($query) .'%')->orWhere('last_name', 'LIKE', '%'. $query .'%');
         }
         
-        $users = $res->orderBy('first_name','asc')->where('id', '!=', auth()->user()->id)->paginate(20);
+        $users = $res->where('id', '!=', auth()->user()->id)->orderBy('first_name','asc')->paginate(20);
         
 
         return view('pages.users.index')->with('users', $users);

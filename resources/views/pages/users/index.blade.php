@@ -19,6 +19,9 @@
   @if(count($users) > 0)
   <ul class = "collection row">
     @foreach($users as $user)
+
+    <!-- DODATNA ZASTITA -->
+    @if($user->id != Auth::user()->id)
     
     <li class="collection-item avatar col s12 l6">
 
@@ -35,10 +38,12 @@
 
       <!-- DUGME -->          
       <span class="secondary-content">
-        <friendbutton :userid="{{$user->id}}" :statusinput={{Auth::user()->check($user->id)}}></friendbutton>
+        <friendbutton :userid="{{$user->id}}" :statusinput={{Auth::user()->check($user->id)}} :cancelvisible="false"></friendbutton>
       </span>
 
     </li>
+    @endif
+
     @endforeach
   </ul>
   <div class="row center">    

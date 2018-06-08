@@ -49279,6 +49279,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     statusinput: {
       required: false
+    },
+    cancelvisible: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data: function data() {
@@ -49398,19 +49403,21 @@ var render = function() {
               [_c("i", { staticClass: "fas fa-user-check" })]
             ),
             _vm._v(" \n       \n      "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn-small waves-effect waves-light orange tooltipped",
-                attrs: {
-                  "data-position": "bottom",
-                  "data-tooltip": "Otkaži zahtev"
-                },
-                on: { click: _vm.delete_friend }
-              },
-              [_c("i", { staticClass: "fas fa-user-times" })]
-            )
+            _vm.cancelvisible
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn-small waves-effect waves-light orange tooltipped",
+                    attrs: {
+                      "data-position": "bottom",
+                      "data-tooltip": "Otkaži zahtev"
+                    },
+                    on: { click: _vm.delete_friend }
+                  },
+                  [_c("i", { staticClass: "fas fa-user-times" })]
+                )
+              : _vm._e()
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -52386,11 +52393,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     requests: {
       type: Array,
       required: false
-    },
-    search: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   components: {

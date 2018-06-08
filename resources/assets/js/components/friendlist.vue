@@ -77,11 +77,6 @@ export default {
     requests: {
       type: Array,
       required: false,
-    },
-    search:{
-      type: Boolean,
-      required:false,
-      default:false,
     }
   },
   components:{
