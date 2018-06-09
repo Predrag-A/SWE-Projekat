@@ -77,6 +77,7 @@ Route::get('api/city_name', 'EventController@cityName');
 // Tereni
 Route::get('/api/tereni/{id}', 'CityController@courts');
 Route::get('/api/sportovi/{id}', 'CourtController@sports');
+Route::post('/api/delete_image', 'CourtController@deleteImage');
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

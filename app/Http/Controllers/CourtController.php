@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Court;
 use App\CourtSport;
 use App\City;
+use App\CourtImages;
 
 class CourtController extends Controller
 {
@@ -138,7 +140,38 @@ class CourtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->validate($request, [            
+            'images.*' => 'image|nullable|max:1999',
+        ]);
+        $court = Court::find($id);
+        $count = count($court->images);
+
+        foreach($request->images as $image){
+            // Provera za max broj slika
+            if($count > 5){
+                break;
+            }
+            // Uzimanje imena fajla sa ekstenzijom
+            $fileNameWithExt = $image->getClientOriginalName();
+            // Samo ime fajla
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // Samo ekstenzija
+            $extension = $image->getClientOriginalExtension();
+            // Ime za cuvanje, ovako se radi zbog duplikata
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            // Upload slike
+            $path = $image->storeAs('public/tereni', $fileNameToStore);
+
+            CourtImages::create([
+                'court_id' => $court->id,
+                'court_img' => $fileNameToStore
+            ]);                  
+            $count++;
+        }
+
+        return redirect()->back()->with('success', 'Teren je ažuriran');
+
     }
 
     /**
@@ -180,5 +213,22 @@ class CourtController extends Controller
         $court = Court::find($id);        
         $sports = $court->sports();
         return response($sports, 200);
+    }
+
+    public function deleteImage(Request $request){
+
+        $this->validate($request, [
+            'image_id' => 'integer'
+        ]);  
+
+        $image = CourtImages::find($request->input('image_id'));
+
+        if($image){            
+            Storage::delete('public/tereni/' . $image->court_img);
+            $image->delete();
+        }
+
+        return redirect()->back()->with('success', 'Slika je obrisana');
+
     }
 }

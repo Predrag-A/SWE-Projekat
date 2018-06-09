@@ -5,24 +5,64 @@
 
   <div class="card">
     <!-- SLIDESHOW ZA SLIKE -->
-    @if(count($court->getPictures()) > 0)
+    @if(count($court->images) > 0)
       <div class="slider">
         <ul class="slides">
-          @foreach($court->getPictures() as $slika)
+          @foreach($court->images as $image)
           <li>
-            <img src="{{$slika}}">
-            <div class="caption center-align">
-              <!--<h3>This is our big Tagline!</h3>
-              <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>-->
+            <!-- BRISANJE MOGUCE SAMO ZA ADMINE -->
+            @if(Auth::user()->isAdmin())
+            <div class="caption right-align">              
+              {!!Form::open(['action' => ['CourtController@deleteImage'], 'method' => 'POST'])!!}
+                {{Form::hidden('image_id', $image->id)}}
+                {{Form::button('Obriši Sliku <i class="material-icons right">clear</i>', ['type' => 'submit', 'class' => 'waves-effect waves-light btn red'])}}
+              {!!Form::close()!!}
             </div>
+            @endif
+            <img src="{{route('index')}}/storage/tereni/{{$image->court_img}}">
+            
           </li>
           @endforeach
         </ul>
       </div>
     @else
-      <h3>Teren trenutno nema dodatih slika!</h3>
-    @endif
+      <div class="row center blue-grey-text text-lighten-2">
+        <h4>Teren trenutno nema dodatih slika</h4>             
+        <div class="divider"></div>   
+      </div>
+    @endif        
+   
     <div class="card-content">
+
+      <!-- IZMENE, TEMP -->
+      @if(Auth::user()->isAdmin())
+      
+      <blockquote class="blue-grey-text text-lighten-2">
+          <b>Napomena:</b><br>
+          U slučaju dodavanja više slika od jednom, sve dodate slike nakon dostizanja maksimalnog broja slika (6) će biti odbačene. U slučaju dostizanja maksimalnog broja slika potrebno je obrisati postojeće da bi se dodale nove.
+      </blockquote>
+      <div class="row center">
+          {!! Form::open(['action' => ['CourtController@update', $court->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+      
+          <div class="file-field input-field col s12">
+            <div @if(count($court->images) > 5) class="btn disabled" @else class="btn" @endif>
+              <span>SLIKE</span>
+              <input type="file" name="images[]" multiple>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" @if(count($court->images) > 5) disabled placeholder="Maksimalni broj slika je 6" @endif placeholder="Dodajte jednu ili više slika">
+            </div>
+          </div>          
+         
+        <div class="row center align">
+          
+          {{Form::hidden('_method','PUT')}}
+          {{Form::button('Potvrda <i class="material-icons right">send</i>',['type'=>'submit', 'class'=>'btn s12 blue darken-4 waves-effect waves-light'])}}
+        </div>
+        {!! Form::close() !!}
+      </div>
+      @endif
+
       <div class="row">
         <h3>{{$court->location}}</h3>
         <h5>Lokacija:</h5>

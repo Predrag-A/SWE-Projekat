@@ -24,7 +24,7 @@
           
           <!-- SLIKA -->
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="{{$court->getMainPicture()}}">
+            <img class="activator" src="{{route('index')}}/storage/tereni/{{$court->mainImage()}}">
             <span class="card-title activator"></span>
           </div>
 

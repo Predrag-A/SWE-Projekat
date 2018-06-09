@@ -12,21 +12,22 @@
             <div class="row">
                 <div class="col s12">    
                         <div class="row" v-show="toggle" id="kartice">
-                          <h3 id="naslov">{{trenutniTeren}}</h3>
+                          <div class="row center blue-grey-text text-lighten-2">
+                            <h3 id="naslov">{{trenutniTeren}}</h3>
+                          </div>
+                          <div class="divider"> </div>
                           <div v-for="(event,index) in pomNiz" :key="index" class="col s6 m4">
                             <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
                               <div class="card-image">
                                 <img :src="'img/'+ event.sport.image">
-                                <span class="card-title"></span>
+                                <span class="card-title">{{customTime(event.dogadjaj.time)}}</span>
                               </div>
-                              <div class="card-content">
-                                <h6 :class="event.sport.color + '-text'">Datum i vreme:</h6>
-                                <span>{{customTime(event.dogadjaj.time)}}</span>
+                              <div class="card-content">                                
                                 <h6 :class="event.sport.color + '-text'">Pridruženi korisnici:</h6>
                                 <span>{{attends[index+1]}}</span>
                               </div>
                               <div class="card-action center">
-                                <a :href="event.url">Detalji</a>
+                                <a :href="event.url" :class="'card-title ' + event.sport.color + '-text'">Detalji</a>
                               </div>
                             </div>
                           </div>

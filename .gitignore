@@ -10,6 +10,15 @@
 /public/hot
 /public/storage/avatars/*
 !/public/storage/avatars/default.jpg
+/public/storage/tereni/*
+!/public/storage/tereni/default.jpg
+!/public/storage/tereni/Teren1Slika1.jpg
+!/public/storage/tereni/Teren1Slika2.jpg
+!/public/storage/tereni/Teren1Slika3.jpg
+!/public/storage/tereni/Teren1Slika4.jpg
+!/public/storage/tereni/Teren2Slika1.jpg
+!/public/storage/tereni/Teren2Slika2.jpg
+!/public/storage/tereni/Teren2Slika3.jpg
 /storage/*.key
 /vendor
 /.idea

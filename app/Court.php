@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\CourtImages;
 
 class Court extends Model
 {
@@ -13,10 +14,12 @@ class Court extends Model
         return $this->belongsTo('App\City', 'city_id');
     }
 
-    public function events(){
-        
-        return $this->hasMany('App\Event','court_id');
-        //Izmena
+    public function events(){        
+        return $this->hasMany('App\Event','court_id');         
+    }
+
+    public function images(){
+        return $this->hasMany('App\CourtImages','court_id');
     }
 
     public function sports(){
@@ -61,23 +64,11 @@ class Court extends Model
     public function name(){
         $arr = explode(",", $this->location);
         return $arr[0];
-    }
+    }    
 
-    public function getPictures() {
-        $i = 1;
-        $slike = array();
-        while(file_exists(public_path().'/storage/tereni/Teren'.$this->id.'Slika'.$i.'.jpg')) {
-            array_push($slike,'/storage/tereni/Teren'.$this->id.'Slika'.$i.'.jpg');
-            $i++;
-        }
-        return $slike;
-    }
-
-    public function getMainPicture() {
-        $slika = "";
-        if(file_exists(public_path().'/storage/tereni/Teren'.$this->id.'Slika1.jpg'))
-            return '/storage/tereni/Teren'.$this->id.'Slika1.jpg';
-        else
-            return '';
+    public function mainImage() {
+        if($image = $this->images->first())
+            return $image->court_img;
+        return "default.jpg";
     }
 }
