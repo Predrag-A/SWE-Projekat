@@ -25,6 +25,7 @@ Vue.component('notification', require('./components/notification.vue'));
 Vue.component('request', require('./components/request.vue'));
 Vue.component('admin-map', require('./components/adminmap.vue'));
 Vue.component('friend-list', require('./components/friendlist.vue'));
+Vue.component('event-select', require('./components/eventselect.vue'));
 
 const app = new Vue({
     el: '#app'

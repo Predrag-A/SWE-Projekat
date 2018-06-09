@@ -174,4 +174,11 @@ class CourtController extends Controller
 
         return view('pages.courts.index')->with('courts', $courts);
     }
+
+    public function sports($id){
+
+        $court = Court::find($id);        
+        $sports = $court->sports();
+        return response($sports, 200);
+    }
 }

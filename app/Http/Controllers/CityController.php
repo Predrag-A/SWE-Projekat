@@ -130,4 +130,17 @@ class CityController extends Controller
         $grad->delete();
         return redirect('nesto da ucita, tipa index');
     }
+
+    public function courts($id)
+    {        
+        $city = City::find($id);
+        $courts = $city->courts();
+        if($courts){            
+            return response($courts->get(['id', 'location']), 200);
+        }
+        else{
+            return response([], 200);
+        }
+        
+    }
 }

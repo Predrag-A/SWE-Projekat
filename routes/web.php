@@ -27,7 +27,7 @@ Route::resource('korisnici','UserController');
 Route::resource('komentari','CommentController');
 Route::resource('pridruzivanje', 'AttendsController');
 
-// Rute za posebne stranice
+// Imenovane rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/', 'PagesController@dashboard')->name('index');
 Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
@@ -37,26 +37,10 @@ Route::get('/notifikacije', 'PagesController@notifications')->name('notification
 Route::get('korisnici', 'UserController@index')->name('korisnici');
 Route::get('dogadjaji', 'EventController@index')->name('dogadjaji');
 Route::get('tereni', 'CourtController@index')->name('tereni');
+Route::post('/korisnici', 'UserController@search')->name('usersearch');
+Route::post('/tereni', 'CourtController@search')->name('courtsearch');
 
 // API rute
-Route::get('api/tereni', function(){
-
-  // Vraca sve terena u gradu sa id-jem option
-  $input = Illuminate\Support\Facades\Input::get('option');
-  $city = App\City::find($input);
-  $courts = $city->courts();
-  return Response::make($courts->get(['id', 'location']));
-});
-
-Route::get('api/sportovi', function(){
-
-  // Vraca sve sportove na terenu sa id-jem option
-  $input = Illuminate\Support\Facades\Input::get('option');
-  $court = App\Court::find($input);
-  
-  $sports = $court->sports();
-  return Response::make($sports);
-});
 
 Route::get('api/test', function(){
   
@@ -90,11 +74,9 @@ Route::post('api/request_send', 'RequestController@send')->name('request');
 // Dogadjaji
 Route::get('api/city_name', 'EventController@cityName');
 
-// Korisnici
-Route::post('/korisnici', 'UserController@search')->name('usersearch');
-
 // Tereni
-Route::post('/tereni', 'CourtController@search')->name('courtsearch');
+Route::get('/api/tereni/{id}', 'CityController@courts');
+Route::get('/api/sportovi/{id}', 'CourtController@sports');
 
 // Rute za Vue komponente (prethodne rute su za laravel)
 // preko kojih se uzimaju podaci iz baze

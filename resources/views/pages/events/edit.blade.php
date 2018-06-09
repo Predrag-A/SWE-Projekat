@@ -16,34 +16,9 @@
       {{Form::text('time', $event->getTime(), ['required'=>'required','class' => 'timepicker'])}}
       {{Form::label('time','Vreme',['for'=>'vreme'])}}
     </div>
-
-    <div class="input-field col s12 m4">
-      <select name="city" id="city">
-        @foreach($cities as $city)
-        <option value="{{$city->id}}"@if($city->id == $event->court->city->id) selected @endif>{{$city->name}}</option>
-        @endforeach
-      </select>
-      <label>Grad</label>
-    </div>   
-
-    <div class="input-field col s12 m4">
-      <select name="court" id="court">
-        @foreach($event->court->city->courts as $court)
-        <option value="{{$court->id}}"@if($event->court_id == $court->id) selected @endif>{{$court->location}}</option>
-        @endforeach   
-      </select>
-      <label>Teren</label>
-    </div>  
-
-    <div class="input-field col s12 m4">
-      <select name="sport" id="sport">
-        @foreach($event->court->sports() as $sport)
-        <option value="{{$sport->id}}"@if($event->sport_id == $sport->id) selected @endif>{{$sport->name}}</option>
-        @endforeach    
-      </select>
-      <label>Sport</label>
-    </div> 
-  </div>
+    
+    <event-select :cities="{{$cities}}"></event-select>
+   
   <div class="row center align">
     
     {{Form::hidden('_method','PUT')}}
@@ -53,68 +28,6 @@
 
 </div>
 
-<script>
 
-  $(document).ready(function(){
-
-    // Biranje select-a sa idjem city
-    $('#city').change(function(){
-      // Prijem vrednosti api-ja na ruti /api/tereni slanjem get requesta
-      // sa idjem grada
-      $.get("{{ url('/api/tereni')}}", {option: $(this).val()}, function(data){
-        console.log(data);
-
-        // Prazni se select
-        $('#court').empty();
-        
-        if(typeof data !== 'undefined ' && data.length > 0){
-
-          $('#court').append("<option value='' disabled selected>Izaberite teren</option>");
-
-          // Dodaju se optioni iz api-ja
-          $.each(data, function(key, element) {
-            $('#court').append("<option value='" + element.id +"'>" + element.location + "</option>");
-          });
-        }
-        else{
-          $('#court').append("<option value='' disabled selected>Grad trenutno nema dodate terene</option>");
-          $('#sport').empty();
-        }
-        $("#court").trigger('contentChangedCourt');
-      });      
-    })
-
-    $('#court').change(function(){
-
-      // Prijem vrednosti api-ja na ruti /api/sportovi slanjem get requesta
-      // sa idjem terena
-      $.get("{{ url('/api/sportovi')}}", {option: $(this).val()}, function(data){
-        
-
-        // Prazni se select
-        $('#sport').empty();       
-                
-        $('#sport').append("<option value='' disabled selected>Izaberite sport</option>");
-
-        // Dodaju se optioni iz api-ja
-        $.each(data, function(key, element) {
-          $('#sport').append("<option value='" + element.id +"'>" + element.name + "</option>");
-        });
-
-        $("#sport").trigger('contentChangedSport');
-      });      
-    })
-
-    // Mora da se resetuju selectovi, glupi materialize
-    $('#court').on('contentChangedCourt', function() {
-      $(this).material_select();      
-      $("#sport").trigger('contentChangedSport');
-    });
-    $('#sport').on('contentChangedSport', function() {
-      $(this).material_select();
-    });
-  });
-  
-</script>
 
 @endsection
