@@ -56,8 +56,7 @@ export default {
                 return []
             }
         },
-        starSize: {
-            type: Number,
+        starSize: {            
             default: 50
         },
         showRating: {

@@ -20,6 +20,7 @@ class CreateCourtsTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');           
             $table->double('long');
             $table->double('lat');
+            $table->text('description')->nullable();
         });
     }
 

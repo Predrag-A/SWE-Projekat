@@ -494,7 +494,6 @@ export default {
           t.marker = new google.maps.Marker( {
           position: latLng,
           map: t.map,
-          icon:'https://i.imgur.com/GvYScOu.png'
         });
         t.map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, clickable: false});
         t.data.lat = latLng.lat();

@@ -75,16 +75,23 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'jmbg' => $data['jmbg'],
         ]);
-        
-        // Notifikacija prilikom registracije        
-        $sadmin = User::where('status', 'Super-Admin')->get()->first();
 
-        $notification = new Notification();
-        $notification->sender_id = $sadmin->id;
-        $notification->receiver_id = $user->id;
-        $notification->title = "Dobrodošli na INT";
-        $notification->body = "Welcome to the jungle. Ne znam šta da napišem. PH.";
-        $notification->save();
+        // Prvi korisnik postaje Super-Admin
+        if($user->id == 1){
+            $user->status = 'Super-Admin';
+            $user->save();
+        }        
+        // Notifikacija prilikom registracije  
+        else{              
+            $sadmin = User::where('status', 'Super-Admin')->get()->first();
+
+            $notification = new Notification();
+            $notification->sender_id = $sadmin->id;
+            $notification->receiver_id = $user->id;
+            $notification->title = "Dobrodošli na INT";
+            $notification->body = "Welcome to the jungle. Ne znam šta da napišem. PH.";
+            $notification->save();
+        }
 
         return $user;
 

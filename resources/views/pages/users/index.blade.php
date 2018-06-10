@@ -3,8 +3,7 @@
 
 <div class="container">
 
-  <form action="{{ route('usersearch') }}" method="post">
-    {{csrf_field()}}        
+  {!! Form::open(['action' => 'UserController@search', 'method' => 'POST']) !!}
     <div class="row">
       <div class="col s3 m2 l1" style="padding-top:10px;">
         <button class="btn-floating btn-large waves-effect waves-light" type="submit"><i class="material-icons">search</i></button>
@@ -14,7 +13,7 @@
         <i class="material-icons">close</i>
       </div>
     </div>
-  </form>
+  {!! Form::close() !!}
 
   @if(count($users) > 0)
   <ul class = "collection row">

@@ -36,7 +36,6 @@ export default {
             }
         },
         size: {
-            type: Number,
             default: 50
         },
         starId: {

@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\CourtImages;
+use App\Traits\CourtTraits;
 
 class Court extends Model
 {
+    use CourtTraits;
+    
     protected $table='courts';
     public $timestamps=false;
 
@@ -32,43 +35,10 @@ class Court extends Model
         endforeach;
 
         return $sports;
-        /* Nece ovako
-        return $this->belongsToMany('App\Sport','court_sports','sport_id','court_id');
-        */
     }
 
     public function grades(){
         return $this->belongsToMany('App\User','grade_courts','court_id','user_id')->withPivot('grade');
     }
 
-    public function averageGrade(){
-        $grades = $this->grades()->get();
-
-        if($grades->count() == 0)
-            return 0;
-        $average = 0;
-        $counter = 0;
-        foreach($grades as $grade):
-            $average += $grade->pivot->grade;
-            $counter++;
-        endforeach;
-        $average /= $counter;
-        return round($average, 2);
-    }
-
-    public function address(){
-        $arr = explode(",", $this->location);
-        return ltrim($arr[1]);
-    }
-
-    public function name(){
-        $arr = explode(",", $this->location);
-        return $arr[0];
-    }    
-
-    public function mainImage() {
-        if($image = $this->images->first())
-            return $image->court_img;
-        return "default.jpg";
-    }
 }

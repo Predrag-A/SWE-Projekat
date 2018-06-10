@@ -3,7 +3,7 @@
 
 <div class="container">
   
-  <form action="{{ route('courtsearch') }}" method="post">
+  <form action="CourtController@search" method="post">
     {{csrf_field()}}        
     <div class="row">
       <div class="col s3 m2 l1" style="padding-top:10px;">
@@ -32,23 +32,26 @@
           <div class="card-action center">
             <a href="{{route('tereni')}}/{{$court->id}}" class="card-title">Detalji</a>
           </div>
-          
+
           <!-- TEKST U KARTICI -->
           <div class="card-content">
-            <span class="card-title">Lokacija:</span>
-            <span>{{$court->location}}</span>    
+            <span class="card-title">{{$court->name()}}</span>
+            <span>{{$court->address()}}, {{$court->city->name}}</span>    
           </div>
           
           <!-- TEXT STO ISKACE -->
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-            <div class="row">              
-              <h6>Lokacija:</h6>
-              <span>{{$court->location}}, {{$court->city->name}}</span>
+            <div class="row"> 
+              <h6>Aktivni događaji: <span>{{count($court->activeEvents())}}</span></h6>
               <h6>Ocena terena:</h6>
-              <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="25"></star-rating>
+              <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="20"></star-rating>
               <h6>Vaša ocena:</h6>
-              <star-rating :inline="true" :read-only="true" :rating="{{Auth::user()->courtRating($court->id)}}" :round-start-rating="false" :star-size="25"></star-rating>
+              <star-rating :inline="true" :read-only="true" :rating="{{Auth::user()->courtRating($court->id)}}" :round-start-rating="false" :star-size="20"></star-rating>
+              <h6>Sportovi:</h6>
+              @foreach($court->sports() as $sport) 
+              <span><i class="{{$sport->returnIcon()}}"></i>{{$sport->name}}</span><br>
+              @endforeach
             </div>
           </div>
         </div>      

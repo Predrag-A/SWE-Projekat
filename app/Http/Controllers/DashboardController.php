@@ -13,7 +13,16 @@ use Response;
 //Ovaj kontroler je za prosledjivanje podataka iz baze Vue.js-u
 class DashboardController extends Controller 
 {
-
+    /*
+     * Sprecava pristup korisnicima koji nisu prijavljeni. 
+     * Ako nekom pogledu treba da se dozvoli pristup:
+     * $this->middleware('auth', ['except' => ['index', 'show']]);
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function getUserCity() // .../web/api/usercity
     {
         $test = auth()->user()->city->name;
@@ -37,14 +46,17 @@ class DashboardController extends Controller
 
     public function getCourtEvents($courtid) // .../web/api/courtEvents/{courtid}
     {
-        $court = Court::find($courtid);
-        $events = $court->events()->get();
+        $court = Court::find($courtid);        
         $res = array();
-        foreach($events as $event){
-            if(!$event->isOver()){
-                array_push($res, $event);
-            }
+        if($court){
+            $events = $court->events()->get();
+            foreach($events as $event){
+                if(!$event->isOver()){
+                    array_push($res, $event);
+                }
+            }            
         }
+        
         return Response::make($res);  //moze i return ['data' => $data,];
     }
 

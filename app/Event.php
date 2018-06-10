@@ -29,9 +29,7 @@ class Event extends Model
         return $this->hasMany('App\Comment','event_id');
     }
 
-    public function attends(){        
-        
-        // Opet nece ovo
+    public function attends(){                
         return $this->belongsToMany('App\User','attends','event_id','user_id');
     }
 }

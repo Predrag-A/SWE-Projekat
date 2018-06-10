@@ -61,22 +61,8 @@ class User extends Authenticatable
             array_push($events, \App\Event::find($event->event_id));
         endforeach;
 
-        return $events;
-        
-        //Nece nesto ovako
-        //return $this->belongsToMany('App\Event','attends','user_id','event_id');
+        return $events;        
     }
-
-    // Morao sam da izbacim zato sto ne uzima u obzir status
-    /*
-    public function friends(){
-        
-        return $this->belongsToMany('App\User','friends','requester','user_requested');
-    }
-
-    public function friendto(){
-        return $this->belongsToMany('App\User','friends','user_requested','requester');
-    }*/
 
     public function gradescourt(){
         return $this->belongsToMany('App\Court','grade_courts','user_id','court_id')->withPivot('grade');

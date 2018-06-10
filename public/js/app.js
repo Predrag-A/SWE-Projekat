@@ -48190,7 +48190,9 @@ var render = function() {
                           _vm._v("Pridruženi korisnici:")
                         ]),
                         _vm._v(" "),
-                        _c("span", [_vm._v(_vm._s(_vm.attends[index + 1]))])
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.attends[event.dogadjaj.id]))
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-action center" }, [
@@ -49618,7 +49620,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         starSize: {
-            type: Number,
             default: 50
         },
         showRating: {
@@ -49915,7 +49916,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         size: {
-            type: Number,
             default: 50
         },
         starId: {
@@ -51590,8 +51590,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var latLng = event.latLng;
       t.marker = new google.maps.Marker({
         position: latLng,
-        map: t.map,
-        icon: 'https://i.imgur.com/GvYScOu.png'
+        map: t.map
       });
       t.map.setOptions({ draggable: false, zoomControl: false, scrollwheel: false, clickable: false });
       t.data.lat = latLng.lat();

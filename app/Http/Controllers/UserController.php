@@ -63,8 +63,12 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);              
-        $cities = City::orderBy('name', 'asc')->get();
-        return view('pages.users.show')->with(['user'=> $user, 'cities' => $cities]);
+        if($user){
+            $cities = City::orderBy('name', 'asc')->get();
+            return view('pages.users.show')->with(['user'=> $user, 'cities' => $cities]);
+        }
+        
+        return redirect()->back()->with('error', 'Nepostojeći korisnik');
     }
 
     /**

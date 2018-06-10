@@ -9,6 +9,7 @@ use App\Attend;
 use App\Sport;
 use App\Court;
 use App\Notification;
+use App\Comment;
 use Auth;
 
 class EventController extends Controller
@@ -121,7 +122,11 @@ class EventController extends Controller
     public function show($id)
     {        
         $event = Event::find($id);
-        return view('pages.events.show')->with('event', $event);
+        if($event)
+            return view('pages.events.show')->with('event', $event);
+        
+            
+        return redirect()->back()->with('error', 'Nepostojeći događaj');
     }
 
     /**
@@ -192,7 +197,7 @@ class EventController extends Controller
         }
 
         Attend::where('event_id', $id)->delete();
-
+        Comment::where('event_id', $id)->delete();
         $event->delete();
 
         return redirect('/dashboard')->with('success', "Događaj obrisan!");

@@ -24,7 +24,7 @@
                               </div>
                               <div class="card-content">                                
                                 <h6 :class="event.sport.color + '-text'">Pridruženi korisnici:</h6>
-                                <span>{{attends[index+1]}}</span>
+                                <span>{{attends[event.dogadjaj.id]}}</span>
                               </div>
                               <div class="card-action center">
                                 <a :href="event.url" :class="'card-title ' + event.sport.color + '-text'">Detalji</a>
@@ -117,9 +117,9 @@ export default {
           });
       },
 
-      getEventAttends(eventid) {
+      getEventAttends(eventid) {        
           axios.get('web/api/eventAttend/' + eventid).then(response => {
-              this.attends[eventid] = response.data;
+              this.attends[eventid] = response.data;              
           }).catch(error => {
               console.log(error);
           });
