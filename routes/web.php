@@ -21,13 +21,14 @@ Route::post('register', 'Auth\RegisterController@register');
 
 // Imenovane rute za posebne stranice
 Route::get('/about', 'PagesController@about')->name('about');
+Route::get('/faq', 'PagesController@faq')->name('faq');
 Route::get('/', 'PagesController@dashboard')->name('index');
 Route::get('/dashboard', 'PagesController@dashboard')->name('dashboard');
 Route::get('/admin_panel', 'PagesController@admin')->name('admin');
 Route::get('/notifikacije', 'PagesController@notifications')->name('notifications');
 
 // Korisnici
-Route::post('/korisnici/pretraga', 'UserController@search');
+Route::get('/korisnici/pretraga/', 'UserController@search');
 
 // Prijateljstva
 Route::post('api/dodaj_prijatelja', 'FriendsController@add');
@@ -57,7 +58,7 @@ Route::post('api/request_send', 'RequestController@send')->name('request');
 Route::get('api/city_name', 'EventController@cityName');
 
 // Tereni
-Route::post('/tereni/pretraga', 'CourtController@search');
+Route::get('/tereni/pretraga', 'CourtController@search');
 Route::get('/api/tereni/{id}', 'CityController@courts');
 Route::get('/api/sportovi/{id}', 'CourtController@sports');
 Route::post('/api/delete_image', 'CourtController@deleteImage');

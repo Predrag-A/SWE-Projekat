@@ -1,7 +1,7 @@
 <footer class="page-footer">
   <div class="container">
     <div class="row center">
-        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="FAQ" href=""><i class="fas fa-question"></i></a>
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="FAQ" href="{{route('faq')}}"><i class="fas fa-question"></i></a>
         &nbsp;
         @auth
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light modal-trigger" data-position="top" data-tooltip="Kontakt" href="#requestmodal"><i class="material-icons">email</i></a>

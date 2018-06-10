@@ -3,13 +3,13 @@
 
 <div class="container">
 
-  {!! Form::open(['action' => 'UserController@search', 'method' => 'POST']) !!}
+  {!! Form::open(['action' => ['UserController@search'], 'method' => 'GET']) !!}
     <div class="row">
       <div class="col s3 m2 l1" style="padding-top:10px;">
         <button class="btn-floating btn-large waves-effect waves-light" type="submit"><i class="material-icons">search</i></button>
       </div>
       <div class="input-field col s9 m10 l11">          
-        <input id="search" type="search" name="searchData" required>
+        <input id="search" type="search" name="query" required>
         <i class="material-icons">close</i>
       </div>
     </div>
@@ -45,7 +45,7 @@
 
     @endforeach
   </ul>
-  <div class="row center">    
+  <div class="row center col s12">    
     {!! $users->render() !!}
   </div>
   @else

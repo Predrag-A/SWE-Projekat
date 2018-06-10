@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
 use App\User;
 use App\City;
 use App\Notification;
@@ -216,13 +217,9 @@ class UserController extends Controller
         //
     }
 
-    public function search(Request $request){
-        $this->validate($request, [
-            'searchData' => 'string|max:30'
-        ]);  
-
-        $query = $request->input('searchData');
-        
+    public function search(){
+                
+        $query = Input::get('query');
         $city = City::where('name', 'like', '%'.$query.'%')->first();
 
         if($city){            
@@ -233,6 +230,7 @@ class UserController extends Controller
         }
         
         $users = $res->where('id', '!=', auth()->user()->id)->orderBy('first_name','asc')->paginate(20);
+        $users->appends(['query' => $query]);
         
 
         return view('pages.users.index')->with('users', $users);

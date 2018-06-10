@@ -18,7 +18,7 @@ class PagesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'about']]);
+        $this->middleware('auth', ['except' => ['index', 'about', 'faq']]);
     }
 
     public function about(){
@@ -28,6 +28,16 @@ class PagesController extends Controller
         else{
             $cities = City::orderBy('name', 'asc')->get();
             return view('pages.about')->with('cities', $cities);            
+        }
+    }
+
+    public function faq(){
+        if(Auth::check()){
+            return view('pages.faq');
+        }
+        else{
+            $cities = City::orderBy('name', 'asc')->get();
+            return view('pages.faq')->with('cities', $cities);            
         }
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
 use App\Court;
 use App\CourtSport;
 use App\City;
@@ -273,11 +274,7 @@ class CourtController extends Controller
 
     public function search(Request $request)
     {
-        $this->validate($request, [
-            'searchData' => 'string|max:30'
-        ]);  
-
-        $query = $request->input('searchData');
+        $query = Input::get('query');
         
         $city = City::where('name', 'like', '%'.$query.'%')->first();
 
@@ -289,7 +286,7 @@ class CourtController extends Controller
         }
         
         $courts = $res->orderBy('location','desc')->paginate(12);
-        
+        $courts->appends(['query' => $query]);
 
         return view('pages.courts.index')->with('courts', $courts);
     }
