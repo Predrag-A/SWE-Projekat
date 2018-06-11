@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\City;
 use App\Notification;
@@ -96,6 +97,7 @@ class UserController extends Controller
             'last_name' => 'string|max:255',
             'first_name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users',
+            'password' => 'required|string|between:8,255|confirmed',
             'city_id' => 'integer',
             'img' => 'image|nullable|max:1999',
             'status' => 'string'

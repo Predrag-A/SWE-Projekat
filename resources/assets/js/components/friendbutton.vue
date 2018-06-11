@@ -10,7 +10,7 @@
       
       <!-- AKO JESU PRIJATELJI, STATUS 1 -->   
       <div v-if="status == 1">        
-        <button class="btn-small waves-effect waves-light red tooltipped" @click="delete_friend" data-position="top" data-tooltip="Izbaci iz prijatelja"><i class="fas fa-user-minus"></i></button>
+        <button class="btn-small waves-effect waves-light red tooltipped" @click="delete_friend" data-position="bottom" data-tooltip="Izbaci iz prijatelja"><i class="fas fa-user-minus"></i></button>
       </div>
 
       <!-- AKO JE KORISNIKU STIGAO ZAHTEV, STATUS 2 -->
@@ -22,7 +22,7 @@
       
       <!-- AKO JE KORISNIK POSLAO ZAHTEV, STATUS 3 -->
       <div v-if="status == 3">
-        <button class="btn-small waves-effect waves-light orange tooltipped" @click="delete_friend" data-position="top" data-tooltip="Otkaži zahtev"><i class="fas fa-user-times"></i></button>
+        <button class="btn-small waves-effect waves-light orange tooltipped" @click="delete_friend" data-position="bottom" data-tooltip="Otkaži zahtev"><i class="fas fa-user-times"></i></button>
       </div>
       
       
