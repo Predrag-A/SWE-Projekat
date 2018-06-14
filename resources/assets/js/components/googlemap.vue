@@ -8,14 +8,31 @@
         <div v-else class="fixed-action-btn">
           <a class="btn-floating modal-trigger btn-large tooltipped" data-position="left" data-tooltip="Novi događaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col s12">    
-                        <div class="row" v-show="toggle" id="kartice">
-                          <div class="row center blue-grey-text text-lighten-2">
-                            <h3 id="naslov">{{trenutniTeren}}</h3>
-                          </div>
-                          <div class="divider"> </div>
+        <div class="container">  
+
+          <!-- PRELOADER DA SE PRIKAZE DOK SE NE UCITA SVE -->
+          <div v-if="loading" class="row center" style="padding-top:30px;">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="!loading" class="row">
+              <div class="col s12">    
+                      <div class="row" v-show="toggle" id="kartice">
+                        <div class="row center blue-grey-text text-lighten-2">
+                          <h3 id="naslov">{{trenutniTeren}}</h3>
+                        </div>
+                        <div class="divider"> </div>                       
+
+                        <div v-if="pomNiz.length > 0">
                           <div v-for="(event,index) in pomNiz" :key="index" class="col s6 m4">
                             <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
                               <div class="card-image">
@@ -31,9 +48,15 @@
                               </div>
                             </div>
                           </div>
-                      </div>
-                </div>
-            </div>
+                        </div>
+                        <div v-else>
+                          <div class="row center blue-grey-text text-lighten-2">
+                            <h3>Teren trenutno nema aktivne događaje</h3>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
         </div>
   </div>
 </template>
@@ -65,14 +88,29 @@ export default {
         toggle: false,
         pomNiz: [],
         attends: [],
-        trenutniTeren: {}
+        trenutniTeren: {},
+        loading: false,
+        map_obj: ""
+    }
+  },
+
+  // TERENI SE PRIKAZUJU TEK KAD SE SVE UCITA, DO TAD LOADER ISPOD MAPE
+  watch:{
+    loading: function(val){
+      var self = this;
+      if(val == false){
+        for(var i = 0; i < self.cityCourts.length; i++)
+        {                 
+          self.addCourtMarker(self.map_obj, new google.maps.LatLng(self.cityCourts[i].lat, self.cityCourts[i].long), self.cityCourts[i].location, i+1);
+        } 
+      }
     }
   },
   methods: {
     //axios je slicno ajaxu i ovo sa get se zove controler sa ovom rutom da bi se vratili podaci
     //prvo se navodi ruta koja u sebi ima koji kontroler je zaduzen i koja funkcija je zaduzena
-    //kada se navede cities, users, itd...
-      getCities() {
+    //kada se navede cities, users, itd...    
+    getCities() {
           axios.get('/web/api/cities').then(response => {
             this.cities = response.data; //vracaju se svi gradovi
             this.initMap();
@@ -82,15 +120,20 @@ export default {
       },
 
       getCourts(map, cityid) {
+        var self = this;
+        this.loading = true;
           axios.get('/web/api/citycourts/'+ cityid).then(response => {
-            this.cityCourts = response.data; //vracaju se svi gradovi
-            if(this.cityCourts.length != 0)
+            
+            self.cityCourts = response.data; //vracaju se svi gradovi
+            if(self.cityCourts.length != 0)
             {
-                for(var i = 0; i < this.cityCourts.length; i++)
-                {
-                    this.addCourtMarker(map, new google.maps.LatLng(this.cityCourts[i].lat, this.cityCourts[i].long), this.cityCourts[i].location, i+1);
-                    this.getEvents(i+1);
-                }
+                for(var i = 0; i < self.cityCourts.length; i++)
+                {   
+                    self.getEvents(i+1);
+                }                
+            }
+            else{
+              this.loading = false;
             }
             }).catch(error => {
             console.log(error);
@@ -102,7 +145,7 @@ export default {
           axios.get('/web/api/courtEvents/' + courtid).then(response => {
               response.data.forEach(function(event) {
                   self.cityEvents.push(event);
-                  self.getEventAttends(event.id);
+                  self.getEventAttends(event.id);    
               })
           }).catch(error => {
               console.log(error);
@@ -118,8 +161,10 @@ export default {
       },
 
       getEventAttends(eventid) {        
+          const t = this;
           axios.get('web/api/eventAttend/' + eventid).then(response => {
               this.attends[eventid] = response.data;              
+              this.loading = false;
           }).catch(error => {
               console.log(error);
           });
@@ -396,7 +441,7 @@ export default {
               ]
           }
           var map = new google.maps.Map(element, options);
-
+          this.map_obj = map;
           if(this.cities.length != 0)
           {
                 for(var i = 0; i < this.cities.length; i++)

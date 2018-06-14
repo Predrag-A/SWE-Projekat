@@ -3,7 +3,9 @@
 
 <div class="container">
   
-  <h1>Izmeni dogadjaj</h1>
+  <div class="row center blue-grey-text text-lighten-2">
+    <h4>Izmeni događaj</h4>
+  </div>
     {!! Form::open(['action' => ['EventController@update', $event->id], 'method' => 'POST']) !!}
     
   <div class="row col s12 m16">
