@@ -9,7 +9,7 @@
             <div v-show="state === 'default'" v-if="seen">            
                 
                 {{comment.content}}<br>
-                <small><a v-bind:href="'/korisnici/' + comment.user.id" class="blue-text text-darken-2">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
+                <small><a v-bind:href="'/korisnici/' + comment.user.id" class="blue-text text-darken-2">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{this.customTime()}}</small>
                 
                 <a href="JavaScript:void(0)" v-if="editable" @click="state = 'editing'" class="secondary-content"><i class="material-icons">edit</i></a>
             </div>
@@ -35,7 +35,7 @@
         <!-- Kada je komentar sakriven -->
         <div v-if="!seen">
             <a href="JavaScript:void(0)" v-on:click="seen = !seen"><i class="material-icons">expand_more</i></a>
-            <small class="blue-grey-text text-lighten-3"><a :href="'/korisnici/' + comment.user.id" class="blue-grey-text text-lighten-3">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{comment.updated_at}}</small>
+            <small class="blue-grey-text text-lighten-3"><a :href="'/korisnici/' + comment.user.id" class="blue-grey-text text-lighten-3">{{comment.user.first_name}} {{comment.user.last_name}}</a> <span>&bull;</span> {{this.customTime()}}</small>
 
         </div>
     </li>
@@ -80,26 +80,35 @@
         // Funkcije
         methods: {
           
-          // Resetovanje forme za edit
-          resetEdit() {
-              this.state = 'default';
-              this.data.content = this.comment.content;
-          },
-          // Snimanje komentara
-          saveEdit(){
-              // Emituje se event koji sadrzi id i sadrzaj komentara
-              this.state = 'default';
-              this.$emit('comment-updated', {
-                  'id': this.comment.id,
-                  'content': this.data.content,
-              });
-          },
-          // Brisanje, radi isto kao saveEdit
-          deleteComment() {
-              this.$emit('comment-deleted', {
-                  'id': this.comment.id,
-              });
-          }          
+            // Resetovanje forme za edit
+            resetEdit() {
+                this.state = 'default';
+                this.data.content = this.comment.content;
+            },
+            // Snimanje komentara
+            saveEdit(){
+                // Emituje se event koji sadrzi id i sadrzaj komentara
+                this.state = 'default';
+                this.$emit('comment-updated', {
+                    'id': this.comment.id,
+                    'content': this.data.content,
+                });
+            },
+            // Brisanje, radi isto kao saveEdit
+            deleteComment() {
+                this.$emit('comment-deleted', {
+                    'id': this.comment.id,
+                });
+            },  
+            customTime() {
+                var temp = this.comment.created_at.split(" ");
+                var pom = temp[0].split("-").reverse(); //pom[1]
+                var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+                var datum = pom[0] + ". " + meseci[pom[1]-1] + " " + pom[2];
+                var pom = temp[1].split(":");
+                datum = datum + ", " + pom[0] + ":" + pom[1];
+                return datum;
+            },
         }
     }
 </script>

@@ -48712,6 +48712,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$emit('comment-deleted', {
                 'id': this.comment.id
             });
+        },
+        customTime: function customTime() {
+            var temp = this.comment.created_at.split(" ");
+            var pom = temp[0].split("-").reverse(); //pom[1]
+            var meseci = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+            var datum = pom[0] + ". " + meseci[pom[1] - 1] + " " + pom[2];
+            var pom = temp[1].split(":");
+            datum = datum + ", " + pom[0] + ":" + pom[1];
+            return datum;
         }
     }
 });
@@ -48781,7 +48790,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("span", [_vm._v("•")]),
-                    _vm._v(" " + _vm._s(_vm.comment.updated_at))
+                    _vm._v(" " + _vm._s(this.customTime()))
                   ]),
                   _vm._v(" "),
                   _vm.editable
@@ -48926,7 +48935,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("span", [_vm._v("•")]),
-            _vm._v(" " + _vm._s(_vm.comment.updated_at))
+            _vm._v(" " + _vm._s(this.customTime()))
           ])
         ])
       : _vm._e()
