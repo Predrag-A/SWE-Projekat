@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Attend;
+use App\Event;
 
 class AttendsController extends Controller
 {
@@ -47,6 +48,11 @@ class AttendsController extends Controller
      */
     public function store(Request $request)
     {
+        $event = Event::find($request->input('event'));
+        if($event->isOver()){
+            return redirect()->back()->with('error', 'Ne možete se pridružiti završenom događaju');
+        }
+
         $attends = new Attend;
         $attends->user_id = auth()->user()->id;
         $attends->event_id = $request->input('event');

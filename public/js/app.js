@@ -14333,7 +14333,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(92);
+module.exports = __webpack_require__(95);
 
 
 /***/ }),
@@ -14368,6 +14368,7 @@ Vue.component('request', __webpack_require__(78));
 Vue.component('admin-map', __webpack_require__(81));
 Vue.component('friend-list', __webpack_require__(86));
 Vue.component('event-select', __webpack_require__(89));
+Vue.component('countdown-timer', __webpack_require__(92));
 
 var app = new Vue({
   el: '#app'
@@ -47595,6 +47596,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdowntimer__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdowntimer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__countdowntimer__);
+//
+//
 //
 //
 //
@@ -47659,8 +47664,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+
   name: 'google-map',
+  components: {},
   props: { //propovi se prosledjuju u komponentu kao stringovi
     name: {
       required: true
@@ -48024,6 +48033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         self.toggle = true;
         self.pomNiz = [];
         self.trenutniTeren = lokacija.split(',')[0];
+        console.log(self.cityEvents);
         self.cityEvents.forEach(function (event) {
           if (event.court_id == i) {
             self.pomNiz.push({
@@ -48227,7 +48237,7 @@ var render = function() {
                         _vm._l(_vm.pomNiz, function(event, index) {
                           return _c(
                             "div",
-                            { key: index, staticClass: "col s6 m4" },
+                            { key: index, staticClass: "col s12 m6 l4" },
                             [
                               _c(
                                 "div",
@@ -48243,13 +48253,20 @@ var render = function() {
                                       attrs: { src: "img/" + event.sport.image }
                                     }),
                                     _vm._v(" "),
-                                    _c("span", { staticClass: "card-title" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.customTime(event.dogadjaj.time)
-                                        )
-                                      )
-                                    ])
+                                    _c(
+                                      "span",
+                                      { staticClass: "card-title" },
+                                      [
+                                        _c("countdown-timer", {
+                                          attrs: {
+                                            date: event.dogadjaj.time,
+                                            tag: "h5",
+                                            inputclass: "white-text"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "card-content" }, [
@@ -49337,6 +49354,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }]
     };
     var map = new google.maps.Map(element, options);
+    var marker = new google.maps.Marker({
+      position: this.coords,
+      map: map
+    });
   }
 });
 
@@ -51499,7 +51520,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // Metoda za dodavanje grada
     addCity: function addCity() {
       var t = this;
-      console.log(t.cities_stored);
       if (t.data.name == "" || t.data.name == null) {
         M.toast({ html: 'Niste ispravno uneli naziv grada', classes: 'red lighten-3' });
         return;
@@ -52585,7 +52605,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     this.requestData = this.requests;
     this.userData = this.users;
-    console.log(this.requestData);
   },
 
   computed: {
@@ -53067,6 +53086,227 @@ if (false) {
 
 /***/ }),
 /* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(93)
+/* template */
+var __vue_template__ = __webpack_require__(94)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\countdowntimer.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d3da966a", Component.options)
+  } else {
+    hotAPI.reload("data-v-d3da966a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 93 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'countdown',
+  computed: {
+    usableDate: function usableDate() {
+      return Math.trunc(Date.parse(this.date) / 1000);
+    },
+    seconds: function seconds() {
+      return (this.usableDate - this.now) % 60;
+    },
+    minutes: function minutes() {
+      return Math.trunc((this.usableDate - this.now) / 60) % 60;
+    },
+    hours: function hours() {
+      return Math.trunc((this.usableDate - this.now) / 60 / 60) % 24;
+    },
+    days: function days() {
+      return Math.trunc((this.usableDate - this.now) / 60 / 60 / 24);
+    },
+    active: function active() {
+      if (this.seconds < 0 || this.minutes < 0 || this.hours < 0) return false;
+      return true;
+    }
+  },
+  data: function data() {
+    return {
+      now: Math.trunc(new Date().getTime() / 1000)
+    };
+  },
+
+  methods: {
+    twoDigits: function twoDigits(number) {
+      if (number < 10) return '0' + number;else return number;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    window.setInterval(function () {
+      _this.now = Math.trunc(new Date().getTime() / 1000);
+    }, 1000);
+  },
+
+  props: {
+    date: {
+      type: String,
+      required: true
+    },
+    tag: {
+      type: String,
+      required: false,
+      default: "span"
+    },
+    inputclass: {
+      type: String,
+      required: false,
+      default: "blue-grey-text text-lighten-2"
+    },
+    inputstyle: {
+      type: String,
+      required: false,
+      default: "text-shadow: black 0px 0px 10px"
+    }
+  }
+});
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.active
+      ? _c(
+          "div",
+          [
+            _vm.days > 0
+              ? _c(
+                  this.tag,
+                  {
+                    tag: "component",
+                    class: _vm.inputclass,
+                    style: _vm.inputstyle
+                  },
+                  [
+                    _vm._v(
+                      "\n      Počinje za " +
+                        _vm._s(_vm.twoDigits(_vm.days)) +
+                        " dana\n    "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.days == 0
+              ? _c(
+                  this.tag,
+                  {
+                    tag: "component",
+                    class: _vm.inputclass,
+                    style: _vm.inputstyle
+                  },
+                  [
+                    _vm._v(
+                      "\n      Počinje za " +
+                        _vm._s(_vm.twoDigits(_vm.hours)) +
+                        ":" +
+                        _vm._s(_vm.twoDigits(_vm.minutes)) +
+                        ":" +
+                        _vm._s(_vm.twoDigits(_vm.seconds)) +
+                        "  \n    "
+                    )
+                  ]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      : _c(
+          "div",
+          [
+            _vm.days == 0
+              ? _c(
+                  this.tag,
+                  {
+                    tag: "component",
+                    class: _vm.inputclass,
+                    style: _vm.inputstyle
+                  },
+                  [_vm._v("\n      Završen \n    ")]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d3da966a", module.exports)
+  }
+}
+
+/***/ }),
+/* 95 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

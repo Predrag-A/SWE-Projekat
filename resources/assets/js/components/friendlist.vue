@@ -100,7 +100,6 @@ export default {
   created(){
     this.requestData = this.requests;
     this.userData = this.users;
-    console.log(this.requestData)
   },
   computed:{
     pageCount(){

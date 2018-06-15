@@ -7,33 +7,27 @@
   <div class="card">    
     <event-map name="{{$event->id}}" lat={{$event->court->lat}} long={{$event->court->long}}></event-map>
     <div class="card-content">
-      <div class="row">
-        <h3>{{$event->sport->name}}</h3>
+      <div class="row">        
+        <countdown-timer date="{{$event->time}}" tag="h4" inputstyle=" "></countdown-timer> 
+        
         <div>Vreme odrzavanja: {{$event->time}}</div>
-        <div>Lokacija: {{$event->court->location}}</div>
-        <div>Kreirao: {{$event->user->first_name}} {{$event->user->last_name}}</div>    
-            
-        @if(Auth::user()->id == $event->user_id && !$event->isOver()) 
-        <div class="valign-wrapper">
-          
-          <!-- DUGME ZA EDITOVANJE -->
-          <a href= "{{route('dogadjaji')}}/{{$event->id}}/edit" class = "waves-effect waves-light btn left">Izmeni</a>
-
-          <!-- DUGME ZA BRISANJE -->
-          {!!Form::open(['action' => ['EventController@destroy', $event->id], 'method' => 'POST'])!!}
-              {{Form::hidden('_method', 'DELETE')}}
-              {{Form::button('Obriši', ['type' => 'submit', 'class' => 'waves-effect waves-light btn right red'])}}
-          {!!Form::close()!!}
-        </div>        
-        @endif
-      </div>
-
-      <!-- OCENE -->
-      <div>
-        Ocenite teren: <star-rating :show-rating="false" :rating="{{Auth::user()->courtRating($event->court->id)}}" :court_id="{{$event->court->id}}"></star-rating>
-      </div>
-            
+        <div>Teren: <a href="{{route('tereni')}}/{{$event->court->id}}">{{$event->court->location}}</a></div>
+        <div>Kreirao: {{$event->user->first_name}} {{$event->user->last_name}}</div>   
+      </div>            
     </div>
+    @if(Auth::user()->id == $event->user_id && !$event->isOver()) 
+    <div class="card-action">
+      
+      <!-- DUGME ZA EDITOVANJE -->
+      <a href= "{{route('dogadjaji')}}/{{$event->id}}/edit" class = "waves-effect waves-light btn-flat">Izmeni</a>
+
+      <!-- DUGME ZA BRISANJE -->
+      {!!Form::open(['action' => ['EventController@destroy', $event->id], 'method' => 'POST', 'style' => 'display:inline'])!!}
+          {{Form::hidden('_method', 'DELETE')}}
+          {{Form::button('Obriši', ['type' => 'submit', 'class' => 'waves-effect waves-light btn-flat red-text right'])}}
+      {!!Form::close()!!}
+    </div>        
+    @endif
   </div>
   <div class="row">
 

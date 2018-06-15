@@ -88,7 +88,7 @@
                       <div class="file-field input-field col s12 m8">
                         <div class="btn">
                           <span>Slika</span>
-                          <input type="file" name="img">
+                          <input type="file" accept="image/*" name="img">
                         </div>
                         <div class="file-path-wrapper">
                           <input class="file-path validate" type="text">
@@ -239,7 +239,7 @@
                           <!-- SLIKA -->
                           <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="/img/{{$event->sport->image}}">
-                            <span class="card-title activator">{{$event->localizedDate()}}, {{$event->getTimeNoSeconds()}}</span>
+                            <span class="card-title activator" style="text-shadow: black 0px 0px 10px;">{{$event->localizedDate()}}, {{$event->getTimeNoSeconds()}}</span>
                           </div>
                 
                           <!-- LINK -->

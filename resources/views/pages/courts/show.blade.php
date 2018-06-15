@@ -19,7 +19,7 @@
           <div class="file-field input-field col s12">
             <div @if(count($court->images) > 5) class="btn disabled" @else class="btn" @endif>
               <span>SLIKE</span>
-              <input type="file" name="images[]" multiple>
+              <input type="file" name="images[]" accept="image/*" multiple>
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text" @if(count($court->images) > 5) disabled placeholder="Maksimalni broj slika je 6" @endif placeholder="Dodajte jednu ili više slika">
@@ -98,9 +98,9 @@
         </div>
       @else
         <div class="row center blue-grey-text text-lighten-2">
-          <h4>Teren trenutno nema dodatih slika</h4>             
-          <div class="divider"></div>   
-        </div>
+          <h4>Teren trenutno nema dodatih slika</h4>     
+        </div>                
+        <div class="divider"></div>   
       @endif        
     
       <div class="card-content">      

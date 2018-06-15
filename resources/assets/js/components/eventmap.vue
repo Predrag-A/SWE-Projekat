@@ -266,6 +266,10 @@ export default {
               ]
     }
     var map = new google.maps.Map(element, options);
+    var marker = new google.maps.Marker( {
+      position: this.coords,
+      map: map,
+    });
 
   }
 };

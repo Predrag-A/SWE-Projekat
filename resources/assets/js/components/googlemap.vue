@@ -33,11 +33,13 @@
                         <div class="divider"> </div>                       
 
                         <div v-if="pomNiz.length > 0">
-                          <div v-for="(event,index) in pomNiz" :key="index" class="col s6 m4">
+                          <div v-for="(event,index) in pomNiz" :key="index" class="col s12 m6 l4">
                             <div class="card medium col-content z-depth-3" :style="'border: 1px solid ' + event.sport.color">
                               <div class="card-image">
                                 <img :src="'img/'+ event.sport.image">
-                                <span class="card-title">{{customTime(event.dogadjaj.time)}}</span>
+                                
+                                <span class="card-title"><countdown-timer :date="event.dogadjaj.time" tag="h5" inputclass="white-text"></countdown-timer>
+                                </span>
                               </div>
                               <div class="card-content">                                
                                 <h6 :class="event.sport.color + '-text'">Pridruženi korisnici:</h6>
@@ -62,8 +64,14 @@
 </template>
 
 <script>
+
+import countdowntimer from './countdowntimer'
 export default {
+  
   name: 'google-map',
+  components:{
+
+  },
   props: { //propovi se prosledjuju u komponentu kao stringovi
       name: {
           required: true
@@ -506,6 +514,7 @@ export default {
               self.toggle = true;
               self.pomNiz = [];
               self.trenutniTeren = lokacija.split(',')[0];
+              console.log(self.cityEvents);
               self.cityEvents.forEach(function(event) {
                   if(event.court_id == i){
                       self.pomNiz.push({

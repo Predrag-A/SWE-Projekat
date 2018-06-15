@@ -137,14 +137,14 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
+        // U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
 
         $event = Event::find($id);
 
         if(auth()->user()->id != $event->user_id){
 
             return redirect()->back()->with('error', 'Nije moguće izmeniti tuđi događaj!');
-        }
+        }        
 
         $cities = City::all();
 
@@ -166,10 +166,15 @@ class EventController extends Controller
             'city' => 'required',
             'court' => 'required',
             'sport' => 'required'
-        ]);
-        
+        ]);       
         
         $event = Event::find($id);
+
+        // U slucaju da se event zavrsio
+
+        if($event->isOver()){
+            return redirect()->back()->with('error', 'Nije moguće izmeniti završen događaj');
+        }
 
         $time = $request->input('date') . " " . $request->input('time');
 
@@ -194,6 +199,10 @@ class EventController extends Controller
 
         if(auth()->user()->id != $event->user_id){
             return redirect()->back()->with('error', 'Nije moguce pristupiti stranici.');
+        }
+
+        if($event->isOver()){
+            return redirect()->back()->with('error', 'Nije moguće obrisati završen događaj');
         }
 
         Attend::where('event_id', $id)->delete();

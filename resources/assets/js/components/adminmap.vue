@@ -173,7 +173,6 @@ export default {
     // Metoda za dodavanje grada
     addCity() {
       const t = this
-      console.log(t.cities_stored)
       if(t.data.name == "" || t.data.name == null){                    
         M.toast({html:'Niste ispravno uneli naziv grada', classes:'red lighten-3'}); 
         return
@@ -491,9 +490,9 @@ export default {
       mapsListener(event){
         const t = this;
         var latLng = event.latLng;
-          t.marker = new google.maps.Marker( {
-          position: latLng,
-          map: t.map,
+        t.marker = new google.maps.Marker( {
+        position: latLng,
+        map: t.map,
         });
         t.map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, clickable: false});
         t.data.lat = latLng.lat();
