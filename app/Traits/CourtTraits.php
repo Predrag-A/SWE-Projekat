@@ -19,7 +19,7 @@ trait CourtTraits
             $counter++;
         endforeach;
         $average /= $counter;
-        return round($average, 2);
+        return round($average, 1);
     }
 
     public function address(){

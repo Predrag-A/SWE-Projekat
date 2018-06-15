@@ -114,10 +114,9 @@
           @foreach($court->sports() as $sport) 
           <span><i class="{{$sport->returnIcon()}}"></i> {{$sport->name}}</span>
           @endforeach
-          <!-- NE REFRESHUJE SE KAD SE OCENI TEREN ZATO STO NIJE U ISTOJ KOMPONENTI
           <h6>Ocena terena:</h6>
           <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="25"></star-rating>
-          -->
+          
           <h6>Ocenite teren:</h6>
           <!-- OCENE -->
           <star-rating star-size='25' :show-rating="false" :rating="{{Auth::user()->courtRating($court->id)}}" :court_id="{{$court->id}}"></star-rating>
