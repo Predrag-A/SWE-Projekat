@@ -93,16 +93,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'last_name' => 'string|max:255',
-            'first_name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users',
-            'password' => 'required|string|between:8,255|confirmed',
-            'city_id' => 'integer',
-            'img' => 'image|nullable|max:1999',
-            'status' => 'string'
-        ]);        
-
             
         $user = User::find($id);
         
@@ -155,6 +145,11 @@ class UserController extends Controller
         // Hendlovanje uploada
         if($request->hasFile('img')){
 
+            $this->validate($request, [
+                'img' => 'image|nullable|max:1999'
+            ]);        
+    
+
             // Uzimanje imena fajla sa ekstenzijom
             $fileNameWithExt = $request->file('img')->getClientOriginalName();
             // Samo ime fajla
@@ -167,17 +162,28 @@ class UserController extends Controller
             $path = $request->file('img')->storeAs('public/avatars', $fileNameToStore);            
         }        
 
-        if($request->input('first_name')){            
+        if($request->input('first_name')){      
+            $this->validate($request, [
+                'first_name' => 'string|max:255'
+            ]); 
             $user->first_name = $request->input('first_name');
         }
 
         
-        if($request->input('last_name')){            
+        if($request->input('last_name')){  
+
+            $this->validate($request, [
+                'last_name' => 'string|max:255'
+            ]); 
             $user->last_name = $request->input('last_name');
         }
 
         
         if($request->input('email')){            
+            $this->validate($request, [
+                'email' => 'string|email|max:255|unique:users'
+            ]);        
+    
             $user->email = $request->input('email');
         }
 
@@ -189,7 +195,10 @@ class UserController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
 
-        if($request->input('city_id')){            
+        if($request->input('city_id')){   
+            $this->validate($request, [
+                'city_id' => 'integer',
+            ]);                     
             $user->city_id = $request->input('city_id');
         }
 
