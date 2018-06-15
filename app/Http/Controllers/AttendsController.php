@@ -103,6 +103,11 @@ class AttendsController extends Controller
      */
     public function destroy($id)
     {
+        $event = Event::find($request->input('event_id'));
+        if($event->isOver()){
+            return redirect()->back()->with('error', 'Ne možete se odjaviti od završenog događaja');
+        }
+
         $attends = Attend::where(['user_id'=> auth()->user()->id, 'event_id' => $id]);
 
         $attends->delete();
