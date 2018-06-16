@@ -4,7 +4,7 @@
 
 <div class="container">
 
-  <div class="card">    
+  <div class="card z-depth-3" style="border: 1px solid {{$event->sport->color}}">    
     <event-map 
       name="{{$event->id}}" 
       lat={{$event->court->lat}} 
@@ -14,7 +14,11 @@
       cityname="{{$event->court->city->name}}"></event-map>
     <div class="card-content">
       <div class="row">                
-        <blockquote>Datum održavanja: <span class="blue-grey-text text-lighten-2">{{$event->localizedDate()}}, {{$event->getTimeNoSeconds()}}</span></blockquote>
+        <blockquote>
+          Sport: <span class="{{$event->sport->color}}-text">{{$event->sport->name}}</span>
+          <br>
+          Datum održavanja: <span class="blue-grey-text text-lighten-2">{{$event->localizedDate()}}, {{$event->getTimeNoSeconds()}}</span>
+        </blockquote>
         <countdown-timer date="{{$event->time}}" tag="h4" inputstyle=" "></countdown-timer> 
         
       </div>            

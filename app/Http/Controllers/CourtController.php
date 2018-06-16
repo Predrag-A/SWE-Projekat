@@ -200,7 +200,7 @@ class CourtController extends Controller
                 // Ime za cuvanje, ovako se radi zbog duplikata
                 $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
                 // Upload slike
-                $path = $image->storeAs('public/tereni', $fileNameToStore);
+                $path = $image->storePubliclyAs('public/tereni', $fileNameToStore);
 
                 CourtImages::create([
                     'court_id' => $court->id,

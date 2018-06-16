@@ -88,8 +88,8 @@ class RegisterController extends Controller
             $notification = new Notification();
             $notification->sender_id = $sadmin->id;
             $notification->receiver_id = $user->id;
-            $notification->title = "Dobrodošli na INT";
-            $notification->body = "Welcome to the jungle. Ne znam šta da napišem. PH.";
+            $notification->title = "Dobrodošli na IzađiNaTeren";
+            $notification->body = "Dobrodošli! Uspešno ste se registrovali na sajt. Pre samog početka najbolje je da posetite FAQ stranu ako imate bilo kakvih pitanja. Nadamo se da ćete biti naš stalni korisnik. <br>Srdačan pozdrav!";
             $notification->save();
         }
 

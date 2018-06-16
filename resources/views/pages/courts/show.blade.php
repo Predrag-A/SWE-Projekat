@@ -105,12 +105,12 @@
       <div class="card-content">      
         <div class="row">
           <div class="col s12">
-          <h3>{{$court->location}}</h3>
+          <h3>{{$court->name()}}</h3>
           <div class="divider"></div>
           </div>
           <div class="col s12 m6">
-          <h5>Lokacija:</h5>
-          <div>{{$court->location}}</div>
+          <h5>Adresa:</h5>
+          <div>{{$court->address()}}, {{$court->city->name}}</div>
           </div>
           <div class="col s12 m6">
           <h5>Sportovi:</h5>

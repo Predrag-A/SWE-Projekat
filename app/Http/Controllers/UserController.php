@@ -159,7 +159,7 @@ class UserController extends Controller
             // Ime za cuvanje, ovako se radi zbog duplikata
             $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
             // Upload slike
-            $path = $request->file('img')->storeAs('public/avatars', $fileNameToStore);            
+            $path = $request->file('img')->storePubliclyAs('public/avatars', $fileNameToStore);            
         }        
 
         if($request->input('first_name')){      
