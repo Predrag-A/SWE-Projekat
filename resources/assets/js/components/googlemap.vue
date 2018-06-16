@@ -6,7 +6,7 @@
           <a class="btn-floating modal-trigger btn-large tooltipped disabled" data-position="left" data-tooltip="Vaš nalog je suspendovan" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
         </div>
         <div v-else class="fixed-action-btn">
-          <a class="btn-floating modal-trigger btn-large tooltipped" data-position="left" data-tooltip="Novi događaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
+          <a class="btn-floating modal-trigger btn-large pulse tooltipped" data-position="left" data-tooltip="Novi događaj" href="#eventCreateModal"><i class='material-icons left'>add</i></a>
         </div>
         <div class="container">  
 
@@ -492,12 +492,12 @@ export default {
           var marker = new google.maps.Marker( {
               position: koordinate,
               map: map,
-              icon: 'https://png.icons8.com/ios/48/d35400/stadium-filled.png',
+              //icon: 'https://png.icons8.com/ios/48/d35400/stadium-filled.png',
               content: i, //id terena
               url: "#naslov"
           });
 
-          //marker.setIcon(this.setIconForCourt(this.mostPopularSport(i)));
+          marker.setIcon(this.setIconForCourt(this.mostPopularSport(i)));
 
           this.courtMarkers.push(marker);
           var infoWindow = new google.maps.InfoWindow({
@@ -514,7 +514,6 @@ export default {
               self.toggle = true;
               self.pomNiz = [];
               self.trenutniTeren = lokacija.split(',')[0];
-              console.log(self.cityEvents);
               self.cityEvents.forEach(function(event) {
                   if(event.court_id == i){
                       self.pomNiz.push({
@@ -531,39 +530,32 @@ export default {
       setIconForCourt(sport) {
         switch(sport) {
             case "Fudbal":
-                return 'https://png.icons8.com/android/48/000000/football.png';
+                return 'https://i.imgur.com/gJUdNi4.png';
                 break;
             case "Košarka":
-                return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+                return 'https://i.imgur.com/jWcLQ5S.png';
                 break; 
             case "Rukomet":
-                return 'https://png.icons8.com/ios/48/d35400/basketball-2-filled.png';
+                return 'https://i.imgur.com/TqFftbr.png';
                 break;
             case "Tenis":
-                return 'https://png.icons8.com/ios/48/27ae60/tennis-2-filled.png';
+                return 'https://i.imgur.com/PkL7INf.png';
                 break;
             case "Futsal":
-                return 'https://png.icons8.com/ios/48/bdc3c7/football-filled.png';
+                return 'https://i.imgur.com/1fSqwvX.png';
                 break;
             case "Odbojka":
-                return 'https://png.icons8.com/ios/48/2980b9/volleyball-2-filled.png';
+                return 'https://i.imgur.com/wXhGx4s.png';
                 break;
             default:
                 return 'https://png.icons8.com/color/48/000000/olympic-rings.png';
         }
       },
 
-      /*mostPopularSport(courtid) {
+      mostPopularSport(courtid) {
         var eventsOnCourt = [];
         var self = this;
-        //console.log(this.cityEvents);
-        for(var i=0; i < this.cityEvents.size; i++) //NECE NI FOR
-        {
-          console.log("upao");
-        }
-        console.log(this.cityEvents);
-        this.cityEvents.forEach(function(event) {  //NECE FOREACH A cityEvents ima elemente
-          console.log('uslov', event.court_id == courtid);
+        this.cityEvents.forEach(function(event) {
           if(event.court_id == courtid) {
             eventsOnCourt.push(event.sport_id);
              
@@ -579,7 +571,7 @@ export default {
           }
         })
         return popularSport;
-      },*/
+      },
 
       customTime(time) {
         var temp = time.split(" ");

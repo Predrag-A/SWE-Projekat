@@ -41,10 +41,10 @@
           <!-- SLIKA -->
           <img class="circle left" style="width:50px" :src="'/storage/avatars/' + user.user_img"> 
 
-          <!-- PODACI -->        
+          <!-- PODACI -->  
           <p>
             <a :href="'/korisnici/' + user.id" class="blue-text text-darken-2 title"><b>{{user.first_name}} {{user.last_name}}</b></a>
-          </p>                 
+          </p>                   
         </div>
       </div>
     </div>

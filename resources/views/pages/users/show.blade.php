@@ -96,7 +96,7 @@
                       </div>
                       
                       <div class="input-field col s12 m4">
-                        <select name="city_id">
+                      <i class="material-icons prefix">location_city</i><select name="city_id">
                           @foreach($cities as $city)
                           <option value="{{$city->id}}" @if($user->city_id == $city->id) selected @endif>{{$city->name}}</option>
                           @endforeach
@@ -105,18 +105,18 @@
                       </div>
 
                       <div class="input-field col s12 m6">        
-                        {{Form::text('first_name', $user->first_name)}}
+                      <i class="material-icons prefix">person</i>{{Form::text('first_name', $user->first_name)}}
                         {{Form::label('first_name', 'Ime', ['for'=>'first_name'])}}
                       </div>          
                       <div class="input-field col s12 m6">     
                         {{Form::text('last_name',$user->last_name)}}
                         {{Form::label('last_name', 'Prezime', ['for'=>'last_name'])}}
                       </div>                      
-                      <div class="input-field col s12">        
-                        {{Form::password('password')}}
+                      <div class="input-field col s12 m6">        
+                      <i class="material-icons prefix">vpn_key</i>{{Form::password('password')}}
                         {{Form::label('password','Nova Lozinka',['for'=>'password'])}}
                       </div>
-                      <div class="input-field col s12">
+                      <div class="input-field col s12 m6">
                         {{Form::password('password_confirmation')}}
                         {{Form::label('password_confirmation','Potvrdite lozinku',['for'=>'password_confirmation'])}}
                       </div>    

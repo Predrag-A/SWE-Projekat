@@ -102,30 +102,70 @@
         </div>                
         <div class="divider"></div>   
       @endif        
-    
       <div class="card-content">      
         <div class="row">
+          <div class="col s12">
           <h3>{{$court->location}}</h3>
+          <div class="divider"></div>
+          </div>
+          <div class="col s12 m6">
           <h5>Lokacija:</h5>
           <div>{{$court->location}}</div>
-          <h5>Opis:</h5> 
-          <div>{{$court->description}}</div>
+          </div>
+          <div class="col s12 m6">
           <h5>Sportovi:</h5>
           @foreach($court->sports() as $sport) 
           <span><i class="{{$sport->returnIcon()}}"></i> {{$sport->name}}</span>
           @endforeach
+          </div> 
+          <div class="col s12">
+          <h5>Opis:</h5> 
+          <div>{{$court->description}}</div>
+          <div class="divider" style="margin-top:15px;"></div>
+          </div>
+          <div class="col s12 m6">
           <h6>Ocena terena:</h6>
           <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="25"></star-rating>
-          
+          </div>
+          <div class="col s12 m6">
           <h6>Ocenite teren:</h6>
           <!-- OCENE -->
           <star-rating star-size='25' :show-rating="false" :rating="{{Auth::user()->courtRating($court->id)}}" :court_id="{{$court->id}}"></star-rating>
-          
+          </div>
+          <div class="col s12">
+          @if(count($court->grades) > 0)
+            <ul class = "collection with-header row">
+            <li class="collection-header"><h4>Ocene korisnika:</h4></li>
+              @foreach($court->grades as $user)
+              <li class="collection-item avatar col s12 m6">
+
+                <!-- SLIKA -->
+                <img class="circle" src="{{route('index')}}/storage/avatars/{{$user->user_img}}" style="margin-top:20px;"> 
+
+                <div style="margin-top:30px;">
+                  <!-- PODACI -->
+                  <a href="{{route('korisnici')}}/{{$user->id}}" class="blue-text text-darken-2 title"><b>{{$user->first_name}} {{$user->last_name}}</b></a>
+                </div>
+
+                <!-- OCENA -->          
+                <span class="secondary-content" style="margin-top:10px;">
+                <star-rating :inline="true" :read-only="true" :show-rating="false" :rating="{{$user->pivot->grade}}" :round-start-rating="false" :star-size="25"></star-rating>
+                </span>
+
+              </li>
+
+              @endforeach
+            </ul>
+            @else
+            <div class="row center blue-grey-text text-lighten-2">
+              <h4>Nije pronađen nijedan korisnik</h4>
+            </div>
+            @endif
+          </div>
         </div>
       </div>
     </div>
   </div>
- 
 </div>
 
 @endsection

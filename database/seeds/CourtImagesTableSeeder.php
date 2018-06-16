@@ -19,7 +19,18 @@ class CourtImagesTableSeeder extends Seeder
 
             ['court_id' => 2, 'court_img' => "Teren2Slika1.jpg"], 
             ['court_id' => 2, 'court_img' => "Teren2Slika2.jpg"],  
-            ['court_id' => 2, 'court_img' => "Teren2Slika3.jpg"],  
+            ['court_id' => 2, 'court_img' => "Teren2Slika3.jpg"],
+            
+            ['court_id' => 3, 'court_img' => "Teren3Slika1.jpg"], 
+            ['court_id' => 3, 'court_img' => "Teren3Slika2.jpg"],
+            
+            ['court_id' => 4, 'court_img' => "Teren4Slika1.png"], 
+            ['court_id' => 4, 'court_img' => "Teren4Slika2.png"],  
+            ['court_id' => 4, 'court_img' => "Teren4Slika3.png"],
+
+            ['court_id' => 5, 'court_img' => "Teren5Slika1.jpg"], 
+            ['court_id' => 5, 'court_img' => "Teren5Slika2.jpg"],  
+            ['court_id' => 5, 'court_img' => "Teren5Slika3.jpg"],
         ]);
     }
 }

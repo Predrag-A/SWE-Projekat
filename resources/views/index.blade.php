@@ -7,11 +7,13 @@
     <div class="container">
       <br><br>
       <br><br>
-      <h1 class="header center white-text text-darken-4">IZAĐI NA TEREN</h1>
+      <br><br>
+      <br>
+      <h1 class="header center green-text text-light-7" style="text-shadow: white 0px 0px 10px;">&nbsp;IZAĐI NA TEREN</h1>
       <br><br>
       <br><br>
       <div class="row center">
-        <h5 class="header col s12 white-text light">Najbolja besplatna aplikacija za sportske fanatike!</h5>
+        <h5 class="header col s12 white-text text-light-4" style="text-shadow: black 0px 0px 10px;">Najbolja besplatna aplikacija za sportske fanatike!</h5>
       </div>
       <br><br>
     </div>
@@ -55,7 +57,7 @@
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text">Nemoj samo da sedis vec okupi ekipu i zabavi se!</h5>
+        <h5 class="header col s12 white-text" style="text-shadow: white 0px 0px 10px;">Nemoj samo da sedis vec okupi ekipu i zabavi se!</h5>
       </div>
     </div>
   </div>
@@ -82,7 +84,7 @@
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text">Fair play pre svega!</h5>
+        <h5 class="header col s12 white-text" style="text-shadow: white 0px 0px 10px;">Fair play pre svega!</h5>
       </div>
     </div>
   </div>
