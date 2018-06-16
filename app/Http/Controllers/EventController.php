@@ -122,10 +122,14 @@ class EventController extends Controller
     public function show($id)
     {        
         $event = Event::find($id);
-        if($event)
-            return view('pages.events.show')->with('event', $event);
-        
+        if($event){
             
+            $cities = City::all();
+
+            return view('pages.events.show')->with(['event'=> $event, 'cities' => $cities]);
+        }
+        
+        
         return redirect()->back()->with('error', 'Nepostojeći događaj');
     }
 
@@ -136,19 +140,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        // U slucaju da neko pokusa preko direktnog linka da izvrsi izmenu
-
-        $event = Event::find($id);
-
-        if(auth()->user()->id != $event->user_id){
-
-            return redirect()->back()->with('error', 'Nije moguće izmeniti tuđi događaj!');
-        }        
-
-        $cities = City::all();
-
-        return view('pages.events.edit')->with(['event'=> $event, 'cities' => $cities]);
+    {       
+        return redirect()->back()->with('error', 'Nepostojeća stranica');
     }
 
     /**

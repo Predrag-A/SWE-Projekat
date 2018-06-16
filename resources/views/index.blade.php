@@ -5,13 +5,7 @@
 <div id="index-banner" class="parallax-container">
   <div class="section no-pad-bot">
     <div class="container">
-      <br><br>
-      <br><br>
-      <br><br>
-      <br>
-      <h1 class="header center green-text text-light-7" style="text-shadow: white 0px 0px 10px;">&nbsp;IZAĐI NA TEREN</h1>
-      <br><br>
-      <br><br>
+      <div class="header center"><img src="{{asset('img/logo_shadow.png')}}" style="width:340px;"></div>
       <div class="row center">
         <h5 class="header col s12 white-text text-light-4" style="text-shadow: black 0px 0px 10px;">Najbolja besplatna aplikacija za sportske fanatike!</h5>
       </div>
@@ -30,7 +24,7 @@
       <div class="col s12 m4">
         <div class="icon-block">
           <h2 class="center green-text text-lighten-2"><i class="large material-icons">event_available</i></h2>
-          <h5 class="center">Kreiraj dogadjaj ...</h5>
+          <h5 class="center">Kreiraj događaj ...</h5>
         </div>
       </div>
 
@@ -57,7 +51,7 @@
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text" style="text-shadow: white 0px 0px 10px;">Nemoj samo da sedis vec okupi ekipu i zabavi se!</h5>
+        <h5 class="header col s12 white-text" style="text-shadow: black 0px 0px 10px;">Nemoj samo da sedis već okupi ekipu i zabavi se!</h5>
       </div>
     </div>
   </div>
@@ -72,7 +66,7 @@
       <div class="col s12 center">
         <h3><i class="mdi-content-send brown-text"></i></h3>
         <h4>Registruj se!</h4>
-        <p class="center-align light">Registracija je potpuno besplatna i zato nemoj da cekas vec kreni u akciju, okupi ekipu, pokazi ko je bolji i zabavi se!</p>
+        <p class="center-align light">Registracija je potpuno besplatna i zato nemoj da čekas vec kreni u akciju, okupi ekipu, pokaži ko je bolji i zabavi se!</p>
       </div>
     </div>
 
@@ -84,7 +78,7 @@
   <div class="section no-pad-bot">
     <div class="container">
       <div class="row center">
-        <h5 class="header col s12 white-text" style="text-shadow: white 0px 0px 10px;">Fair play pre svega!</h5>
+        <h5 class="header col s12 white-text" style="text-shadow: black 0px 0px 10px;">Fair play pre svega!</h5>
       </div>
     </div>
   </div>

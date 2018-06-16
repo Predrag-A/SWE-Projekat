@@ -6,7 +6,7 @@
       <div class="adminmap" :id="mapName"></div>   
       <blockquote class="blue-grey-text text-lighten-2">
       <b>Napomena:</b><br>
-      Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju.
+      Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju. Lokaciju terena dodati u formatu Naziv, Adresa (npr. Miroslav Antić, Knjaževačka 156).
       </blockquote>   
       <div class="row card-content">   
 

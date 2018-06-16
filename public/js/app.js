@@ -49391,6 +49391,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     name: {
       required: true
+    },
+    courtname: {
+      required: true,
+      type: String
+    },
+    courtaddress: {
+      required: true,
+      type: String
+    },
+    cityname: {
+      required: true,
+      type: String
     }
   },
   data: function data() {
@@ -49569,6 +49581,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var marker = new google.maps.Marker({
       position: this.coords,
       map: map
+    });
+    var contentString = "<div class='card-content'>" + "<a href='/tereni/1' class='orange-text waves-effect waves-light card-title'>" + this.courtname + "</a>" + "<h6>Adresa: " + this.courtaddress + ", " + this.cityname + "</h6>" + "</div>";
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    marker.addListener('click', function () {
+      infowindow.open(map, marker);
     });
   }
 });
@@ -49942,7 +49962,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.vue-star-rating-star[data-v-40553ff1] {\r\n    display: inline-block;\n}\n.vue-star-rating-pointer[data-v-40553ff1] {\r\n    cursor: pointer;\n}\n.vue-star-rating[data-v-40553ff1] {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.vue-star-rating-inline[data-v-40553ff1] {\r\n    display: -webkit-inline-box;\r\n    display: -ms-inline-flexbox;\r\n    display: inline-flex;\n}\n.vue-star-rating-rating-text[data-v-40553ff1] {\r\n    margin-top: 7px;\r\n    margin-left: 7px;\n}\n.vue-star-rating-rtl[data-v-40553ff1] {\r\n    direction: rtl;\n}\n.vue-star-rating-rtl .vue-star-rating-rating-text[data-v-40553ff1] {\r\n    margin-right: 10px;\r\n    direction:rtl;\n}\r\n", ""]);
+exports.push([module.i, "\n.vue-star-rating-star[data-v-40553ff1] {\n    display: inline-block;\n}\n.vue-star-rating-pointer[data-v-40553ff1] {\n    cursor: pointer;\n}\n.vue-star-rating[data-v-40553ff1] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.vue-star-rating-inline[data-v-40553ff1] {\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n}\n.vue-star-rating-rating-text[data-v-40553ff1] {\n    margin-top: 7px;\n    margin-left: 7px;\n}\n.vue-star-rating-rtl[data-v-40553ff1] {\n    direction: rtl;\n}\n.vue-star-rating-rtl .vue-star-rating-rating-text[data-v-40553ff1] {\n    margin-right: 10px;\n    direction:rtl;\n}\n", ""]);
 
 // exports
 
@@ -52618,7 +52638,7 @@ var staticRenderFns = [
       _c("b", [_vm._v("Napomena:")]),
       _c("br"),
       _vm._v(
-        "\n    Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju.\n    "
+        "\n    Za dodavanje grada i terena potrebno je na mapi odrediti potrebnu lokaciju grada/terena. Za dodavanje grada je potrebno i odrediti nivo zoom-a tako da je moguće videti veći deo grada. Dati parametri određuju se postavljanjem markera klikom na mapu. Promena pozicije markera se vrši klikom na marker i zatim klikom na novu poziciju. Lokaciju terena dodati u formatu Naziv, Adresa (npr. Miroslav Antić, Knjaževačka 156).\n    "
       )
     ])
   },

@@ -12,7 +12,19 @@ export default {
       required: true,
     },
     name: {
-        required: true,
+      required: true,
+    },
+    courtname:{
+      required: true,
+      type: String,
+    },
+    courtaddress:{
+      required: true,
+      type: String,
+    },
+    cityname:{
+      required: true,
+      type: String
     }
   },
   data: function () {
@@ -270,6 +282,18 @@ export default {
       position: this.coords,
       map: map,
     });
+    var contentString = 
+      "<div class='card-content'>"+
+        "<a href='/tereni/1' class='orange-text waves-effect waves-light card-title'>"+this.courtname+"</a>"+        
+        "<h6>Adresa: "+this.courtaddress+", "+this.cityname+"</h6>"+  
+      "</div>";
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+      });
 
   }
 };

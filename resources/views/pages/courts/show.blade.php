@@ -137,7 +137,7 @@
             <ul class = "collection with-header row">
             <li class="collection-header"><h4>Ocene korisnika:</h4></li>
               @foreach($court->grades as $user)
-              <li class="collection-item avatar col s12 m6">
+              <li class="collection-item avatar col s12 xl6">
 
                 <!-- SLIKA -->
                 <img class="circle" src="{{route('index')}}/storage/avatars/{{$user->user_img}}" style="margin-top:20px;"> 

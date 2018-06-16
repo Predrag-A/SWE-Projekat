@@ -6,7 +6,7 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper container">
-      <a id="logo-container" href="{{route('dashboard')}}" @guest class="brand-logo left" @else class="brand-logo" @endguest>{{config('app.name', 'INT')}}</a>
+      <a id="logo-container" href="{{route('dashboard')}}" @guest class="brand-logo left" @else class="brand-logo" @endguest><img src="{{asset('img/logo.png')}}" style="height:58px"></a>
       <!-- GOST -->
       @guest    
       <ul class="right">                  
