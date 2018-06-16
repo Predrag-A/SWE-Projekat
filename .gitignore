@@ -19,6 +19,14 @@
 !/public/storage/tereni/Teren2Slika1.jpg
 !/public/storage/tereni/Teren2Slika2.jpg
 !/public/storage/tereni/Teren2Slika3.jpg
+!/public/storage/tereni/Teren3Slika1.jpg
+!/public/storage/tereni/Teren3Slika2.jpg
+!/public/storage/tereni/Teren4Slika1.jpg
+!/public/storage/tereni/Teren4Slika2.jpg
+!/public/storage/tereni/Teren4Slika3.jpg
+!/public/storage/tereni/Teren5Slika1.jpg
+!/public/storage/tereni/Teren5Slika2.jpg
+!/public/storage/tereni/Teren5Slika3.jpg
 /storage/*.key
 /vendor
 /.idea

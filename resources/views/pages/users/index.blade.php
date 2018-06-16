@@ -40,7 +40,7 @@
       </div>
 
       <!-- DUGME -->          
-      <span class="secondary-content">
+      <span class="secondary-content" style="margin-top:17px;">
         <friendbutton :userid="{{$user->id}}" :statusinput={{Auth::user()->check($user->id)}} :cancelvisible="false"></friendbutton>
       </span>
 

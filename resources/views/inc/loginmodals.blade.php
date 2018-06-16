@@ -1,5 +1,5 @@
 <!-- LOGIN -->
-<div id="loginModal" class="modal">       
+<div id="loginModal" class="modal" style="width:50%;">       
   <form class="modal-content col s12" action="{{ route('login') }}" method="post">
     @csrf
     <div class="row center">
@@ -28,7 +28,7 @@
 </div>
 
 <!-- REGISTRACIJA -->
-<div id="registerModal" class="modal">
+<div id="registerModal" class="modal" style="width:60%; height:700px;">
   <form class="modal-content col s12" action="{{ route('register') }}" method="post">
     @csrf
     <div class="row center">
