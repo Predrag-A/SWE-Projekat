@@ -503,10 +503,14 @@ export default {
           var infoWindow = new google.maps.InfoWindow({
               content: lokacija
           });
+          marker.addListener('mouseover', function() {
+                infoWindow.open(map, marker);
+          });
+          marker.addListener('mouseout', function() {
+                infoWindow.close();
+          });
           var self = this;
           marker.addListener('click', function() {
-              infoWindow.open(map, marker);
-              setTimeout(function () { infoWindow.close(); }, 3500);
               var elem = $(marker.url);
               $('html, body').animate({
                 scrollTop: elem.offset().top
