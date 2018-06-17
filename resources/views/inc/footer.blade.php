@@ -3,12 +3,12 @@
     <div class="row center">
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="FAQ" href="{{route('faq')}}"><i class="fas fa-question"></i></a>
         &nbsp;
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="O nama" href="{{route('about')}}"><i class="fas fa-info"></i></a>
+        &nbsp;
         @auth
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light modal-trigger" data-position="top" data-tooltip="Kontakt" href="#requestmodal"><i class="material-icons">email</i></a>
         &nbsp;        
         @endauth
-        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="O nama" href="{{route('about')}}"><i class="fas fa-info"></i></a>
-        &nbsp;
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Facebook" href=""><i class="fab fa-facebook-f"></i></a>
         &nbsp;
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Twitter" href=""><i class="fab fa-twitter"></i></a>
