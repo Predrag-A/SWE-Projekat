@@ -10,15 +10,14 @@
 - Izvršiti komandu `php artisan db:seed` za automatsko ubacivanje podataka u bazu
 - Ako želite da resetujete bazu podataka izvršite sledeću komandu `php artisan migrate:refresh` ili `php artisan migrate:refresh --seed`
 - Ako se prilikom seedovanja javi izuzetak kao što je `ReflectionException  : Class CommentsTableSeeder does not exist` izvršiti komandu `composer dump-autoload` 
-- Da bi Vue.js komponente radile pokrenuti sajt komandom `php artisan serve`
+- U slučaju da ne funkcioniše upload slika, obrisati folder `public/storage` i zatim izvršiti komandu `php artisan storage:link`
 
-##### Sada možete pristupiti projektu preko localhost-a
+##### Aplikaciju pokrenuti komandom `php artisan serve`, ili ako želite da aplikacija bude vidljiva na lokalnoj mreži komandom `php artisan serve --host=IP_ADDRESS --port=PORT` gde je IP_ADDRESS lokalna ipv4 adresa računara na kome se pokreće server, npr. 192.168.0.12 (može se videti izvršenjem komande ipconfig u CMD-u) a PORT željeni port, npr. 8000
 
 ### Ako projekat iz nekog razloga prestane da radi:
 ```
 composer install
-php artisan migrate
-php artisan db:seed
+php artisan migrate:refresh --seed
 ```
 
 

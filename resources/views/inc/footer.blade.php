@@ -9,11 +9,11 @@
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light modal-trigger" data-position="top" data-tooltip="Kontakt" href="#requestmodal"><i class="material-icons">email</i></a>
         &nbsp;        
         @endauth
-        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Facebook" href=""><i class="fab fa-facebook-f"></i></a>
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Facebook" href="https://www.facebook.com/Iza%C4%91i-Na-Teren-480017635764875/"><i class="fab fa-facebook-f"></i></a>
         &nbsp;
-        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Twitter" href=""><i class="fab fa-twitter"></i></a>
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Twitter" href="https://twitter.com/i_teren"><i class="fab fa-twitter"></i></a>
         &nbsp;
-        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Instagram" href=""><i class="fab fa-instagram"></i></a>
+        <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="Instagram" href="https://www.instagram.com/izadji_na_teren/"><i class="fab fa-instagram"></i></a>
         &nbsp;
         <a class="btn-floating btn-medium tooltipped waves-effect waves-light aberdeen" data-position="top" data-tooltip="GitHub" href="https://goo.gl/Rp3Qx8"><i class="fab fa-github"></i></a>
         &nbsp;

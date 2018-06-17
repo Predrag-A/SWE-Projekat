@@ -104,33 +104,33 @@
       @endif        
       <div class="card-content">      
         <div class="row">
-          <div class="col s12">
-          <h3>{{$court->name()}}</h3>
+          <div class="col s12 blue-grey-text text-lighten-2">
+            <h3>{{$court->name()}}</h3>
           <div class="divider"></div>
           </div>
           <div class="col s12 m6">
-          <h5>Adresa:</h5>
+            <h5>Adresa:</h5>
           <div>{{$court->address()}}, {{$court->city->name}}</div>
           </div>
           <div class="col s12 m6">
-          <h5>Sportovi:</h5>
-          @foreach($court->sports() as $sport) 
-          <span><i class="{{$sport->returnIcon()}}"></i> {{$sport->name}}</span>
-          @endforeach
+            <h5>Sportovi:</h5>
+            @foreach($court->sports() as $sport) 
+            <span><i class="{{$sport->returnIcon()}}"></i> {{$sport->name}}</span>
+            @endforeach
           </div> 
           <div class="col s12">
-          <h5>Opis:</h5> 
+            <h5>Opis:</h5> 
           <div>{{$court->description}}</div>
           <div class="divider" style="margin-top:15px;"></div>
           </div>
           <div class="col s12 m6">
-          <h6>Ocena terena:</h6>
-          <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="25"></star-rating>
+            <h6>Ocena terena:</h6>
+            <star-rating :inline="true" :read-only="true" :rating="{{$court->averageGrade()}}" :round-start-rating="false" :star-size="30"></star-rating>
           </div>
           <div class="col s12 m6">
-          <h6>Ocenite teren:</h6>
-          <!-- OCENE -->
-          <star-rating star-size='25' :show-rating="false" :rating="{{Auth::user()->courtRating($court->id)}}" :court_id="{{$court->id}}"></star-rating>
+            <h6>Ocenite teren:</h6>
+            <!-- OCENE -->
+            <star-rating star-size='30' :show-rating="false" :rating="{{Auth::user()->courtRating($court->id)}}" :court_id="{{$court->id}}"></star-rating>
           </div>
           <div class="col s12">
           @if(count($court->grades) > 0)

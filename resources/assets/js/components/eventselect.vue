@@ -42,8 +42,18 @@ export default {
       court_id: 0,
       courts: [],
       sports: [],
+      loading: false,
     }
   },  
+   watch:{
+    loading: function(val){
+      if(val == false){
+        setTimeout(function(){      
+            M.FormSelect.init(document.querySelectorAll('select'), '');        
+        }, 200);     
+      }
+    },
+  },
   methods:{
     populateCourts(){
       const t = this;
@@ -53,10 +63,6 @@ export default {
       t.sports = [];
       t.getCourts();
 
-      // PROBLEM STO SE SVE IZVRSI PRE NEGO STO STIGNE AXIOS IZ NEKOG RAZLOGA
-      setTimeout(function(){      
-        M.FormSelect.init(document.querySelectorAll('select'), '');        
-      }, 200);     
     },
     populateSports(){
 
@@ -64,23 +70,23 @@ export default {
 
       t.getSports();
 
-      // PROBLEM STO SE SVE IZVRSI PRE NEGO STO STIGNE AXIOS IZ NEKOG RAZLOGA
-      setTimeout(function(){      
-        M.FormSelect.init(document.querySelectorAll('select'), '');        
-      }, 200);  
     },
     getCourts(){
       const t = this;
+      t.loading = true;
       axios.get('/api/tereni/' + t.city_id)
           .then(({data}) => {
-              t.courts = data;              
+              t.courts = data;
+              t.loading = false;              
           })
     },
     getSports(){
       const t = this;
+      t.loading = true;
       axios.get('/api/sportovi/' + t.court_id)
           .then(({data}) => {
               t.sports = data;
+              t.loading = false;
           })
     },
 

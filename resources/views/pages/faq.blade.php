@@ -2,7 +2,10 @@
 @section('content')
 
 <div class="container">
-  <h1>FAQ</h1>
+  
+  <div class="blue-grey-text text-lighten-2">
+    <h1>FAQ</h1>
+  </div>
   <blockquote class="blue-grey-text text-lighten-2">
       Ovo su najčešće postavljena pitanja. Ako imate dodatnih pitanja slobodno nas kontaktirajte.
   </blockquote>

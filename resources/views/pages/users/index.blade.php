@@ -9,7 +9,7 @@
         <button class="btn-floating btn-large waves-effect waves-light" type="submit"><i class="material-icons">search</i></button>
       </div>
       <div class="input-field col s9 m10 l11">          
-        <input id="search" type="search" name="query" required>
+        <input id="search" type="search" name="query" placeholder="Pretraga" required>
         <i class="material-icons">close</i>
       </div>
     </div>
